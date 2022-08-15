@@ -1,10 +1,10 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addPlanet, Planet, selectPlanets } from "./planetSlice";
+import { useAppSelector } from "../../app/hooks";
+import { selectPlanets } from "./planetSlice";
 //
 export const PlanetListView = () => {
-  const planets = useAppSelector(selectPlanets) as Array<Planet>;
-  const dispatch = useAppDispatch();
+  const planets = useAppSelector(selectPlanets);
+  //const dispatch = useAppDispatch();
 
   return (
     <article id={"planets-article"}>
@@ -21,7 +21,6 @@ export const PlanetListView = () => {
         className="btn"
         onClick={() => {
           console.log("button click");
-          dispatch(addPlanet({ name: "yo", coordinates: [1, 2] }));
         }}
       >
         Add Random

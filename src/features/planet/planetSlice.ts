@@ -1,10 +1,6 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-
-export type Planet = {
-  name: string;
-  coordinates: [number, number];
-};
+import { Planet } from "../../domain/types";
 
 export interface PlanetState {
   planets: Array<Planet>;
@@ -12,8 +8,16 @@ export interface PlanetState {
 
 const initialState: PlanetState = {
   planets: [
-    { name: "Kamino", coordinates: [12.4, -18.9] },
-    { name: "Tatooine", coordinates: [-22.18, 111.2] },
+    {
+      coordinates: { lat: 12.4, long: -18.9 },
+      id: "abc-123-def",
+      name: "Kamino",
+    },
+    {
+      coordinates: { lat: -22.18, long: 111.2 },
+      id: "ghi-456-klm",
+      name: "Tatooine",
+    },
   ],
 };
 
@@ -21,8 +25,8 @@ const planetSlice = createSlice({
   name: "planet",
   initialState,
   reducers: {
-    addPlanet: (state, action: PayloadAction<Planet>) => {
-      console.log("action", action)
+    savePlanet: (state, action: PayloadAction<Planet>) => {
+      console.log("action", action);
       state.planets = [...state.planets, action.payload];
     },
   },
@@ -33,5 +37,5 @@ const planetSlice = createSlice({
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectPlanets = (state: RootState) => state.planet.planets;
 
-export const { addPlanet } = planetSlice.actions;
+export const { savePlanet } = planetSlice.actions;
 export default planetSlice.reducer;
