@@ -1,4 +1,4 @@
-import {Maybe} from "purify-ts";
+import { Maybe } from "purify-ts";
 
 export type Coordinates = { lat: number; long: number };
 
@@ -40,4 +40,3 @@ export interface Spaceship {
   type: SpaceshipType;
   weapons: Array<Weapon>;
 }
-

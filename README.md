@@ -4,15 +4,17 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
-- add a "vlakverdeling"
-- add and use react router
-- create at least one full CRUD slice
+- create a server
 - use Redux Toolkit Query
-
+- create at least one full CRUD slice
 - i18n
-- introduce container components to separate Views from Controllers
+- RBAC
 
 ## resources
 
-- http://privateer.sourceforge.net/downloads/privateer-1.03-manual.pdf
 - https://ux.visma.com/weblibrary/latest/development/documentation/docs/buttons.php
+- https://www.robinwieruch.de/react-router-nested-routes/
+
+### example domain
+
+- http://privateer.sourceforge.net/downloads/privateer-1.03-manual.pdf

@@ -1,7 +1,13 @@
-import {Coordinates, ID, Planet, ZERO_COORD} from "../domain/types";
+import {always, identity, ifElse, isNil, last, pipe, split} from "ramda";
 
-export const createPlanet = (coordinates: Coordinates = ZERO_COORD, id: ID = "", name: string = "",) => {
-  const newPlanet: Planet = {coordinates: ZERO_COORD, id: "", name: ""};
+import { Coordinates, ID, Planet, ZERO_COORD } from "../domain/types";
+
+export const createPlanet = (
+  coordinates: Coordinates = ZERO_COORD,
+  id: ID = "",
+  name: string = ""
+) => {
+  const newPlanet: Planet = { coordinates: ZERO_COORD, id: "", name: "" };
   if (coordinates !== ZERO_COORD) {
     newPlanet.coordinates = coordinates;
   }
@@ -13,3 +19,5 @@ export const createPlanet = (coordinates: Coordinates = ZERO_COORD, id: ID = "",
   }
   return newPlanet;
 };
+
+export const lastUrlSegment = pipe(split("/"), last, ifElse(isNil, always(""), identity));

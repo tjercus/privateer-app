@@ -1,5 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {Spaceship} from "../../domain/types";
+import { createSlice } from "@reduxjs/toolkit";
+import { Spaceship } from "../../domain/types";
 
 export interface SpaceshipState {
   spaceships: Array<Spaceship>;

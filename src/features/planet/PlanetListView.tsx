@@ -1,30 +1,26 @@
 import React from "react";
-import { useAppSelector } from "../../app/hooks";
-import { selectPlanets } from "./planetSlice";
+import { Planet } from "../../domain/types";
+import {Link} from "react-router-dom";
 //
-export const PlanetListView = () => {
-  const planets = useAppSelector(selectPlanets);
-  //const dispatch = useAppDispatch();
+interface Props {
+  planets: Array<Planet>;
+}
+export const PlanetListView = ({ planets }: Props) => (
+  <article id={"planets-article"}>
+    <h1>Planets</h1>
+    <ol className="list-group">
+      {planets.map((planet) => (
+        <li className="list-group-item" key={planet.name}>
+          <Link to={`/planet/edit/${planet.id}`}>{planet.name}</Link>
+        </li>
+      ))}
+    </ol>
 
-  return (
-    <article id={"planets-article"}>
-      <h1>Planets</h1>
-      <ol className="list-group">
-        {planets.map((planet) => (
-          <li className="list-group-item" key={planet.name}>
-            {planet.name}
-          </li>
-        ))}
-      </ol>
-      <button
-        type="button"
-        className="btn"
-        onClick={() => {
-          console.log("button click");
-        }}
-      >
-        Add Random
-      </button>
-    </article>
-  );
-};
+    <button
+      type="button"
+      className="btn btn-primary"
+    >
+      <Link to={"/planet/create"}>{"Add a planet"}</Link>
+    </button>
+  </article>
+);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { savePlanet } from "./planetSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { createPlanet } from "../../app/utils";
-import {Coordinates, Planet} from "../../domain/types";
+import { Coordinates, Planet } from "../../domain/types";
 
 export const PlanetFormView = (planet: Planet) => {
   const dispatch = useAppDispatch();
@@ -25,8 +25,8 @@ export const PlanetFormView = (planet: Planet) => {
           ...localPlanet,
           coordinates: {
             lat: Number(evt.target.value),
-            long: localPlanet.coordinates.long
-            } as Coordinates,
+            long: localPlanet.coordinates.long,
+          } as Coordinates,
         });
         break;
       case "coordinateLong":
@@ -70,10 +70,7 @@ export const PlanetFormView = (planet: Planet) => {
       </div>
 
       <div className="form-group">
-        <label
-          className="col-sm-3 control-label"
-          htmlFor="coordinates"
-        >
+        <label className="col-sm-3 control-label" htmlFor="coordinates">
           Coordinates
         </label>
         <div className="col-sm-9">
@@ -102,7 +99,11 @@ export const PlanetFormView = (planet: Planet) => {
 
       <div className="form-group">
         <div className="col-md-9 offset-md-3">
-          <button className="btn" onClick={handleSaveButtonClick} type="submit">
+          <button
+            className="btn btn-primary"
+            onClick={handleSaveButtonClick}
+            type="submit"
+          >
             Save
           </button>
         </div>
