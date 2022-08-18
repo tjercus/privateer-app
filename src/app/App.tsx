@@ -1,11 +1,11 @@
 import React from "react";
-import { HeaderView } from "./features/other/HeaderView";
+import { HeaderView } from "../features/other/HeaderView";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { PlanetListContainer } from "./features/planet/PlanetListContainer";
-import { SpaceshipListContainer } from "./features/spaceship/SpaceshipListContainer";
-import { HomeView } from "./features/other/HomeView";
-import { PlanetFormContainer } from "./features/planet/PlanetFormContainer";
-import {lastUrlSegment} from "./app/utils";
+import { PlanetListContainer } from "../features/planet/PlanetListContainer";
+import { SpaceshipListContainer } from "../features/spaceship/SpaceshipListContainer";
+import { HomeView } from "../features/other/HomeView";
+import { PlanetFormContainer } from "../features/planet/PlanetFormContainer";
+import {lastUrlSegment} from "../common/utils";
 
 const App = () => {
   let {pathname} = useLocation();

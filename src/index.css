@@ -1,1 +1,5 @@
-/* not used right now */
+
+input[type="number"] {
+  width: 10em !important;
+  /* TODO do not use important, but use a more specific selector */
+}

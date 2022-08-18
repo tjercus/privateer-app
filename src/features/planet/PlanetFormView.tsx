@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { savePlanet } from "./planetSlice";
 import { useAppDispatch } from "../../app/hooks";
-import { createPlanet } from "../../app/utils";
+import { createPlanet } from "../../common/utils";
 import { Coordinates, Planet } from "../../domain/types";
 
 export const PlanetFormView = (planet: Planet) => {
@@ -83,8 +83,6 @@ export const PlanetFormView = (planet: Planet) => {
             type="number"
             value={localPlanet.coordinates.lat}
           />
-        </div>
-        <div className="col-sm-9">
           <input
             className="form-control"
             id="inputCoordinateLong"
