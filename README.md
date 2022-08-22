@@ -5,7 +5,6 @@ Practise ground for react CRUD app with some common default components
 ## TODO
 
 - from static button to animated one
-- validation for Form data with Zod?
 - Modal as a singleton universal soldier
 - add Cypress tests
 - WCAG 2.1

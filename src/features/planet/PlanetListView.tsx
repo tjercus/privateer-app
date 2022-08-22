@@ -29,8 +29,6 @@ export const PlanetListView = ({actions, planets}: Props) => (<article id={"plan
     </tbody>
   </Table>
 
-  <p>And ...</p>
-
   <button type="button" className="btn btn-primary">
     <Link to={"/planet/create"}>{"Add a planet"}</Link>
   </button>

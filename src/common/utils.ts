@@ -1,4 +1,4 @@
-import {curry, always, identity, ifElse, isNil, last, pipe, prop, split} from "ramda";
+import {curry, always, identity, ifElse, isNil, last, pipe, prop, split, head, tail} from "ramda";
 
 import { Coordinates, ID, Planet, ZERO_COORD } from "../domain/types";
 
@@ -71,6 +71,11 @@ export const createPlanet = (
 };
 
 /**
- * To find the
+ * To find the id in a URL (for example)
  */
 export const lastUrlSegment = pipe(split("/"), last, ifElse(isNil, always(""), identity));
+
+/**
+ * To find the subject/noun in a URL
+ */
+export const firstUrlSegment = ifElse(isNil, always(""), pipe(identity, tail))
