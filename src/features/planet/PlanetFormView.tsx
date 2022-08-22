@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { savePlanet } from "./planetSlice";
-import { useAppDispatch } from "../../app/hooks";
-import { createPlanet } from "../../common/utils";
-import { Coordinates, Planet } from "../../domain/types";
+import React, {useState} from "react";
+import {savePlanet} from "./planetSlice";
+import {useAppDispatch} from "../../app/hooks";
+import {createPlanet, hasValue} from "../../common/utils";
+import {Coordinates, Planet, PlanetSchema} from "../../domain/types";
+import {Link, useNavigate} from "react-router-dom";
+import {equals} from "ramda";
 
 export const PlanetFormView = (planet: Planet) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [localPlanet, setLocalPlanet] = useState(createPlanet());
 
-  // TODO make fn or import Ramda fn
-  if (planet.id.length > 0 && planet.id !== localPlanet.id) {
+  if (hasValue(planet.id) && !equals(planet.id, localPlanet.id)) {
     // copy the existing planet from props to state
     setLocalPlanet(planet);
   }
@@ -18,23 +20,19 @@ export const PlanetFormView = (planet: Planet) => {
     const htmlFieldName = evt.target.name;
     switch (htmlFieldName) {
       case "name":
-        setLocalPlanet({ ...localPlanet, name: evt.target.value });
+        setLocalPlanet({...localPlanet, name: evt.target.value});
         break;
       case "coordinateLat":
         setLocalPlanet({
-          ...localPlanet,
-          coordinates: {
-            lat: Number(evt.target.value),
-            long: localPlanet.coordinates.long,
+          ...localPlanet, coordinates: {
+            lat: Number(evt.target.value), long: localPlanet.coordinates.long,
           } as Coordinates,
         });
         break;
       case "coordinateLong":
         setLocalPlanet({
-          ...localPlanet,
-          coordinates: {
-            lat: localPlanet.coordinates.lat,
-            long: Number(evt.target.value),
+          ...localPlanet, coordinates: {
+            lat: localPlanet.coordinates.lat, long: Number(evt.target.value),
           } as Coordinates,
         });
         break;
@@ -46,11 +44,16 @@ export const PlanetFormView = (planet: Planet) => {
 
   const handleSaveButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    dispatch(savePlanet(localPlanet));
+    const validationResult = PlanetSchema.safeParse(localPlanet);
+    if (validationResult.success) {
+      dispatch(savePlanet(localPlanet));
+      navigate("/planet");
+    } else {
+      alert(`Fuck you buddy! ${validationResult.error}`);
+    }
   };
 
-  return (
-    <form className="form-horizontal">
+  return (<form className="form-horizontal">
       <h2>Planet Form View</h2>
       <div className="form-group">
         <label className="col-sm-3 control-label" htmlFor="inputName">
@@ -102,10 +105,12 @@ export const PlanetFormView = (planet: Planet) => {
             onClick={handleSaveButtonClick}
             type="submit"
           >
-            Save
+            {"Save"}
+          </button>
+          <button className={"btn btn-secondary"}>
+            <Link to={"/planet"}>{"Cancel"}</Link>
           </button>
         </div>
       </div>
-    </form>
-  );
+    </form>);
 };

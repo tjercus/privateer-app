@@ -4,14 +4,27 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
-- from list to table (with generic table component as in the article below)
-- from input to NC4 Inputfield
 - from static button to animated one
-- create a server
-- use Redux Toolkit Query
-- create at least one full CRUD slice
+- validation for Form data with Zod?
+- Modal as a singleton universal soldier
+- add Cypress tests
+- WCAG 2.1
+- fix icon buttons
+- upgrade nc4 to vud
+- fix enter keyboard for cancel button
 - i18n
+- create a server
+- use Redux Toolkit Query to make spaceshipSlice remote-data-driven
+- find out if the view layer can work with only Maybe's instead of nullable
+
+### nice to have
+
+- try with generic table component as in the article below
 - RBAC
+
+### blocked by current react-nc4 version
+
+- from input to NC4 Inputfield
 
 ## resources
 

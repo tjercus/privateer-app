@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
 import {ID, Planet} from "../../domain/types";
@@ -28,7 +29,8 @@ const planetSlice = createSlice({
       const foundPlanetPosition: number = findIndex(byId(saveablePlanet.id), state.planets)
       if (foundPlanetPosition === -1) {
         // add new planet to array with planets
-        state.planets = [...state.planets, action.payload];
+        const newPlanet = {...action.payload, id: uuidv4()}
+        state.planets = [...state.planets, newPlanet];
       } else {
         // replace value in array
         const savedPlanetsClone = [...state.planets];
