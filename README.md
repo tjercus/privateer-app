@@ -10,9 +10,10 @@ Practise ground for react CRUD app with some common default components
 - WCAG 2.1
 - fix icon buttons
 - upgrade nc4 to vud
+- custom useBoolean hook when needed
 - fix enter keyboard for cancel button
 - i18n
-- create a server
+- create a server with mocks-server
 - use Redux Toolkit Query to make spaceshipSlice remote-data-driven
 - find out if the view layer can work with only Maybe's instead of nullable
 
@@ -30,6 +31,7 @@ Practise ground for react CRUD app with some common default components
 - https://ux.visma.com/weblibrary/latest/development/documentation/docs/buttons.php
 - https://www.robinwieruch.de/react-router-nested-routes/
 - https://fernandoabolafio.medium.com/generic-table-component-with-react-and-typescript-d849ad9f4c48
+- https://www.mocks-server.org/
 
 ### example domain
 

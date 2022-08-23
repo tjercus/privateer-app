@@ -1,14 +1,26 @@
-import {curry, always, identity, ifElse, isNil, last, pipe, prop, split, head, tail} from "ramda";
+import {
+  curry,
+  always,
+  identity,
+  ifElse,
+  isNil,
+  last,
+  pipe,
+  prop,
+  split,
+  head,
+  tail,
+} from "ramda";
 
 import { Coordinates, ID, Planet, ZERO_COORD } from "../domain/types";
-
 
 /**
  * Fastest way to deep clone an Object in JavaScript
  * @param {*} obj - subject
  * @returns {*} - cloned subject
  */
-const clone = (obj: any) => typeof obj === "object" ? JSON.parse(JSON.stringify(obj)) : obj;
+const clone = (obj: any) =>
+  typeof obj === "object" ? JSON.parse(JSON.stringify(obj)) : obj;
 
 /**
  * Typically used in a 'find'
@@ -45,7 +57,6 @@ export const hasNoValue = (value: any | null) =>
  */
 export const hasValue = (value: any | null) => !hasNoValue(value);
 
-
 /**
  * Perhaps move to domain/domainUtils.ts
  * @param coordinates
@@ -73,9 +84,13 @@ export const createPlanet = (
 /**
  * To find the id in a URL (for example)
  */
-export const lastUrlSegment = pipe(split("/"), last, ifElse(isNil, always(""), identity));
+export const lastUrlSegment = pipe(
+  split("/"),
+  last,
+  ifElse(isNil, always(""), identity)
+);
 
 /**
  * To find the subject/noun in a URL
  */
-export const firstUrlSegment = ifElse(isNil, always(""), pipe(identity, tail))
+export const firstUrlSegment = ifElse(isNil, always(""), pipe(identity, tail));

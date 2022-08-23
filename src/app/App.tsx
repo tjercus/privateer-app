@@ -5,10 +5,10 @@ import { PlanetListContainer } from "../features/planet/PlanetListContainer";
 import { SpaceshipListContainer } from "../features/spaceship/SpaceshipListContainer";
 import { HomeView } from "../features/other/HomeView";
 import { PlanetFormContainer } from "../features/planet/PlanetFormContainer";
-import {lastUrlSegment} from "../common/utils";
+import { lastUrlSegment } from "../common/utils";
 
 const App = () => {
-  let {pathname} = useLocation();
+  let { pathname } = useLocation();
   const planetId = lastUrlSegment(pathname);
 
   return (
@@ -21,11 +21,7 @@ const App = () => {
           <Route path="/planet/create" element={<PlanetFormContainer />} />
           <Route
             path="/planet/edit/:planetId"
-            element={
-              <PlanetFormContainer
-                planetId={planetId}
-              />
-            }
+            element={<PlanetFormContainer planetId={planetId} />}
           />
           <Route path="/spaceship" element={<SpaceshipListContainer />} />
         </Routes>

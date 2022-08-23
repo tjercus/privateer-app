@@ -58,4 +58,3 @@ export const SpaceshipSchema = z.object({
 });
 
 export type Spaceship = z.infer<typeof SpaceshipSchema>;
-
