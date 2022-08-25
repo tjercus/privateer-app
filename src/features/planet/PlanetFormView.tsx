@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { equals } from "ramda";
 
 interface Props {
-  handleSaveForm: (planet: Planet) => void,
-  planet: Planet
+  handleSaveForm: (planet: Planet) => void;
+  planet: Planet;
 }
 
-export const PlanetFormView = ({ handleSaveForm, planet}: Props) => {
+export const PlanetFormView = ({ handleSaveForm, planet }: Props) => {
   const [localPlanet, setLocalPlanet] = useState(createPlanet());
 
   if (hasValue(planet.id) && !equals(planet.id, localPlanet.id)) {
@@ -53,7 +53,7 @@ export const PlanetFormView = ({ handleSaveForm, planet}: Props) => {
   };
 
   return (
-    <form className="form-horizontal">
+    <form className="form-horizontal" data-test={"form-planet"}>
       <h2>{"Planet Form View"}</h2>
       <div className="form-group">
         <label className="col-sm-3 control-label" htmlFor="inputName">
@@ -62,6 +62,7 @@ export const PlanetFormView = ({ handleSaveForm, planet}: Props) => {
         <div className="col-sm-9">
           <input
             className="form-control"
+            data-test={"textfield-planet-name"}
             id="inputName"
             name={"name"}
             onChange={handleInputChange}
@@ -79,6 +80,7 @@ export const PlanetFormView = ({ handleSaveForm, planet}: Props) => {
         <div className="col-sm-9">
           <input
             className="form-control"
+            data-test={"textfield-planet-coordinate-lat"}
             id="inputCoordinateLat"
             name={"coordinateLat"}
             onChange={handleInputChange}
@@ -88,6 +90,7 @@ export const PlanetFormView = ({ handleSaveForm, planet}: Props) => {
           />
           <input
             className="form-control"
+            data-test={"textfield-planet-coordinate-long"}
             id="inputCoordinateLong"
             name={"coordinateLong"}
             onChange={handleInputChange}
@@ -102,14 +105,20 @@ export const PlanetFormView = ({ handleSaveForm, planet}: Props) => {
         <div className="col-md-9 offset-md-3">
           <button
             className="btn btn-primary"
+            data-test={"btn-save-planet"}
             onClick={handleSaveButtonClick}
             type="submit"
           >
             {"Save"}
           </button>
-          <button className={"btn btn-secondary"}>
-            <Link to={"/planet"}>{"Cancel"}</Link>
-          </button>
+          <Link to={"/planet"}>
+            <button
+              className={"btn btn-secondary"}
+              data-test={"btn-save-planet-cancel"}
+            >
+              {"Cancel"}
+            </button>
+          </Link>
         </div>
       </div>
     </form>

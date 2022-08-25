@@ -15,6 +15,7 @@ export const HeaderView = () => {
             <Link
               aria-selected={"" === noun}
               className="nav-item"
+              data-test={"link-home"}
               role="menuitem"
               to={"/"}
             >
@@ -25,6 +26,7 @@ export const HeaderView = () => {
             <Link
               aria-selected={"planet" === noun}
               className="nav-item"
+              data-test={"link-planet"}
               role="menuitem"
               to={"/planet"}
             >
@@ -35,6 +37,7 @@ export const HeaderView = () => {
             <Link
               aria-selected={"spaceship" === noun}
               className="nav-item"
+              data-test={"link-spaceship"}
               role="menuitem"
               to={"/spaceship"}
             >

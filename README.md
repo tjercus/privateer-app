@@ -4,17 +4,16 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
-- from static button to animated one
-- Modal as a singleton universal soldier
+- create a server with mocks-server
+- use Redux Toolkit Query to make spaceshipSlice remote-data-driven
 - add Cypress tests
+- from static button to animated one
 - WCAG 2.1
 - fix icon buttons
 - upgrade nc4 to vud
 - custom useBoolean hook when needed
 - fix enter keyboard for cancel button
 - i18n
-- create a server with mocks-server
-- use Redux Toolkit Query to make spaceshipSlice remote-data-driven
 - find out if the view layer can work with only Maybe's instead of nullable
 
 ### nice to have

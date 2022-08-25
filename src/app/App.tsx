@@ -6,6 +6,7 @@ import { SpaceshipListContainer } from "../features/spaceship/SpaceshipListConta
 import { HomeView } from "../features/other/HomeView";
 import { PlanetFormContainer } from "../features/planet/PlanetFormContainer";
 import { lastUrlSegment } from "../common/utils";
+import ModalContainer from "../features/modal/ModalContainer";
 
 const App = () => {
   let { pathname } = useLocation();
@@ -13,6 +14,7 @@ const App = () => {
 
   return (
     <>
+      <ModalContainer />
       <HeaderView />
       <main className="container-fluid content-holder" id="content-holder">
         <Routes>

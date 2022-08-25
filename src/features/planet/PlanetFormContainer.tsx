@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { ID, Planet, PlanetSchema } from "../../domain/types";
 import { PlanetFormView } from "./PlanetFormView";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";

@@ -9,12 +9,13 @@ interface Props {
 }
 
 export const PlanetListView = ({ actions, planets }: Props) => (
-  <article id={"planets-article"}>
+  <article>
     <h1>Planets</h1>
-    <Table>
+    <Table data-test={"table-list-planet"}>
       <thead>
         <tr>
           <th>{"Name"}</th>
+          <th>{"Coordinates"}</th>
           <th>{"Actions"}</th>
         </tr>
       </thead>
@@ -22,10 +23,16 @@ export const PlanetListView = ({ actions, planets }: Props) => (
         {planets.map((planet) => (
           <TableRow key={planet.name}>
             <td>
-              <Link to={`/planet/edit/${planet.id}`}>{planet.name}</Link>
+              <Link data-test={"link-planet"} to={`/planet/edit/${planet.id}`}>
+                {planet.name}
+              </Link>
+            </td>
+            <td>
+              {planet.coordinates.lat} {"by"} {planet.coordinates.long}
             </td>
             <td>
               <button
+                data-test={"btn-delete-planet"}
                 onClick={() => actions.handleDeleteButtonClick(planet.id)}
               >
                 <Icon name="trash" size="lg" />
@@ -36,8 +43,14 @@ export const PlanetListView = ({ actions, planets }: Props) => (
       </tbody>
     </Table>
 
-    <button type="button" className="btn btn-primary">
-      <Link to={"/planet/create"}>{"Add a planet"}</Link>
-    </button>
+    <Link to={"/planet/create"}>
+      <button
+        type="button"
+        className="btn btn-primary"
+        data-test={"btn-add-planet"}
+      >
+        {"Add a planet"}
+      </button>
+    </Link>
   </article>
 );
