@@ -15,6 +15,7 @@ Practise ground for react CRUD app with some common default components
 - fix enter keyboard for cancel button
 - i18n
 - find out if the view layer can work with only Maybe's instead of nullable
+- upgrade to create-vite
 
 ### nice to have
 

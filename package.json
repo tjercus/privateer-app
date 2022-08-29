@@ -25,6 +25,7 @@
     "zod": "^3.18.0"
   },
   "devDependencies": {
+    "@mocks-server/main": "^3.11.0",
     "@types/ramda": "^0.28.15",
     "@types/uuid": "^8.3.4",
     "prettier": "2.7.1"
@@ -33,6 +34,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "format": "prettier --write .",
+    "server": "mocks-server",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
