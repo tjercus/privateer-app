@@ -3,7 +3,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 //
 import modalReducer from "../features/modal/modalSlice";
 import planetReducer from "../features/planet/planetSlice";
-import {spaceshipApi} from "../features/spaceship/spaceshipApi";
+import { spaceshipApi } from "../features/spaceship/spaceshipApi";
 
 export const store = configureStore({
   reducer: {

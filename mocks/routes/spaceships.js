@@ -1,35 +1,41 @@
-// Use this file only as a guide for first steps using routes. Delete it when you have added your own route files.
 // For a detailed explanation regarding each routes property, visit:
 // https://mocks-server.org/docs/usage/routes
 
-// users data
-const USERS = [
+const spaceships = [
   {
-    id: 1,
-    name: "John Doe",
+    armour: 2,
+    id: "abc-123-def",
+    landedOn: "Tatooine",
+    name: "Millennium Falcon",
+    type: "Demon",
+    weapons: ["Neutron Gun", "Meson Blaster"],
   },
   {
-    id: 2,
-    name: "Jane Doe",
+    armour: 5,
+    id: "891-blk-356",
+    landedOn: "Kamino",
+    name: "Old Ship",
+    type: "Orion",
+    weapons: ["Laser", "Tachyon Cannon"],
   },
 ];
 
-const ALL_USERS = [
-  ...USERS,
+const allSpaceships = [
+  ...spaceships,
   {
-    id: 3,
-    name: "Tommy",
-  },
-  {
-    id: 4,
-    name: "Timmy",
+    armour: 4,
+    id: "dfghkj95-76fgjh",
+    landedOn: "Kamino",
+    name: "Old Ship",
+    type: "Broadsword",
+    weapons: ["Laser", "Mass Driver"],
   },
 ];
 
 module.exports = [
   {
-    id: "get-users", // route id
-    url: "/api/users", // url in express format
+    id: "get-spaceships", // route id
+    url: "/api/spaceships", // url in express format
     method: "GET", // HTTP method
     variants: [
       {
@@ -37,7 +43,7 @@ module.exports = [
         type: "json", // variant handler id
         options: {
           status: 200, // status to send
-          body: USERS, // body to send
+          body: spaceships, // body to send
         },
       },
       {
@@ -45,7 +51,7 @@ module.exports = [
         type: "json", // variant handler id
         options: {
           status: 200, // status to send
-          body: ALL_USERS, // body to send
+          body: allSpaceships, // body to send
         },
       },
       {
@@ -62,8 +68,8 @@ module.exports = [
     ],
   },
   {
-    id: "get-user", // route id
-    url: "/api/users/:id", // url in express format
+    id: "get-spaceship", // route id
+    url: "/api/spaceships/:id", // url in express format
     method: "GET", // HTTP method
     variants: [
       {
@@ -71,15 +77,15 @@ module.exports = [
         type: "json", // variant handler id
         options: {
           status: 200, // status to send
-          body: USERS[0], // body to send
+          body: spaceships[0], // body to send
         },
       },
       {
-        id: "id-3", // variant id
+        id: "891-blk-356", // variant id
         type: "json", // variant handler id
         options: {
           status: 200, // status to send
-          body: ALL_USERS[2], // body to send
+          body: allSpaceships[2], // body to send
         },
       },
       {
@@ -88,15 +94,17 @@ module.exports = [
         options: {
           // Express middleware to execute
           middleware: (req, res) => {
-            const userId = req.params.id;
-            const user = USERS.find((userData) => userData.id === Number(userId));
+            const spaceshipId = req.params.id;
+            const user = spaceships.find(
+              (spaceshipsData) => spaceshipsData.id === Number(spaceshipId)
+            );
             if (user) {
               res.status(200);
               res.send(user);
             } else {
               res.status(404);
               res.send({
-                message: "User not found",
+                message: "spaceship not found",
               });
             }
           },

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Spaceship } from "../../domain/types";
 
 // TODO move baseurl to config
-const API_BASE_URL = "https://localhost:3001/api/v2/";
+const API_BASE_URL = "http://localhost:3001/api/";
 
 // Define a service using a base URL and expected endpoints
 export const spaceshipApi = createApi({
@@ -14,14 +14,15 @@ export const spaceshipApi = createApi({
       query: () => `spaceships`,
     }),
     getSpaceshipByName: builder.query<Spaceship, string>({
-      query: (name) => `spaceship/?name=${name}`,
+      query: (name) => `spaceships/?name=${name}`,
     }),
     getSpaceshipById: builder.query<Spaceship, string>({
-      query: (id) => `spaceship/${id}`,
+      query: (id) => `spaceships/${id}`,
     }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetSpaceshipByNameQuery } = spaceshipApi;
+export const { useGetSpaceshipsQuery, useGetSpaceshipByNameQuery } =
+  spaceshipApi;

@@ -1,21 +1,20 @@
 [
   {
     "id": "base",
-    "routes": ["add-headers:enabled", "get-users:success", "get-user:success"]
+    "routes": [
+      "add-headers:enabled",
+      "get-spaceships:success",
+      "get-spaceship:success"
+    ]
   },
   {
-    "id": "no-headers",
+    "id": "all-spaceships",
     "from": "base",
-    "routes": ["add-headers:disabled"]
+    "routes": ["get-spaceships:all", "get-spaceship:891-blk-356"]
   },
   {
-    "id": "all-users",
+    "id": "spaceship-real",
     "from": "base",
-    "routes": ["get-users:all", "get-user:id-3"]
-  },
-  {
-    "id": "user-real",
-    "from": "no-headers",
-    "routes": ["get-user:real"]
+    "routes": ["get-spaceship:real"]
   }
 ]

@@ -51,7 +51,8 @@ export type MaybePlanet = z.infer<typeof MaybePlanetSchema>;
 export const SpaceshipSchema = z.object({
   armour: ArmourLevelSchema,
   id: IDSchema.default(""),
-  landedOn: MaybePlanetSchema, // TODO figure out how to do Maybe<Planet> more elegantly
+  // landedOn: MaybePlanetSchema, // TODO figure out how to do Maybe<Planet> more elegantly
+  landedOn: PlanetSchema,
   name: z.string(),
   type: z.nativeEnum(SpaceshipType),
   weapons: z.array(z.nativeEnum(Weapon)),

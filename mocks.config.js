@@ -14,8 +14,7 @@ module.exports = {
   plugins: {
     // Plugins to be registered
     //register: [],
-    proxyRoutesHandler: {
-    },
+    proxyRoutesHandler: {},
     adminApi: {
       // Port number for the admin API server to be listening at
       //port: 3110,
@@ -25,11 +24,11 @@ module.exports = {
       //path: "/admin",
       https: {
         // Use https protocol or not
-        //enabled: false,
+        enabled: false,
         // Path to a TLS/SSL certificate
-        //cert: undefined,
+        // cert: undefined,
         // Path to the certificate private key
-        //key: undefined,
+        // key: undefined,
       },
     },
     inquirerCli: {
@@ -61,12 +60,12 @@ module.exports = {
     // Port number for the server to be listening at
     port: 3001,
     // Host for the server
-    //host: "0.0.0.0",
+    host: "localhost",
     cors: {
       // Use CORS middleware or not
-      //enabled: true,
+      enabled: true,
       // Options for the CORS middleware. Further information at https://github.com/expressjs/cors#configuration-options
-      //options: {"preflightContinue":false},
+      options: {"preflightContinue":false},
     },
     jsonBodyParser: {
       // Use json body-parser middleware or not
@@ -103,8 +102,7 @@ module.exports = {
       //options: {},
     },
   },
-  mocks: {
-  },
+  mocks: {},
   variantHandlers: {
     // Variant Handlers to be registered
     //register: [],
