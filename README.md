@@ -4,7 +4,6 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
-- create a server with mocks-server
 - use Redux Toolkit Query to make spaceshipSlice remote-data-driven
 - add Cypress tests
 - from static button to animated one
