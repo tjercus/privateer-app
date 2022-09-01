@@ -1,14 +1,15 @@
 import { z } from "zod";
 import { Maybe } from "purify-ts";
 
+export const NameSchema = z.string();
+export const IDSchema = z.string();
+
 export const CoordinatesSchema = z.object({
   lat: z.number(),
   long: z.number(),
 });
 
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
-
-export const IDSchema = z.string();
 
 export type ID = z.infer<typeof IDSchema>;
 
@@ -17,17 +18,18 @@ export const ZERO_COORD: Coordinates = { lat: 0, long: 0 };
 export const PlanetSchema = z.object({
   coordinates: CoordinatesSchema,
   id: IDSchema.default(""),
-  name: z.string().min(3),
+  name: NameSchema.min(3),
 });
 
 export type Planet = z.infer<typeof PlanetSchema>;
 
-enum SpaceshipType {
+export enum SpaceshipType {
   BROADSWORD = "Broadsword",
   CENTURION = "Centurion",
   DEMON = "Demon",
   GALAXY = "Galaxy",
   ORION = "Orion",
+  NONE = "",
   TARSUS = "Tarsus",
 }
 
@@ -52,8 +54,8 @@ export const SpaceshipSchema = z.object({
   armour: ArmourLevelSchema,
   id: IDSchema.default(""),
   // landedOn: MaybePlanetSchema, // TODO figure out how to do Maybe<Planet> more elegantly
-  landedOn: PlanetSchema,
-  name: z.string(),
+  landedOn: IDSchema.default(""),
+  name: NameSchema.default(""),
   type: z.nativeEnum(SpaceshipType),
   weapons: z.array(z.nativeEnum(Weapon)),
 });

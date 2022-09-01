@@ -4,7 +4,12 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
-- use Redux Toolkit Query to make spaceshipSlice remote-data-driven
+- implement planets select UI in spaceshipform
+- use Tagging in RTKQ
+- move spaceshipApi.ts to common/apiSlice.ts
+- check incoming list of spaceships with Zod
+- tweak mock-routes to remove from server collection on delete etc.
+- use Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
 - add Cypress tests
 - from static button to animated one
 - WCAG 2.1

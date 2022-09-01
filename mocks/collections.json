@@ -4,7 +4,10 @@
     "routes": [
       "add-headers:enabled",
       "get-spaceships:success",
-      "get-spaceship:success"
+      "get-spaceship:success",
+      "put-spaceship:success",
+      "post-spaceship:success",
+      "delete-spaceship:success"
     ]
   },
   {

@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
-import { ID, Planet, PlanetSchema } from "../../domain/types";
-import { PlanetFormView } from "./PlanetFormView";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { savePlanet, selectPlanets } from "./planetSlice";
-import { find } from "ramda";
-import { byId } from "../../common/utils";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { find } from "ramda";
+//
+import { byId } from "../../common/utils";
+import { ID, Planet, PlanetSchema } from "../../domain/types";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+//
+import { PlanetFormView } from "./PlanetFormView";
+import { savePlanet, selectPlanets } from "./planetSlice";
 
 interface Props {
   planetId?: ID;

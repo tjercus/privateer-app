@@ -3,7 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { ID, Planet } from "../../domain/types";
 import { find, findIndex, without } from "ramda";
-import { byId, createPlanet } from "../../common/utils";
+import { byId } from "../../common/utils";
+import {createPlanet} from "./planetUtils";
 
 export interface PlanetState {
   planets: Array<Planet>;
@@ -24,6 +25,11 @@ const initialState: PlanetState = {
   ],
 };
 
+/*
+ * Redux Toolkit's createSlice utility will auto-generate action creators and
+ *  action types based on the reducer functions you provide,
+ *  with the same Immer-powered update capabilities inside.
+ */
 const planetSlice = createSlice({
   name: "planet",
   initialState,
@@ -43,13 +49,11 @@ const planetSlice = createSlice({
       );
       if (foundPlanetPosition === -1) {
         // add new planet to array with planets
-        const newPlanet = { ...action.payload, id: uuidv4() };
-        state.planets = [...state.planets, newPlanet];
+        // Immer allows you to write mutable-as-immutable updates
+        state.planets.push({ ...action.payload, id: uuidv4() });
       } else {
-        // replace value in array
-        const savedPlanetsClone = [...state.planets];
-        savedPlanetsClone[foundPlanetPosition] = saveablePlanet;
-        state.planets = savedPlanetsClone;
+        // replace value in array mutable-as-immutable
+        state.planets[foundPlanetPosition] = saveablePlanet;
       }
     },
   },

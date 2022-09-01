@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { Icon, Table, TableRow } from "@vismaux/react-nc4";
 
 interface Props {
-  actions: { handleDeleteButtonClick: (planetId: ID) => void };
+  events: { handleDeleteButtonClick: (planetId: ID) => void };
   planets: Array<Planet>;
 }
 
-export const PlanetListView = ({ actions, planets }: Props) => (
+export const PlanetListView = ({ events, planets }: Props) => (
   <article>
     <h1>Planets</h1>
     <Table data-test={"table-list-planet"}>
@@ -33,7 +33,7 @@ export const PlanetListView = ({ actions, planets }: Props) => (
             <td>
               <button
                 data-test={"btn-delete-planet"}
-                onClick={() => actions.handleDeleteButtonClick(planet.id)}
+                onClick={() => events.handleDeleteButtonClick(planet.id)}
               >
                 <Icon name="trash" size="lg" />
               </button>

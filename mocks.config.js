@@ -65,7 +65,7 @@ module.exports = {
       // Use CORS middleware or not
       enabled: true,
       // Options for the CORS middleware. Further information at https://github.com/expressjs/cors#configuration-options
-      options: {"preflightContinue":false},
+      options: { preflightContinue: false },
     },
     jsonBodyParser: {
       // Use json body-parser middleware or not

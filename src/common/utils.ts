@@ -1,18 +1,4 @@
-import {
-  curry,
-  always,
-  identity,
-  ifElse,
-  isNil,
-  last,
-  pipe,
-  prop,
-  split,
-  head,
-  tail,
-} from "ramda";
-
-import { Coordinates, ID, Planet, ZERO_COORD } from "../domain/types";
+import {always, curry, identity, ifElse, isNil, last, pipe, prop, split, tail,} from "ramda";
 
 /**
  * Fastest way to deep clone an Object in JavaScript
@@ -56,30 +42,6 @@ export const hasNoValue = (value: any | null) =>
  * @return {boolean} true if it has a value
  */
 export const hasValue = (value: any | null) => !hasNoValue(value);
-
-/**
- * Perhaps move to domain/domainUtils.ts
- * @param coordinates
- * @param id
- * @param name
- */
-export const createPlanet = (
-  coordinates: Coordinates = ZERO_COORD,
-  id: ID = "",
-  name: string = ""
-) => {
-  const newPlanet: Planet = { coordinates: ZERO_COORD, id: "", name: "" };
-  if (coordinates !== ZERO_COORD) {
-    newPlanet.coordinates = coordinates;
-  }
-  if (name !== "") {
-    newPlanet.name = name;
-  }
-  if (id !== "") {
-    newPlanet.id = id;
-  }
-  return newPlanet;
-};
 
 /**
  * To find the id in a URL (for example)

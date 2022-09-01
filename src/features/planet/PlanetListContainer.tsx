@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { deletePlanet, selectPlanets } from "./planetSlice";
-import { PlanetListView } from "./PlanetListView";
-import { ID } from "../../domain/types";
 import { NoData } from "@vismaux/react-nc4";
+//
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { ID } from "../../domain/types";
 import { hasValue } from "../../common/utils";
 import {
   closeModal,
@@ -11,6 +10,9 @@ import {
   ModalTypes,
   openModal,
 } from "../modal/modalSlice";
+//
+import { deletePlanet, selectPlanets } from "./planetSlice";
+import { PlanetListView } from "./PlanetListView";
 
 export const PlanetListContainer = () => {
   const dispatch = useAppDispatch();
@@ -43,7 +45,7 @@ export const PlanetListContainer = () => {
   };
 
   return hasValue(planets.length) ? (
-    <PlanetListView actions={{ handleDeleteButtonClick }} planets={planets} />
+    <PlanetListView events={{ handleDeleteButtonClick }} planets={planets} />
   ) : (
     <NoData title={"No data"} description={"There are no planets"} />
   );
