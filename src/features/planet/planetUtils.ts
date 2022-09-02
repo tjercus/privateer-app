@@ -12,6 +12,5 @@ export const createPlanet = (planet: Planet = {} as Planet) => {
   if (hasValue(planet.id)) {
     newPlanet.id = planet.id;
   }
-  console.log("createPlanet", newPlanet);
   return newPlanet;
 };

@@ -17,12 +17,12 @@ const initialState: PlanetState = {
   planets: [
     {
       coordinates: { lat: 12.4, long: -18.9 },
-      id: "kamino-id",
+      id: "5678dcba-6884-411d-88f1-94d3fd4deed6",
       name: "Kamino",
     },
     {
       coordinates: { lat: -22.18, long: 111.2 },
-      id: "tatooine-id",
+      id: "1234abcd-bdb8-4e48-abda-5d862199184a",
       name: "Tatooine",
     },
   ],

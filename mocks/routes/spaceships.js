@@ -44,7 +44,7 @@ module.exports = [
         },
       },
       {
-        id: "891-blk-356", // variant id
+        id: "b080187c-ec6a-48b8-88fd-1cf8b80a92b7", // variant id
         type: "json", // variant handler id
         options: {
           status: 200, // status to send

@@ -4,7 +4,8 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
-- implement planets select UI in spaceshipform
+- flesh out rest of the Spaceshipform
+- implement dynamic planets select instead of hardcoded (iaw: create a SelectView component)
 - tweak mock-routes to remove from server collection on delete etc.
 - think about minimal ID length in Zod schema
 - move spaceshipApi.ts to common/apiSlice.ts

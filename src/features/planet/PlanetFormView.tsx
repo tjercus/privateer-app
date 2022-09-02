@@ -59,14 +59,14 @@ export const PlanetFormView = ({ handleSaveForm, planet }: Props) => {
     <form className="form-horizontal" data-test={"form-planet"}>
       <h2>{"Planet Form View"}</h2>
       <div className="form-group">
-        <label className="col-sm-3 control-label" htmlFor="inputName">
+        <label className="col-sm-3 control-label" htmlFor="input-name">
           {"Name"}
         </label>
         <div className="col-sm-9">
           <input
             className="form-control"
             data-test={"textfield-planet-name"}
-            id="inputName"
+            id="input-name"
             name={"name"}
             onChange={handleInputChange}
             placeholder="Name"
@@ -77,14 +77,14 @@ export const PlanetFormView = ({ handleSaveForm, planet }: Props) => {
       </div>
 
       <div className="form-group">
-        <label className="col-sm-3 control-label" htmlFor="coordinates">
+        <label className="col-sm-3 control-label" htmlFor="input-coordinate-lat">
           {"Coordinates"}
         </label>
         <div className="col-sm-9">
           <input
             className="form-control"
             data-test={"textfield-planet-coordinate-lat"}
-            id="inputCoordinateLat"
+            id="input-coordinate-lat"
             name={"coordinateLat"}
             onChange={handleInputChange}
             placeholder="latitude"
@@ -94,7 +94,7 @@ export const PlanetFormView = ({ handleSaveForm, planet }: Props) => {
           <input
             className="form-control"
             data-test={"textfield-planet-coordinate-long"}
-            id="inputCoordinateLong"
+            id="input-coordinate-long"
             name={"coordinateLong"}
             onChange={handleInputChange}
             placeholder="longitude"

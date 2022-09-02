@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { Maybe } from "purify-ts";
 
-export const NameSchema = z.string();
-export const IDSchema = z.string();
+export const NameSchema = z.string().min(3);
+export const IDSchema = z.string().min(3).uuid().default("");
 
 export const CoordinatesSchema = z.object({
   lat: z.number(),
@@ -17,8 +17,8 @@ export const ZERO_COORD: Coordinates = { lat: 0, long: 0 };
 
 export const PlanetSchema = z.object({
   coordinates: CoordinatesSchema,
-  id: IDSchema.default(""),
-  name: NameSchema.min(3),
+  id: IDSchema,
+  name: NameSchema,
 });
 
 export type Planet = z.infer<typeof PlanetSchema>;
@@ -28,8 +28,8 @@ export enum SpaceshipType {
   CENTURION = "Centurion",
   DEMON = "Demon",
   GALAXY = "Galaxy",
-  ORION = "Orion",
   NONE = "",
+  ORION = "Orion",
   TARSUS = "Tarsus",
 }
 
@@ -43,19 +43,17 @@ enum Weapon {
 }
 
 const ArmourLevelSchema = z.number();
-type ArmourLevel = z.infer<typeof ArmourLevelSchema>;
-
-// const createZodMaybe = <T extends z.ZodTypeAny>(schema: Maybe<T>) => schema;
+export type ArmourLevel = z.infer<typeof ArmourLevelSchema>;
 
 export const MaybePlanetSchema: z.ZodType<Maybe<Planet>> = z.any();
 export type MaybePlanet = z.infer<typeof MaybePlanetSchema>;
 
 export const SpaceshipSchema = z.object({
   armour: ArmourLevelSchema,
-  id: IDSchema.default(""),
+  id: IDSchema,
   // landedOn: MaybePlanetSchema, // TODO figure out how to do Maybe<Planet> more elegantly
-  landedOn: IDSchema.default(""),
-  name: NameSchema.default(""),
+  landedOn: IDSchema,
+  name: NameSchema,
   type: z.nativeEnum(SpaceshipType),
   weapons: z.array(z.nativeEnum(Weapon)),
 });
