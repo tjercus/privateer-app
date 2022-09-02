@@ -1,7 +1,7 @@
 // For a detailed explanation regarding each routes property, visit:
 // https://mocks-server.org/docs/usage/routes
 
-const spaceships  = require("../fixtures/spaceship-data").spaceships;
+const spaceships = require("../fixtures/spaceship-data").spaceships;
 
 module.exports = [
   {
@@ -82,12 +82,28 @@ module.exports = [
     variants: [
       {
         id: "success", // id of the variant
-        type: "status", // variant type
+        type: "middleware", // variant handler id
         options: {
-          status: 200,
-        }
+          // Express middleware to execute
+          middleware: (req, res) => {
+            const spaceship = req.body;
+            if (spaceship.id) {
+              const storageIndex = spaceships.findIndex(
+                (sp) => sp.id === req.params.id
+              );
+              spaceships[storageIndex] = spaceship;
+              res.status(200);
+              res.send(spaceship);
+            } else {
+              res.status(404);
+              res.send({
+                message: "spaceship not found",
+              });
+            }
+          },
+        },
       },
-    ]
+    ],
   },
   {
     id: "post-spaceship", // id of the route
@@ -99,9 +115,9 @@ module.exports = [
         type: "status", // variant type
         options: {
           status: 201,
-        }
+        },
       },
-    ]
+    ],
   },
   {
     id: "delete-spaceship", // id of the route
@@ -113,8 +129,8 @@ module.exports = [
         type: "status", // variant type
         options: {
           status: 200,
-        }
+        },
       },
-    ]
+    ],
   },
 ];

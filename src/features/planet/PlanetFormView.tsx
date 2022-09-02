@@ -3,7 +3,7 @@ import { hasValue } from "../../common/utils";
 import { Coordinates, Planet } from "../../domain/types";
 import { Link } from "react-router-dom";
 import { equals } from "ramda";
-import {createPlanet} from "./planetUtils";
+import { createPlanet } from "./planetUtils";
 
 interface Props {
   handleSaveForm: (planet: Planet) => void;
@@ -52,6 +52,8 @@ export const PlanetFormView = ({ handleSaveForm, planet }: Props) => {
     evt.preventDefault();
     handleSaveForm(localPlanet);
   };
+
+  console.log("PlanetFormView", localPlanet);
 
   return (
     <form className="form-horizontal" data-test={"form-planet"}>

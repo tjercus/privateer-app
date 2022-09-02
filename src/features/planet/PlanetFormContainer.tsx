@@ -24,6 +24,8 @@ export const PlanetFormContainer = ({ planetId }: Props) => {
   const planets = useAppSelector(selectPlanets);
   const planet = find(byId(planetId), planets) || ({} as Planet);
 
+  console.log("found planet", planet);
+
   const handleSaveForm = (localPlanet: Planet) => {
     const validationResult = PlanetSchema.safeParse(localPlanet);
     if (validationResult.success) {
@@ -31,7 +33,7 @@ export const PlanetFormContainer = ({ planetId }: Props) => {
       navigate("/planet");
     } else {
       // TODO either inline feedback or use The Modal
-      alert(`F*ck you buddy! ${validationResult.error}`);
+      alert(`Bad data! ${validationResult.error}`);
     }
   };
 

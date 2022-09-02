@@ -37,7 +37,7 @@ export const SpaceshipListContainer = () => {
         modalType: ModalTypes.CONFIRM,
       })
     );
-  }, [dispatch, localSpaceshipId]);
+  }, [deleteSpaceship, dispatch, localSpaceshipId]);
 
   /**
    * When the user clicks on the trashcan icon and has not confirmed deletion yet

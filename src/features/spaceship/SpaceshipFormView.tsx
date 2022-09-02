@@ -1,29 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { hasValue } from "../../common/utils";
 import { Spaceship } from "../../domain/types";
 import { Link } from "react-router-dom";
 import { equals } from "ramda";
-import {createSpaceship} from "./spaceshipUtils";
+import { createSpaceship } from "./spaceshipUtils";
 
 interface Props {
   handleSaveForm: (spaceship: Spaceship) => void;
-  spaceship: Spaceship;
+  spaceship?: Spaceship;
 }
 
-export const SpaceshipFormView = ({
+const SpaceshipFormView = ({
   handleSaveForm = () => {},
   spaceship = createSpaceship(),
 }: Props) => {
   const [localSpaceship, setLocalSpaceship] = useState(createSpaceship());
 
-  if (hasValue(spaceship.id) && !equals(spaceship.id, localSpaceship.id)) {
-    // copy the existing spaceship from props to state
-    setLocalSpaceship(spaceship);
-  }
+  console.log("SpaceshipFormView local spaceship", localSpaceship);
+
+  useEffect(() => {
+    if (hasValue(spaceship.id) && !equals(spaceship.id, localSpaceship.id)) {
+      // copy the existing spaceship from props to state
+      console.log("SpaceshipFormView copying from props to state");
+      setLocalSpaceship(spaceship);
+    }
+  }, [spaceship, localSpaceship]);
 
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const htmlFieldName = evt.target.name;
-
     setLocalSpaceship({ ...localSpaceship, [htmlFieldName]: evt.target.value });
   };
 
@@ -31,6 +35,8 @@ export const SpaceshipFormView = ({
     evt.preventDefault();
     handleSaveForm(localSpaceship);
   };
+
+  console.log("SpaceshipFormView local spaceship v2", localSpaceship);
 
   return (
     <form className="form-horizontal" data-test={"form-spaceship"}>
@@ -60,12 +66,12 @@ export const SpaceshipFormView = ({
         <div className="col-sm-9">
           <input
             className="form-control"
-            data-test={"textfield-spaceship-coordinate-lat"}
+            data-test={"textfield-spaceship-landed-on"}
             id="inputLandedOn"
             name={"landedOn"}
             onChange={handleInputChange}
             placeholder="landed on"
-            type="number"
+            type="text"
             value={localSpaceship.landedOn}
           />
         </div>
@@ -94,3 +100,5 @@ export const SpaceshipFormView = ({
     </form>
   );
 };
+
+export default React.memo(SpaceshipFormView);

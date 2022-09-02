@@ -9,9 +9,11 @@ const API_BASE_URL = "http://localhost:3001/api/";
 export const spaceshipApi = createApi({
   reducerPath: "spaceshipApi",
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
+  tagTypes: ["Spaceships"],
   endpoints: (builder) => ({
     getSpaceships: builder.query<Array<Spaceship>, void>({
       query: () => `spaceships`,
+      providesTags: ["Spaceships"],
     }),
     getSpaceshipByName: builder.query<Spaceship, string>({
       query: (name) => `spaceships/?name=${name}`,
@@ -26,31 +28,28 @@ export const spaceshipApi = createApi({
           method: "DELETE",
         };
       },
+      invalidatesTags: ["Spaceships"],
     }),
     postSpaceship: builder.mutation<Spaceship, Partial<Spaceship>>({
       query(body) {
         return {
           url: `spaceships`,
-          method: 'POST',
+          method: "POST",
           body,
-        }
+        };
       },
-      // Invalidates all Post-type queries providing the `LIST` id - after all, depending of the sort order,
-      // that newly created post could show up in any lists.
-      // invalidatesTags: [{ type: 'Spaceships', id: 'LIST' }],
+      invalidatesTags: ["Spaceships"],
     }),
     putSpaceship: builder.mutation<Spaceship, Partial<Spaceship>>({
       query(data) {
-        const { id, ...body } = data
+        const { id, ...body } = data;
         return {
           url: `spaceships/${id}`,
-          method: 'PUT',
+          method: "PUT",
           body,
-        }
+        };
       },
-      // Invalidates all queries that subscribe to this Post `id` only.
-      // In this case, `getPost` will be re-run. `getPosts` *might*  rerun, if this id was under its results.
-      // invalidatesTags: (result, error, { id }) => [{ type: 'Posts', id }],
+      invalidatesTags: ["Spaceships"],
     }),
   }),
 });

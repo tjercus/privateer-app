@@ -11,11 +11,6 @@
     ]
   },
   {
-    "id": "all-spaceships",
-    "from": "base",
-    "routes": ["get-spaceships:all", "get-spaceship:891-blk-356"]
-  },
-  {
     "id": "spaceship-real",
     "from": "base",
     "routes": ["get-spaceship:real"]

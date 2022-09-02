@@ -9,7 +9,8 @@ import { PlanetListContainer } from "../features/planet/PlanetListContainer";
 import { SpaceshipListContainer } from "../features/spaceship/SpaceshipListContainer";
 import { HomeView } from "../features/other/HomeView";
 import { PlanetFormContainer } from "../features/planet/PlanetFormContainer";
-import { SpaceshipFormContainer } from "../features/spaceship/SpaceshipFormContainer";
+import { SpaceshipEditFormContainer } from "../features/spaceship/SpaceshipEditFormContainer";
+import { SpaceshipCreateFormContainer } from "../features/spaceship/SpaceshipCreateFormContainer";
 
 const App = () => {
   let { pathname } = useLocation();
@@ -31,11 +32,11 @@ const App = () => {
           <Route path="/spaceship" element={<SpaceshipListContainer />} />
           <Route
             path="/spaceship/create"
-            element={<SpaceshipFormContainer spaceshipId={urlId} />}
+            element={<SpaceshipCreateFormContainer />}
           />
           <Route
             path="/spaceship/edit/:spaceshipId"
-            element={<SpaceshipFormContainer spaceshipId={urlId} />}
+            element={<SpaceshipEditFormContainer spaceshipId={urlId} />}
           />
         </Routes>
       </main>

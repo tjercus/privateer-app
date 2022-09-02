@@ -1,4 +1,15 @@
-import {always, curry, identity, ifElse, isNil, last, pipe, prop, split, tail,} from "ramda";
+import {
+  always,
+  curry,
+  identity,
+  ifElse,
+  isNil,
+  last,
+  pipe,
+  prop,
+  split,
+  tail,
+} from "ramda";
 
 /**
  * Fastest way to deep clone an Object in JavaScript

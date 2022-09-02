@@ -23,7 +23,7 @@ export const SpaceshipListView = ({
   spaceships,
 }: Props) =>
   hasValue(error) ? (
-    <div>{error?.toString()}</div>
+    <div>{"There was an error fetching the list of spaceships"}</div>
   ) : (
     <article>
       <h1>{"Spaceships"}</h1>

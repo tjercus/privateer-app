@@ -4,22 +4,25 @@ import { RootState } from "../../app/store";
 import { ID, Planet } from "../../domain/types";
 import { find, findIndex, without } from "ramda";
 import { byId } from "../../common/utils";
-import {createPlanet} from "./planetUtils";
+import { createPlanet } from "./planetUtils";
 
 export interface PlanetState {
   planets: Array<Planet>;
 }
 
+/**
+ * This slice has offline and hardcoded data
+ */
 const initialState: PlanetState = {
   planets: [
     {
       coordinates: { lat: 12.4, long: -18.9 },
-      id: "abc-123-def",
+      id: "kamino-id",
       name: "Kamino",
     },
     {
       coordinates: { lat: -22.18, long: 111.2 },
-      id: "ghi-456-klm",
+      id: "tatooine-id",
       name: "Tatooine",
     },
   ],
@@ -47,6 +50,7 @@ const planetSlice = createSlice({
         byId(saveablePlanet.id),
         state.planets
       );
+      console.log("found planet position", foundPlanetPosition);
       if (foundPlanetPosition === -1) {
         // add new planet to array with planets
         // Immer allows you to write mutable-as-immutable updates
