@@ -7,7 +7,7 @@ import {
   useGetSpaceshipByIdQuery,
   usePutSpaceshipMutation,
 } from "./spaceshipApi";
-import SpaceshipFormView from "./SpaceshipFormView";
+import { SpaceshipFormView } from "./SpaceshipFormView";
 
 interface Props {
   spaceshipId: ID;

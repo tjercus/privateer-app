@@ -51,7 +51,7 @@ export const SpaceshipListContainer = () => {
   return (
     <SpaceshipListView
       error={error}
-      events={{ handleDeleteButtonClick }}
+      eventHandlers={{ handleDeleteButtonClick }}
       isLoading={isLoading}
       spaceships={data}
     />

@@ -46,6 +46,7 @@ const ArmourLevelSchema = z.number();
 export type ArmourLevel = z.infer<typeof ArmourLevelSchema>;
 
 export const MaybePlanetSchema: z.ZodType<Maybe<Planet>> = z.any();
+
 export type MaybePlanet = z.infer<typeof MaybePlanetSchema>;
 
 export const SpaceshipSchema = z.object({

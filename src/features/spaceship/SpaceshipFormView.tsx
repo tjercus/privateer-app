@@ -10,7 +10,7 @@ interface Props {
   spaceship?: Spaceship;
 }
 
-const SpaceshipFormView = ({
+export const SpaceshipFormView = ({
   handleSaveForm = () => {},
   spaceship = createSpaceship(),
 }: Props) => {
@@ -131,9 +131,6 @@ const SpaceshipFormView = ({
           </Link>
         </div>
       </div>
-
     </form>
   );
 };
-
-export default React.memo(SpaceshipFormView);

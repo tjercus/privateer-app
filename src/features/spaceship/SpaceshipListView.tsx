@@ -11,14 +11,14 @@ import { SpaceshipRowView } from "./SpaceshipRowView";
 
 interface Props {
   error: FetchBaseQueryError | SerializedError | undefined;
-  events: { handleDeleteButtonClick: (spaceshipId: ID) => void }; // TODO extract TYPE
+  eventHandlers: { handleDeleteButtonClick: (spaceshipId: ID) => void }; // TODO extract TYPE
   isLoading: boolean;
   spaceships?: Array<Spaceship>;
 }
 
 export const SpaceshipListView = ({
   error,
-  events,
+  eventHandlers,
   isLoading,
   spaceships,
 }: Props) =>
@@ -41,7 +41,7 @@ export const SpaceshipListView = ({
         <tbody>
           {spaceships?.map((spaceship) => (
             <SpaceshipRowView
-              events={events}
+              events={eventHandlers}
               isLoading={isLoading}
               key={spaceship.id}
               spaceship={spaceship}

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Spaceship, SpaceshipSchema } from "../../domain/types";
 //
 import { usePostSpaceshipMutation } from "./spaceshipApi";
-import SpaceshipFormView from "./SpaceshipFormView";
+import { SpaceshipFormView } from "./SpaceshipFormView";
 
 export const SpaceshipCreateFormContainer = () => {
   const navigate = useNavigate();

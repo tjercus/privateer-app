@@ -77,7 +77,10 @@ export const PlanetFormView = ({ handleSaveForm, planet }: Props) => {
       </div>
 
       <div className="form-group">
-        <label className="col-sm-3 control-label" htmlFor="input-coordinate-lat">
+        <label
+          className="col-sm-3 control-label"
+          htmlFor="input-coordinate-lat"
+        >
           {"Coordinates"}
         </label>
         <div className="col-sm-9">

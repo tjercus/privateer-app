@@ -11,13 +11,13 @@ import {
   openModal,
 } from "../modal/modalSlice";
 //
-import { deletePlanet, selectPlanets } from "./planetSlice";
-import { PlanetListView } from "./PlanetListView";
+import { deleteHardware, selectHardwares } from "./hardwareSlice";
+import { HardwareListView } from "./HardwareListView";
 
-export const PlanetListContainer = () => {
+export const HardwareListContainer = () => {
   const dispatch = useAppDispatch();
-  const planets = useAppSelector(selectPlanets);
-  const [localPlanetId, setLocalPlanetId] = useState("");
+  const hardwares = useAppSelector(selectHardwares);
+  const [localHardwareId, setLocalHardwareId] = useState("");
 
   useEffect(() => {
     dispatch(
@@ -26,30 +26,30 @@ export const PlanetListContainer = () => {
           dispatch(closeModal());
         },
         handleConfirmEvent: () => {
-          dispatch(deletePlanet(localPlanetId));
+          dispatch(deleteHardware(localHardwareId));
           dispatch(closeModal());
         },
         title: "Are you sure?",
         modalType: ModalTypes.CONFIRM,
       })
     );
-  }, [dispatch, localPlanetId]);
+  }, [dispatch, localHardwareId]);
 
   /**
    * When the user clicks on the trashcan icon and has not confirmed deletion yet
    */
-  const handleDeleteButtonClick = (planetId: ID) => {
-    console.log("delete id", planetId);
-    setLocalPlanetId(planetId);
+  const handleDeleteButtonClick = (hardwareId: ID) => {
+    console.log("delete id", hardwareId);
+    setLocalHardwareId(hardwareId);
     dispatch(openModal());
   };
 
-  return hasValue(planets.length) ? (
-    <PlanetListView
+  return hasValue(hardwares.length) ? (
+    <HardwareListView
       eventHandlers={{ handleDeleteButtonClick }}
-      planets={planets}
+      hardwares={hardwares}
     />
   ) : (
-    <NoData title={"No data"} description={"There are no planets"} />
+    <NoData title={"No data"} description={"There are no hardwares"} />
   );
 };

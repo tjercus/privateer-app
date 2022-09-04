@@ -4,6 +4,12 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
+- rename planets actions to events, past tense
+- make the offline an online feature/slice
+- where to assemble the domain, on the app or the server?
+- make a less deep (more flat) directory structure?
+- put route strings in constants?
+- replace lastUrlSegment with router hook
 - flesh out rest of the Spaceshipform
 - implement dynamic planets select instead of hardcoded (iaw: create a SelectView component)
 - tweak mock-routes to remove from server collection on delete etc.
@@ -22,6 +28,7 @@ Practise ground for react CRUD app with some common default components
 - i18n
 - find out if the view layer can work with only Maybe's instead of nullable
 - upgrade to create-vite
+- import sorter plugin for prettier?
 
 ### nice to have
 
