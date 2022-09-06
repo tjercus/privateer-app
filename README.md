@@ -4,17 +4,16 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
-- rename planets actions to events, past tense
-- make the offline an online feature/slice
+- implement hardware type as a select
+- extract EnumSelect jsx fn
+- introduce a left menu
 - where to assemble the domain, on the app or the server?
-- make a less deep (more flat) directory structure?
+- check html validity
+- tweak mock-routes to remove from server collection on delete etc.
+
+- Ramda cond for view loading
 - put route strings in constants?
 - replace lastUrlSegment with router hook
-- flesh out rest of the Spaceshipform
-- implement dynamic planets select instead of hardcoded (iaw: create a SelectView component)
-- tweak mock-routes to remove from server collection on delete etc.
-- think about minimal ID length in Zod schema
-- move spaceshipApi.ts to common/apiSlice.ts
 - check incoming list of spaceships with Zod
 - add lastModifiedAt attributes
 - use Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php

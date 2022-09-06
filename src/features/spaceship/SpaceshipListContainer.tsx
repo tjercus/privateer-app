@@ -1,9 +1,15 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
+import { find } from "ramda";
 //
-import { useAppDispatch } from "../../app/hooks";
-import { ID } from "../../domain/types";
+import { useAppDispatch } from "../../hooks";
+import { ID, Planet, Spaceship } from "../../domain/types";
 //
+import {
+  useDeleteSpaceshipMutation,
+  useGetPlanetsQuery,
+  useGetSpaceshipsQuery,
+} from "../../common/apiSlice";
 import {
   closeModal,
   configureModal,
@@ -12,14 +18,29 @@ import {
 } from "../modal/modalSlice";
 //
 import { SpaceshipListView } from "./SpaceshipListView";
-import {
-  useDeleteSpaceshipMutation,
-  useGetSpaceshipsQuery,
-} from "./spaceshipApi";
+import { byId } from "../../common/utils";
+
+const findPlanetForSpaceship = (spaceship: Spaceship, planets: Array<Planet>) =>
+  find(byId(spaceship.landedOnId), planets);
 
 export const SpaceshipListContainer = () => {
   const dispatch = useAppDispatch();
-  const { data, error, isLoading } = useGetSpaceshipsQuery();
+  const getPlanetsQuery = useGetPlanetsQuery();
+  // note that the result from the query is modified with the result of another
+  const getSpaceshipsQuery = useGetSpaceshipsQuery(undefined, {
+    selectFromResult: ({ data = [], error, isLoading }) => ({
+      data: data.map((spaceship) => ({
+        ...spaceship,
+        landedOnPlanet: findPlanetForSpaceship(
+          spaceship,
+          getPlanetsQuery.data ?? []
+        ),
+      })),
+      error,
+      isLoading,
+    }),
+  });
+
   const [localSpaceshipId, setLocalSpaceShipId] = useState("");
   const [deleteSpaceship] = useDeleteSpaceshipMutation();
 
@@ -42,18 +63,18 @@ export const SpaceshipListContainer = () => {
   /**
    * When the user clicks on the trashcan icon and has not confirmed deletion yet
    */
-  const handleDeleteButtonClick = (spaceShipId: ID) => {
-    console.log("delete id", spaceShipId);
-    setLocalSpaceShipId(spaceShipId);
+  const handleDeleteButtonClick = (spaceshipId: ID) => {
+    console.log("delete id", spaceshipId);
+    setLocalSpaceShipId(spaceshipId);
     dispatch(openModal());
   };
 
   return (
     <SpaceshipListView
-      error={error}
+      error={getSpaceshipsQuery.error}
       eventHandlers={{ handleDeleteButtonClick }}
-      isLoading={isLoading}
-      spaceships={data}
+      isLoading={getSpaceshipsQuery.isLoading}
+      spaceships={getSpaceshipsQuery.data}
     />
   );
 };

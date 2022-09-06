@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { find, findIndex, without } from "ramda";
 //
-import { RootState } from "../../app/store";
+import { RootState } from "../../store";
 import { ID } from "../../domain/types";
 import { byId } from "../../common/utils";
 //
@@ -42,6 +42,8 @@ const hardwareSlice = createSlice({
   name: "hardware",
   initialState,
   reducers: {
+    // note that usually you want the Actions named as events, but here they
+    //  are names as commands since they do the IO themselves.
     deleteHardware: (state, action: PayloadAction<ID>) => {
       const foundHardware =
         find(byId(action.payload), state.hardwares) || createHardware();
@@ -57,7 +59,7 @@ const hardwareSlice = createSlice({
       );
       console.log("found hardware position", foundHardwarePosition);
       if (foundHardwarePosition === -1) {
-        // add new hardware to array with hardwares
+        // add new hardware to array with hardware
         // Immer allows you to write mutable-as-immutable updates
         state.hardwares.push({ ...action.payload, id: uuidv4() });
       } else {

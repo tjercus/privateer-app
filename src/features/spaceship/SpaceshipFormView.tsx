@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { hasValue } from "../../common/utils";
-import { Spaceship } from "../../domain/types";
 import { Link } from "react-router-dom";
-import { equals } from "ramda";
+import {equals, includes} from "ramda";
+//
+import { hasValue } from "../../common/utils";
+import {Planet, Spaceship, SpaceshipType, Weapon} from "../../domain/types";
+//
 import { createSpaceship } from "./spaceshipUtils";
 
 interface Props {
   handleSaveForm: (spaceship: Spaceship) => void;
+  planets: Array<Planet>;
   spaceship?: Spaceship;
 }
 
 export const SpaceshipFormView = ({
   handleSaveForm = () => {},
+  planets = [],
   spaceship = createSpaceship(),
 }: Props) => {
   const [localSpaceship, setLocalSpaceship] = useState(createSpaceship());
-
-  console.log("SpaceshipFormView local spaceship", localSpaceship);
 
   useEffect(() => {
     if (hasValue(spaceship.id) && !equals(spaceship.id, localSpaceship.id)) {
@@ -32,9 +34,13 @@ export const SpaceshipFormView = ({
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const htmlFieldName = evt.target.name;
+    const htmlFieldType = evt.target.type;
     setLocalSpaceship({
       ...localSpaceship,
-      [htmlFieldName]: evt.target.value,
+      [htmlFieldName]:
+        htmlFieldType === "number"
+          ? Number(evt.target.value)
+          : evt.target.value,
     });
   };
 
@@ -42,8 +48,6 @@ export const SpaceshipFormView = ({
     evt.preventDefault();
     handleSaveForm(localSpaceship);
   };
-
-  console.log("SpaceshipFormView local spaceship v2", localSpaceship);
 
   return (
     <form className="form-horizontal" data-test={"form-spaceship"}>
@@ -75,17 +79,16 @@ export const SpaceshipFormView = ({
             className="form-control"
             data-test={"select-spaceship-landed-on"}
             id="input-landed-on"
-            name={"landedOn"}
+            name={"landedOnId"}
             onChange={handleInputChange}
-            value={localSpaceship.landedOn}
+            value={localSpaceship.landedOnId}
           >
-            <option value={"f7bd2359-450a-4c30-9318-ddb5541c2e7b"}>None</option>
-            <option value={"1234abcd-bdb8-4e48-abda-5d862199184a"}>
-              Tatooine
-            </option>
-            <option value={"5678dcba-6884-411d-88f1-94d3fd4deed6"}>
-              Kamino
-            </option>
+            <option value={""}>{"None"}</option>
+            {planets.map((planet) => (
+              <option key={planet.id} value={planet.id}>
+                {planet.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -108,8 +111,43 @@ export const SpaceshipFormView = ({
         </div>
       </div>
 
-      {/*Type*/}
-      {/*Weapons*/}
+      <div className="form-group">
+        <label className="col-sm-3 control-label" htmlFor="input-type">
+          {"Type"}
+        </label>
+        <div className="col-sm-9">
+          <select
+            className="form-control"
+            data-test={"select-spaceship-type"}
+            id="input-type"
+            name={"type"}
+            onChange={handleInputChange}
+            value={localSpaceship.type}
+          >
+            {Object.values(SpaceshipType).map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="form-group">
+        <label className="col-sm-3 control-label" htmlFor="input-weapons">
+          {"Weapons"}
+        </label>
+        <div className="col-sm-9">
+          <ul>
+          {Object.values(Weapon).map((weapon) => (
+            <li className="checkbox">
+              <input checked={includes(weapon, localSpaceship.weapons)} id={`checkbox-${weapon}`} type="checkbox" />
+              <label htmlFor={`checkbox-${weapon}`}>{weapon}</label>
+            </li>
+          ))}
+          </ul>
+        </div>
+      </div>
 
       <div className="form-group">
         <div className="col-md-9 offset-md-3">

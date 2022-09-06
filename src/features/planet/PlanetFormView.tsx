@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { hasValue } from "../../common/utils";
-import { Coordinates, Planet } from "../../domain/types";
 import { Link } from "react-router-dom";
 import { equals } from "ramda";
+//
+import { hasValue } from "../../common/utils";
+import { Coordinates, Planet } from "../../domain/types";
+//
 import { createPlanet } from "./planetUtils";
 
 interface Props {
   handleSaveForm: (planet: Planet) => void;
-  planet: Planet;
+  planet?: Planet;
 }
 
-export const PlanetFormView = ({ handleSaveForm, planet }: Props) => {
+export const PlanetFormView = ({
+  handleSaveForm = () => {},
+  planet = createPlanet(),
+}: Props) => {
   const [localPlanet, setLocalPlanet] = useState(createPlanet());
 
   if (hasValue(planet.id) && !equals(planet.id, localPlanet.id)) {

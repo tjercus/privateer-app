@@ -1,18 +1,19 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 //
-import { lastUrlSegment } from "../common/utils";
+import { lastUrlSegment } from "./common/utils";
 //
-import ModalContainer from "../features/modal/ModalContainer";
-import { HeaderView } from "../features/other/HeaderView";
-import { PlanetListContainer } from "../features/planet/PlanetListContainer";
-import { SpaceshipListContainer } from "../features/spaceship/SpaceshipListContainer";
-import { HomeView } from "../features/other/HomeView";
-import { PlanetFormContainer } from "../features/planet/PlanetFormContainer";
-import { SpaceshipEditFormContainer } from "../features/spaceship/SpaceshipEditFormContainer";
-import { SpaceshipCreateFormContainer } from "../features/spaceship/SpaceshipCreateFormContainer";
-import { HardwareListContainer } from "../features/hardware/HardwareListContainer";
-import { HardwareFormContainer } from "../features/hardware/HardwareFormContainer";
+import ModalContainer from "./features/modal/ModalContainer";
+import { HeaderView } from "./features/other/HeaderView";
+import { PlanetListContainer } from "./features/planet/PlanetListContainer";
+import { SpaceshipListContainer } from "./features/spaceship/SpaceshipListContainer";
+import { HomeView } from "./features/other/HomeView";
+import { SpaceshipEditFormContainer } from "./features/spaceship/SpaceshipEditFormContainer";
+import { SpaceshipCreateFormContainer } from "./features/spaceship/SpaceshipCreateFormContainer";
+import { HardwareListContainer } from "./features/hardware/HardwareListContainer";
+import { HardwareFormContainer } from "./features/hardware/HardwareFormContainer";
+import { PlanetEditFormContainer } from "./features/planet/PlanetEditFormContainer";
+import { PlanetCreateFormContainer } from "./features/planet/PlanetCreateFormContainer";
 
 const App = () => {
   let { pathname } = useLocation();
@@ -26,6 +27,7 @@ const App = () => {
         <Routes>
           <Route index element={<HomeView />} />
 
+          {/* hardware */}
           <Route path="/hardware" element={<HardwareListContainer />} />
           <Route path="/hardware/create" element={<HardwareFormContainer />} />
           <Route
@@ -33,13 +35,18 @@ const App = () => {
             element={<HardwareFormContainer hardwareId={urlId} />}
           />
 
+          {/* planet */}
           <Route path="/planet" element={<PlanetListContainer />} />
-          <Route path="/planet/create" element={<PlanetFormContainer />} />
+          <Route
+            path="/planet/create"
+            element={<PlanetCreateFormContainer />}
+          />
           <Route
             path="/planet/edit/:planetId"
-            element={<PlanetFormContainer planetId={urlId} />}
+            element={<PlanetEditFormContainer planetId={urlId} />}
           />
 
+          {/* spaceship */}
           <Route path="/spaceship" element={<SpaceshipListContainer />} />
           <Route
             path="/spaceship/create"

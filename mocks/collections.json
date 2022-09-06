@@ -3,16 +3,23 @@
     "id": "base",
     "routes": [
       "add-headers:enabled",
+
       "get-spaceships:success",
       "get-spaceship:success",
       "put-spaceship:success",
       "post-spaceship:success",
-      "delete-spaceship:success"
+      "delete-spaceship:success",
+
+      "get-planets:success",
+      "get-planet:success",
+      "put-planet:success",
+      "post-planet:success",
+      "delete-planet:success"
     ]
   },
   {
     "id": "spaceship-real",
     "from": "base",
-    "routes": ["get-spaceship:real"]
+    "routes": ["get-spaceship:real", "get-planet:real"]
   }
 ]

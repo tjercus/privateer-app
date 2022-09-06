@@ -1,15 +1,15 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ID, Spaceship } from "../../domain/types";
+import { ID, Planet, Spaceship } from "../domain/types";
 
 // TODO move baseurl to config
 const API_BASE_URL = "http://localhost:3001/api/";
 
 // Define a service using a base URL and expected endpoints
-export const spaceshipApi = createApi({
-  reducerPath: "spaceshipApi",
+export const apiSlice = createApi({
+  reducerPath: "apiSlice",
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
-  tagTypes: ["Spaceships"],
+  tagTypes: ["Spaceships", "Planets"],
   endpoints: (builder) => ({
     getSpaceships: builder.query<Array<Spaceship>, void>({
       query: () => `spaceships`,
@@ -51,6 +51,46 @@ export const spaceshipApi = createApi({
       },
       invalidatesTags: ["Spaceships"],
     }),
+    getPlanets: builder.query<Array<Planet>, void>({
+      query: () => `planets`,
+      providesTags: ["Planets"],
+    }),
+    getPlanetsByName: builder.query<Planet, string>({
+      query: (name) => `planets/?name=${name}`,
+    }),
+    getPlanetById: builder.query<Planet, string>({
+      query: (id) => `planets/${id}`,
+    }),
+    deletePlanet: builder.mutation<{ success: boolean; id: ID }, string>({
+      query(id) {
+        return {
+          url: `planets/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["Planets", "Spaceships"],
+    }),
+    postPlanet: builder.mutation<Planet, Partial<Planet>>({
+      query(body) {
+        return {
+          url: `planets`,
+          method: "POST",
+          body,
+        };
+      },
+      invalidatesTags: ["Planets", "Spaceships"],
+    }),
+    putPlanet: builder.mutation<Planet, Partial<Planet>>({
+      query(data) {
+        const { id, ...body } = data;
+        return {
+          url: `planets/${id}`,
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: ["Planets", "Spaceships"],
+    }),
   }),
 });
 
@@ -62,4 +102,10 @@ export const {
   useGetSpaceshipsQuery,
   usePostSpaceshipMutation,
   usePutSpaceshipMutation,
-} = spaceshipApi;
+
+  useDeletePlanetMutation,
+  useGetPlanetByIdQuery,
+  useGetPlanetsQuery,
+  usePostPlanetMutation,
+  usePutPlanetMutation,
+} = apiSlice;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal } from "@vismaux/react-nc4";
 //
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../../hooks";
 //
 import { ModalTypes, selectModalState } from "./modalSlice";
 import { ConfirmView } from "./ConfirmView";

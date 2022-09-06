@@ -10,7 +10,7 @@ export const HomeView = () => (
         {"which is probably less common"}
       </li>
       <li>
-        <Link to={"/planets"}>{"an online relational feature (planets)"}</Link>
+        <Link to={"/planet"}>{"an online relational feature (planets)"}</Link>
       </li>
       <li>
         <Link to={"/spaceship"}>

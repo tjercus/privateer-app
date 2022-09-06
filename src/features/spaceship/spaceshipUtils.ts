@@ -5,7 +5,7 @@ export const createSpaceship = (spaceship: Spaceship = {} as Spaceship) => {
   const newSpaceship: Spaceship = {
     armour: 0,
     id: "",
-    landedOn: "",
+    landedOnId: "",
     name: "",
     type: SpaceshipType.NONE,
     weapons: [],
@@ -13,6 +13,7 @@ export const createSpaceship = (spaceship: Spaceship = {} as Spaceship) => {
   if (hasValue(spaceship.name)) {
     newSpaceship.name = spaceship.name;
   }
+  // TODO etc.
 
   return newSpaceship;
 };

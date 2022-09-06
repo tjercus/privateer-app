@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { NoData } from "@vismaux/react-nc4";
+import * as React from "react";
+import { useEffect, useState } from "react";
 //
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch } from "../../hooks";
 import { ID } from "../../domain/types";
-import { hasValue } from "../../common/utils";
+import {
+  useDeletePlanetMutation,
+  useGetPlanetsQuery,
+} from "../../common/apiSlice";
 import {
   closeModal,
   configureModal,
@@ -11,13 +14,13 @@ import {
   openModal,
 } from "../modal/modalSlice";
 //
-import { deletePlanet, selectPlanets } from "./planetSlice";
 import { PlanetListView } from "./PlanetListView";
 
 export const PlanetListContainer = () => {
   const dispatch = useAppDispatch();
-  const planets = useAppSelector(selectPlanets);
-  const [localPlanetId, setLocalPlanetId] = useState("");
+  const { data, error, isLoading } = useGetPlanetsQuery();
+  const [localPlanetId, setLocalSpaceShipId] = useState("");
+  const [deletePlanet] = useDeletePlanetMutation();
 
   useEffect(() => {
     dispatch(
@@ -26,30 +29,30 @@ export const PlanetListContainer = () => {
           dispatch(closeModal());
         },
         handleConfirmEvent: () => {
-          dispatch(deletePlanet(localPlanetId));
+          deletePlanet(localPlanetId);
           dispatch(closeModal());
         },
         title: "Are you sure?",
         modalType: ModalTypes.CONFIRM,
       })
     );
-  }, [dispatch, localPlanetId]);
+  }, [deletePlanet, dispatch, localPlanetId]);
 
   /**
    * When the user clicks on the trashcan icon and has not confirmed deletion yet
    */
   const handleDeleteButtonClick = (planetId: ID) => {
     console.log("delete id", planetId);
-    setLocalPlanetId(planetId);
+    setLocalSpaceShipId(planetId);
     dispatch(openModal());
   };
 
-  return hasValue(planets.length) ? (
+  return (
     <PlanetListView
+      error={error}
       eventHandlers={{ handleDeleteButtonClick }}
-      planets={planets}
+      isLoading={isLoading}
+      planets={data}
     />
-  ) : (
-    <NoData title={"No data"} description={"There are no planets"} />
   );
 };

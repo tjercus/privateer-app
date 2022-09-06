@@ -2,11 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 //
 import { ID, Spaceship, SpaceshipSchema } from "../../domain/types";
-//
 import {
+  useGetPlanetsQuery,
   useGetSpaceshipByIdQuery,
   usePutSpaceshipMutation,
-} from "./spaceshipApi";
+} from "../../common/apiSlice";
+//
 import { SpaceshipFormView } from "./SpaceshipFormView";
 
 interface Props {
@@ -16,8 +17,8 @@ interface Props {
 export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
   const navigate = useNavigate();
   //
-  const { data, error, isFetching, isLoading } =
-    useGetSpaceshipByIdQuery(spaceshipId);
+  const getPlanetsQuery = useGetPlanetsQuery();
+  const { data } = useGetSpaceshipByIdQuery(spaceshipId);
 
   const [putSpaceship] = usePutSpaceshipMutation();
 
@@ -33,5 +34,11 @@ export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
     }
   };
 
-  return <SpaceshipFormView handleSaveForm={handleSaveForm} spaceship={data} />;
+  return (
+    <SpaceshipFormView
+      handleSaveForm={handleSaveForm}
+      spaceship={data}
+      planets={getPlanetsQuery.data ?? []}
+    />
+  );
 };

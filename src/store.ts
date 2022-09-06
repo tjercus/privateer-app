@@ -1,17 +1,15 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 // import { setupListeners } from '@reduxjs/toolkit/query/react'
 //
-import hardwareReducer from "../features/hardware/hardwareSlice";
-import modalReducer from "../features/modal/modalSlice";
-import planetReducer from "../features/planet/planetSlice";
-import { spaceshipApi } from "../features/spaceship/spaceshipApi";
+import hardwareReducer from "./features/hardware/hardwareSlice";
+import modalReducer from "./features/modal/modalSlice";
+import { apiSlice } from "./common/apiSlice";
 
 export const store = configureStore({
   reducer: {
     hardware: hardwareReducer,
     modal: modalReducer,
-    planet: planetReducer,
-    [spaceshipApi.reducerPath]: spaceshipApi.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -24,7 +22,7 @@ export const store = configureStore({
           "modal.modalConfig.handleConfirmEvent",
         ],
       },
-    }).concat(spaceshipApi.middleware),
+    }).concat(apiSlice.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

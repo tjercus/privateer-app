@@ -24,7 +24,7 @@ export const SpaceshipRowView = ({ events, isLoading, spaceship }: Props) =>
           {spaceship.name}
         </Link>
       </td>
-      <td>{spaceship.landedOn}</td>
+      <td>{spaceship.landedOnPlanet?.name}</td>
       <td>{spaceship.type}</td>
       <td>{spaceship.armour}</td>
       <td>{spaceship.weapons.toString()}</td>
@@ -33,7 +33,7 @@ export const SpaceshipRowView = ({ events, isLoading, spaceship }: Props) =>
           data-test={"btn-delete-spaceship"}
           onClick={() => events.handleDeleteButtonClick(spaceship.id)}
         >
-          <Icon name="trash" size="lg" /> {"Delete"}
+          <Icon name="vismaicon vismaicon-trash" size="lg" /> {"Delete"}
         </button>
       </td>
     </TableRow>

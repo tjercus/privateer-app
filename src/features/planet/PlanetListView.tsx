@@ -1,56 +1,60 @@
 import React from "react";
-import { ID, Planet } from "../../domain/types";
 import { Link } from "react-router-dom";
-import { Icon, Table, TableRow } from "@vismaux/react-nc4";
+import { Table } from "@vismaux/react-nc4";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { SerializedError } from "@reduxjs/toolkit";
+//
+import { hasValue } from "../../common/utils";
+import { ID, Planet } from "../../domain/types";
+//
+import { PlanetRowView } from "./PlanetRowView";
 
 interface Props {
-  eventHandlers: { handleDeleteButtonClick: (planetId: ID) => void };
-  planets: Array<Planet>;
+  error: FetchBaseQueryError | SerializedError | undefined; // TODO extract type
+  eventHandlers: { handleDeleteButtonClick: (planetId: ID) => void }; // TODO extract TYPE
+  isLoading: boolean;
+  planets?: Array<Planet>;
 }
 
-export const PlanetListView = ({ eventHandlers, planets }: Props) => (
-  <article>
-    <h1>Planets</h1>
-    <Table data-test={"table-list-planet"}>
-      <thead>
-        <tr>
-          <th>{"Name"}</th>
-          <th>{"Coordinates"}</th>
-          <th>{"Actions"}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {planets.map((planet) => (
-          <TableRow key={planet.name}>
-            <td>
-              <Link data-test={"link-planet"} to={`/planet/edit/${planet.id}`}>
-                {planet.name}
-              </Link>
-            </td>
-            <td>
-              {planet.coordinates.lat} {"by"} {planet.coordinates.long}
-            </td>
-            <td>
-              <button
-                data-test={"btn-delete-planet"}
-                onClick={() => eventHandlers.handleDeleteButtonClick(planet.id)}
-              >
-                <Icon name="trash" size="lg" /> {"Delete"}
-              </button>
-            </td>
-          </TableRow>
-        ))}
-      </tbody>
-    </Table>
+export const PlanetListView = ({
+  error,
+  eventHandlers,
+  isLoading,
+  planets,
+}: Props) =>
+  hasValue(error) ? (
+    <div>{"There was an error fetching the list of planets"}</div>
+  ) : (
+    <article>
+      <h1>{"Planets"}</h1>
+      <Table data-test={"table-list-planet"}>
+        <thead>
+          <tr>
+            <th>{"Name"}</th>
+            <th>{"Coordinates"}</th>
+            <th>{"Actions"}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {planets?.map((planet) => (
+            <PlanetRowView
+              events={eventHandlers}
+              isLoading={isLoading}
+              key={planet.id}
+              planet={planet}
+            />
+          ))}
+        </tbody>
+      </Table>
 
-    <Link to={"/planet/create"}>
-      <button
-        type="button"
-        className="btn btn-primary"
-        data-test={"btn-add-planet"}
-      >
-        {"Add a planet"}
-      </button>
-    </Link>
-  </article>
-);
+      <Link to={"/planet/create"}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          data-test={"btn-add-planet"}
+        >
+          {"Add a planet"}
+        </button>
+      </Link>
+    </article>
+  );

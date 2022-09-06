@@ -33,7 +33,7 @@ export enum SpaceshipType {
   TARSUS = "Tarsus",
 }
 
-enum Weapon {
+export enum Weapon {
   LASER = "Laser",
   MASS_DRIVER = "Mass Driver",
   MESON_BLASTER = "Meson Blaster",
@@ -52,8 +52,9 @@ export type MaybePlanet = z.infer<typeof MaybePlanetSchema>;
 export const SpaceshipSchema = z.object({
   armour: ArmourLevelSchema,
   id: IDSchema,
-  // landedOn: MaybePlanetSchema, // TODO figure out how to do Maybe<Planet> more elegantly
-  landedOn: IDSchema,
+  // landedOnPlanet: MaybePlanetSchema, // TODO figure out how to do Maybe<Planet> more elegantly
+  landedOnId: IDSchema,
+  landedOnPlanet: PlanetSchema.optional(),
   name: NameSchema,
   type: z.nativeEnum(SpaceshipType),
   weapons: z.array(z.nativeEnum(Weapon)),

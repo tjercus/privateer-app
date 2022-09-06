@@ -4,7 +4,7 @@ import { find } from "ramda";
 //
 import { byId } from "../../common/utils";
 import { ID } from "../../domain/types";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 //
 import { HardwareFormView } from "./HardwareFormView";
 import { saveHardware, selectHardwares } from "./hardwareSlice";

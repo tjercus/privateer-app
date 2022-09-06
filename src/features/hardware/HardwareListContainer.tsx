@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NoData } from "@vismaux/react-nc4";
 //
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { ID } from "../../domain/types";
 import { hasValue } from "../../common/utils";
 import {
