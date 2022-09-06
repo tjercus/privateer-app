@@ -4,10 +4,14 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
--
+- use Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
 - tweak mock-routes to remove from server collection on delete etc.
-- introduce a left menu
+- upgrade to create-vite
+- i18n
+- upgrade nc4 to vud (and fix icon buttons)
+- add Cypress tests
 - check html validity
+
 - extract EnumSelect jsx fn
 - extract Select React component
 - Ramda cond for view loading
@@ -15,24 +19,18 @@ Practise ground for react CRUD app with some common default components
 - replace lastUrlSegment with router hook
 - check incoming list of spaceships with Zod
 - add lastModifiedAt attributes
-- use Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
-- add Cypress tests
 - from static button to animated one
 - WCAG 2.1
-- fix icon buttons
-- upgrade nc4 to vud
 - custom useBoolean hook when needed
 - fix enter keyboard for cancel button
-- i18n
-- find out if the view layer can work with only Maybe's instead of nullable
-- upgrade to create-vite
-- import sorter plugin for prettier?
 
 ### nice to have
 
 - try with generic table component as in the article below
 - RBAC
 - where to assemble the domain, on the app or the server?
+- import sorter plugin for prettier?
+- find out if the view layer can work with only Maybe's instead of nullable
 
 ### blocked by current react-nc4 version
 

@@ -58,8 +58,6 @@ export const PlanetFormView = ({
     handleSaveForm(localPlanet);
   };
 
-  console.log("PlanetFormView", localPlanet);
-
   return (
     <form className="form-horizontal" data-test={"form-planet"}>
       <h2>{"Planet Form View"}</h2>

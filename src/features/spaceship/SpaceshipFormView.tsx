@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { concat, equals, includes, without } from "ramda";
+import { equals, includes } from "ramda";
+import {SafeParseReturnType} from "zod/lib/types";
 //
 import { hasValue, updateArray } from "../../common/utils";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
 //
 import { createSpaceship } from "./spaceshipUtils";
 
-type spaceshipKey = keyof Spaceship;
-
 interface Props {
   handleSaveForm: (spaceship: Spaceship) => void;
   planets: Array<Planet>;
   spaceship?: Spaceship;
+  validationResult: SafeParseReturnType<any, any>; // TODO replace any
 }
 
 export const SpaceshipFormView = ({
@@ -30,6 +30,9 @@ export const SpaceshipFormView = ({
     }
   }, [spaceship, localSpaceship]);
 
+  /**
+   * Handles changes in text and number fields
+   */
   const handleInputChange = (
     evt:
       | React.ChangeEvent<HTMLInputElement>
@@ -37,15 +40,16 @@ export const SpaceshipFormView = ({
   ) => {
     const htmlFieldName = evt.target.name;
     const htmlFieldType = evt.target.type;
+    const value = evt.target.value;
     setLocalSpaceship({
       ...localSpaceship,
-      [htmlFieldName]:
-        htmlFieldType === "number"
-          ? Number(evt.target.value)
-          : evt.target.value,
+      [htmlFieldName]: htmlFieldType === "number" ? Number(value) : value,
     });
   };
 
+  /**
+   * Handles changes in checkbox groups
+   */
   const handleCheckboxGroupItemChange = (
     evt: React.ChangeEvent<HTMLInputElement>
   ) => {

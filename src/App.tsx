@@ -23,7 +23,7 @@ const App = () => {
     <>
       <ModalContainer />
       <HeaderView />
-      <main className="container-fluid content-holder" id="content-holder">
+      <main className="container content-holder" id="content-holder">
         <Routes>
           <Route index element={<HomeView />} />
 
