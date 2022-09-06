@@ -16,10 +16,5 @@
       "post-planet:success",
       "delete-planet:success"
     ]
-  },
-  {
-    "id": "spaceship-real",
-    "from": "base",
-    "routes": ["get-spaceship:real", "get-planet:real"]
   }
 ]

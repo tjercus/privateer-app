@@ -1,4 +1,4 @@
-// For a detailed explanation regarding each routes property, visit:
+// For a detailed explanation regarding each route property, visit:
 // https://mocks-server.org/docs/usage/routes
 
 const planets = require("../fixtures/planet-data").planets;
@@ -37,22 +37,6 @@ module.exports = [
     variants: [
       {
         id: "success", // variant id
-        type: "json", // variant handler id
-        options: {
-          status: 200,
-          body: planets[0], // note that the :id is not used
-        },
-      },
-      {
-        id: "b080187c-ec6a-48b8-88fd-1cf8b80a92b7", // variant id
-        type: "json", // variant handler id
-        options: {
-          status: 200, // status to send
-          body: planets[2], // body to send
-        },
-      },
-      {
-        id: "real", // variant id
         type: "middleware", // variant handler id
         options: {
           // Express middleware to execute
@@ -115,6 +99,12 @@ module.exports = [
         type: "status", // variant type
         options: {
           status: 201,
+        }, // Express middleware to execute
+        middleware: (req, res) => {
+          const planet = req.body;
+          planets.push(planet);
+          res.status(201);
+          res.send(planet);
         },
       },
     ],

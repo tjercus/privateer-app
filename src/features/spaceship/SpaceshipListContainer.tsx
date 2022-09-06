@@ -24,6 +24,8 @@ export const SpaceshipListContainer = () => {
   const getPlanetsQuery = useGetPlanetsQuery();
   // note that the result from the query is modified with the result of another
   const getSpaceshipsQuery = useGetSpaceshipsQuery(undefined, {
+    // TODO extract selector like in:
+    // https://redux.js.org/tutorials/essentials/part-8-rtk-query-advanced#selecting-values-from-results
     selectFromResult: ({ data = [], error, isLoading }) => ({
       data: data.map((spaceship) => ({
         ...spaceship,

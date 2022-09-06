@@ -1,4 +1,4 @@
-// For a detailed explanation regarding each routes property, visit:
+// For a detailed explanation regarding each route property, visit:
 // https://mocks-server.org/docs/usage/routes
 
 const spaceships = require("../fixtures/spaceship-data").spaceships;
@@ -115,6 +115,12 @@ module.exports = [
         type: "status", // variant type
         options: {
           status: 201,
+        }, // Express middleware to execute
+        middleware: (req, res) => {
+          const spaceship = req.body;
+          spaceships.push(spaceship);
+          res.status(201);
+          res.send(spaceship);
         },
       },
     ],
