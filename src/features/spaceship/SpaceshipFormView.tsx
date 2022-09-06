@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {equals, includes} from "ramda";
+import { concat, equals, includes, without } from "ramda";
 //
-import { hasValue } from "../../common/utils";
-import {Planet, Spaceship, SpaceshipType, Weapon} from "../../domain/types";
+import { hasValue, updateArray } from "../../common/utils";
+import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
 //
 import { createSpaceship } from "./spaceshipUtils";
+
+type spaceshipKey = keyof Spaceship;
 
 interface Props {
   handleSaveForm: (spaceship: Spaceship) => void;
@@ -41,6 +43,18 @@ export const SpaceshipFormView = ({
         htmlFieldType === "number"
           ? Number(evt.target.value)
           : evt.target.value,
+    });
+  };
+
+  const handleCheckboxGroupItemChange = (
+    evt: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = evt.target.value;
+    const arr = localSpaceship.weapons;
+    const updatedArr = updateArray<Weapon>(arr, value);
+    setLocalSpaceship({
+      ...localSpaceship,
+      weapons: updatedArr,
     });
   };
 
@@ -139,12 +153,19 @@ export const SpaceshipFormView = ({
         </label>
         <div className="col-sm-9">
           <ul>
-          {Object.values(Weapon).map((weapon) => (
-            <li className="checkbox">
-              <input checked={includes(weapon, localSpaceship.weapons)} id={`checkbox-${weapon}`} type="checkbox" />
-              <label htmlFor={`checkbox-${weapon}`}>{weapon}</label>
-            </li>
-          ))}
+            {Object.values(Weapon).map((weapon) => (
+              <li className="checkbox" key={weapon}>
+                <input
+                  checked={includes(weapon, localSpaceship.weapons)}
+                  id={`checkbox-${weapon}`}
+                  name={`${weapon}`}
+                  onChange={handleCheckboxGroupItemChange}
+                  type="checkbox"
+                  value={`${weapon}`}
+                />
+                <label htmlFor={`checkbox-${weapon}`}>{weapon}</label>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

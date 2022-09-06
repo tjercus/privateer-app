@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { find } from "ramda";
 //
 import { useAppDispatch } from "../../hooks";
-import { ID, Planet, Spaceship } from "../../domain/types";
+import { ID } from "../../domain/types";
 //
 import {
   useDeleteSpaceshipMutation,
@@ -18,10 +17,7 @@ import {
 } from "../modal/modalSlice";
 //
 import { SpaceshipListView } from "./SpaceshipListView";
-import { byId } from "../../common/utils";
-
-const findPlanetForSpaceship = (spaceship: Spaceship, planets: Array<Planet>) =>
-  find(byId(spaceship.landedOnId), planets);
+import { findPlanetForSpaceship } from "./spaceshipUtils";
 
 export const SpaceshipListContainer = () => {
   const dispatch = useAppDispatch();

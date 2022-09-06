@@ -5,7 +5,7 @@ import { equals } from "ramda";
 import { hasValue } from "../../common/utils";
 //
 import { createHardware } from "./hardwareUtils";
-import { Hardware } from "./hardwareTypes";
+import { Hardware, HardwareType } from "./hardwareTypes";
 
 interface Props {
   handleSaveForm: (hardware: Hardware) => void;
@@ -70,7 +70,11 @@ export const HardwareFormView = ({ handleSaveForm, hardware }: Props) => {
             onChange={handleInputChange}
             value={localHardware.type}
           >
-            {}
+            {Object.values(HardwareType).map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
           </select>
         </div>
       </div>

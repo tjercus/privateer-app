@@ -4,13 +4,12 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
-- implement hardware type as a select
-- extract EnumSelect jsx fn
-- introduce a left menu
-- where to assemble the domain, on the app or the server?
-- check html validity
+-
 - tweak mock-routes to remove from server collection on delete etc.
-
+- introduce a left menu
+- check html validity
+- extract EnumSelect jsx fn
+- extract Select React component
 - Ramda cond for view loading
 - put route strings in constants?
 - replace lastUrlSegment with router hook
@@ -33,6 +32,7 @@ Practise ground for react CRUD app with some common default components
 
 - try with generic table component as in the article below
 - RBAC
+- where to assemble the domain, on the app or the server?
 
 ### blocked by current react-nc4 version
 
