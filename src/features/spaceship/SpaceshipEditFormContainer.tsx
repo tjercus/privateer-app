@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SafeParseReturnType } from "zod/lib/types";
 //
 import { ID, Spaceship, SpaceshipSchema } from "../../domain/types";
 import {
@@ -9,7 +10,6 @@ import {
 } from "../../common/apiSlice";
 //
 import { SpaceshipFormView } from "./SpaceshipFormView";
-import {SafeParseReturnType} from "zod/lib/types";
 
 interface Props {
   spaceshipId: ID;
@@ -21,7 +21,9 @@ export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
   const getPlanetsQuery = useGetPlanetsQuery();
   const { data } = useGetSpaceshipByIdQuery(spaceshipId);
   const [putSpaceship] = usePutSpaceshipMutation();
-  const [localValidationResult, setLocalValidationResult] = useState({} as SafeParseReturnType<any, any>);
+  const [localValidationResult, setLocalValidationResult] = useState(
+    {} as SafeParseReturnType<any, any>
+  );
 
   const handleSaveForm = (localSpaceship: Spaceship) => {
     console.log("handling saving edit spaceship", localSpaceship);
@@ -32,7 +34,6 @@ export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
     } else {
       // inline feedback as per Visma ux
       setLocalValidationResult(validationResult);
-      // alert(`That is a shame! ${validationResult.error}`);
     }
   };
 

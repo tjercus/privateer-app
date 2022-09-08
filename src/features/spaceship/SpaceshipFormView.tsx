@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { equals, includes } from "ramda";
-import {SafeParseReturnType} from "zod/lib/types";
+import { Alert } from "@vismaux/react-nc4";
+import { SafeParseReturnType } from "zod/lib/types";
 //
 import { hasValue, updateArray } from "../../common/utils";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
@@ -16,9 +17,12 @@ interface Props {
 }
 
 export const SpaceshipFormView = ({
-  handleSaveForm = () => {},
+  handleSaveForm = () => {
+    /* empty fn body */
+  },
   planets = [],
   spaceship = createSpaceship(),
+  validationResult = { data: {}, success: true },
 }: Props) => {
   const [localSpaceship, setLocalSpaceship] = useState(createSpaceship());
 
@@ -64,12 +68,31 @@ export const SpaceshipFormView = ({
 
   const handleSaveButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
+    window?.scrollTo(0, 0);
     handleSaveForm(localSpaceship);
   };
 
   return (
     <form className="form-horizontal" data-test={"form-spaceship"}>
       <h2>{"Spaceship Form View"}</h2>
+
+      {/*TODO extract component and jump focus to top*/}
+      <Alert type="danger">
+        <ul>
+          {
+            !validationResult.success
+              ? validationResult.error?.issues.map((issue) => (
+                  <li key={issue.path[0] + issue.code}>
+                    {issue.path} is {issue.message}
+                  </li>
+                ))
+              : null /* React prefers null for no render */
+          }
+        </ul>
+      </Alert>
+
+      {/*<p>{validationResult.success ? "Success!" : pluck("path", validationResult?.error.issues)}</p>*/}
+
       <div className="form-group">
         <label className="col-sm-3 control-label" htmlFor="input-name">
           {"Name"}

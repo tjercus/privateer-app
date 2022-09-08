@@ -5,6 +5,7 @@ Practise ground for react CRUD app with some common default components
 ## TODO
 
 - use Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
+- Add a required star next to form fields
 - tweak mock-routes to remove from server collection on delete etc.
 - upgrade to create-vite
 - i18n
@@ -26,6 +27,9 @@ Practise ground for react CRUD app with some common default components
 
 ### nice to have
 
+- wrap validationResult in a ADT
+- Zod: use Zod TypeScript types instead of own types
+- Zod: perhaps use 'zorm' as Form lib to integrate better with Zod
 - try with generic table component as in the article below
 - RBAC
 - where to assemble the domain, on the app or the server?
@@ -42,6 +46,7 @@ Practise ground for react CRUD app with some common default components
 - https://www.robinwieruch.de/react-router-nested-routes/
 - https://fernandoabolafio.medium.com/generic-table-component-with-react-and-typescript-d849ad9f4c48
 - https://www.mocks-server.org/
+- https://timdeschryver.dev/blog/why-we-should-verify-http-response-bodies-and-why-we-should-use-zod-for-this?
 
 ### example domain
 

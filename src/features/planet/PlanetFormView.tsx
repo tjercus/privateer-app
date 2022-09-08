@@ -13,7 +13,9 @@ interface Props {
 }
 
 export const PlanetFormView = ({
-  handleSaveForm = () => {},
+  handleSaveForm = () => {
+    /* empty fn body */
+  },
   planet = createPlanet(),
 }: Props) => {
   const [localPlanet, setLocalPlanet] = useState(createPlanet());
