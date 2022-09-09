@@ -1,28 +1,12 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-// TODO move them in a JSON file and import them or use REST
+import languageEnglish from "./i18n/translations-en.json";
+import languageFrench from "./i18n/translations-fr.json";
+
 const resources = {
-  en: {
-    translation: {
-      "home.header": "Backoffice home",
-      "home.intro": "There are two flavours to try",
-      "home.link1": "an offline feature, which is probably less common",
-      "home.link2": "an online relational feature (planets)",
-      "home.link3": "an online relational feature (spaceships)",
-    },
-  },
-  fr: {
-    translation: {
-      "home.header": "La maison de bureau-arrière",
-      "home.intro": "Il y a deux saveurs à essayer",
-      "home.link1":
-        "une fonctionnalité hors ligne, qui est probablement moins courante",
-      "home.link2": "une fonctionnalité relationnelle en ligne (planètes)",
-      "home.link3":
-        "une fonctionnalité relationnelle en ligne (vaisseaux spatiaux)",
-    },
-  },
+  en: languageEnglish,
+  fr: languageFrench
 };
 
 i18n
