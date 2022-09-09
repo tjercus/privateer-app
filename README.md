@@ -2,6 +2,15 @@
 
 Practise ground for react CRUD app with some common default components
 
+## features
+
+- one offline slice, works with a normal Redux Toolkit slice (in-memory Redux store)
+- two related and connected online slices which connect with a mocked REST back-end.
+  The slices are connected to the REST back-end with RTK-Query. They contain related data.
+- Visma UI look-and-feel
+- Form validation with Zod
+- i18n
+
 ## TODO
 
 - i18n

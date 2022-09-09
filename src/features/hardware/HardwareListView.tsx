@@ -38,6 +38,7 @@ export const HardwareListView = ({ eventHandlers, hardwares }: Props) => (
             <td>{hardware.cost}</td>
             <td>
               <button
+                className="btn"
                 data-test={"btn-delete-hardware"}
                 onClick={() =>
                   eventHandlers.handleDeleteButtonClick(hardware.id)
