@@ -9,9 +9,6 @@ export const HomeView = () => {
       <p>{t("home.intro")}</p>
       <ol>
         <li>
-          <Link to={"/hardware"}>{t("home.link1")}</Link>
-        </li>
-        <li>
           <Link to={"/planet"}>{t("home.link2")}</Link>
         </li>
         <li>

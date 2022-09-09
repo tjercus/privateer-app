@@ -22,17 +22,6 @@ export const HeaderView = () => {
               {"Home"}
             </Link>
           </li>
-          <li className={"hardware" === noun ? "active" : ""} role="none">
-            <Link
-              aria-selected={"hardware" === noun}
-              className="nav-item"
-              data-test={"link-hardware"}
-              role="menuitem"
-              to={"/hardware"}
-            >
-              {"Hardware"}
-            </Link>
-          </li>
           <li className={"planet" === noun ? "active" : ""} role="none">
             <Link
               aria-selected={"planet" === noun}

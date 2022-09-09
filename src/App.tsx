@@ -10,8 +10,6 @@ import { SpaceshipListContainer } from "./features/spaceship/SpaceshipListContai
 import { HomeView } from "./features/other/HomeView";
 import { SpaceshipEditFormContainer } from "./features/spaceship/SpaceshipEditFormContainer";
 import { SpaceshipCreateFormContainer } from "./features/spaceship/SpaceshipCreateFormContainer";
-import { HardwareListContainer } from "./features/hardware/HardwareListContainer";
-import { HardwareFormContainer } from "./features/hardware/HardwareFormContainer";
 import { PlanetEditFormContainer } from "./features/planet/PlanetEditFormContainer";
 import { PlanetCreateFormContainer } from "./features/planet/PlanetCreateFormContainer";
 
@@ -26,14 +24,6 @@ const App = () => {
       <main className="container content-holder" id="content-holder">
         <Routes>
           <Route index element={<HomeView />} />
-
-          {/* hardware */}
-          <Route path="/hardware" element={<HardwareListContainer />} />
-          <Route path="/hardware/create" element={<HardwareFormContainer />} />
-          <Route
-            path="/hardware/edit/:hardwareId"
-            element={<HardwareFormContainer hardwareId={urlId} />}
-          />
 
           {/* planet */}
           <Route path="/planet" element={<PlanetListContainer />} />

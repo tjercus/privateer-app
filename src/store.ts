@@ -1,13 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 // import { setupListeners } from '@reduxjs/toolkit/query/react'
 //
-import hardwareReducer from "./features/hardware/hardwareSlice";
 import modalReducer from "./features/modal/modalSlice";
 import { apiSlice } from "./common/apiSlice";
 
 export const store = configureStore({
   reducer: {
-    hardware: hardwareReducer,
     modal: modalReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
