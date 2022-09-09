@@ -5,23 +5,20 @@ Practise ground for react CRUD app with some common default components
 ## features
 
 - one offline slice, works with a normal Redux Toolkit slice (in-memory Redux store)
-- two related and connected online slices which connect with a mocked REST back-end.
-  The slices are connected to the REST back-end with RTK-Query. They contain related data.
+- two related and connected online slices which connect with a mocked REST back-end
+  The slices are connected to the REST back-end with RTK-Query. They contain related data
 - Visma UI look-and-feel
 - Form validation with Zod
 - i18n
 
 ## TODO
 
-- i18n
 - tweak mock-routes to remove from server collection on delete etc. (in-memory db?)
-
 - upgrade to create-vite
 - upgrade nc4 to vud (and fix icon buttons)
 - add unit tests
 - add Cypress tests
 - check html validity
-
 - Ramda cond for view loading
 - put route strings in constants?
 - replace lastUrlSegment with router hook
