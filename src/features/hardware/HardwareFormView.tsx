@@ -6,6 +6,7 @@ import { hasValue } from "../../common/utils";
 //
 import { createHardware } from "./hardwareUtils";
 import { Hardware, HardwareType } from "./hardwareTypes";
+import { createStringsOptionList } from "../../common/components/OptionLists";
 
 interface Props {
   handleSaveForm: (hardware: Hardware) => void;
@@ -70,11 +71,7 @@ export const HardwareFormView = ({ handleSaveForm, hardware }: Props) => {
             onChange={handleInputChange}
             value={localHardware.type}
           >
-            {Object.values(HardwareType).map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
+            {createStringsOptionList<HardwareType>(Object.values(HardwareType))}
           </select>
         </div>
       </div>

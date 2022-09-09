@@ -5,16 +5,14 @@ Practise ground for react CRUD app with some common default components
 ## TODO
 
 - i18n
-- fix icon buttons
 - tweak mock-routes to remove from server collection on delete etc. (in-memory db?)
 
 - upgrade to create-vite
 - upgrade nc4 to vud (and fix icon buttons)
+- add unit tests
 - add Cypress tests
 - check html validity
 
-- extract EnumSelect jsx fn
-- extract Select React component
 - Ramda cond for view loading
 - put route strings in constants?
 - replace lastUrlSegment with router hook

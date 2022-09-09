@@ -9,6 +9,10 @@ import {
   updateArray,
 } from "../../common/utils";
 import ValidationErrorsList from "../../common/components/ValidationErrorsList";
+import {
+  createObjectsOptionList,
+  createStringsOptionList,
+} from "../../common/components/OptionLists";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
 //
 import { createSpaceship } from "./spaceshipUtils";
@@ -112,12 +116,8 @@ export const SpaceshipFormView = ({
             onChange={handleInputChange}
             value={localSpaceship.landedOnId}
           >
-            <option value={""}>{"None"}</option>
-            {planets.map((planet) => (
-              <option key={planet.id} value={planet.id}>
-                {planet.name}
-              </option>
-            ))}
+            <option value={""}>{""}</option>
+            {createObjectsOptionList(planets)}
           </select>
         </div>
       </div>
@@ -153,11 +153,9 @@ export const SpaceshipFormView = ({
             onChange={handleInputChange}
             value={localSpaceship.type}
           >
-            {Object.values(SpaceshipType).map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
+            {createStringsOptionList<SpaceshipType>(
+              Object.values(SpaceshipType)
+            )}
           </select>
         </div>
       </div>
