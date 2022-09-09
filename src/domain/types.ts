@@ -3,6 +3,7 @@ import { Maybe } from "purify-ts";
 
 export const NameSchema = z.string().min(3);
 export const IDSchema = z.string().min(3).uuid().default("");
+export type ID = z.infer<typeof IDSchema>;
 
 export const CoordinatesSchema = z.object({
   lat: z.number(),
@@ -10,8 +11,6 @@ export const CoordinatesSchema = z.object({
 });
 
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
-
-export type ID = z.infer<typeof IDSchema>;
 
 export const ZERO_COORD: Coordinates = { lat: 0, long: 0 };
 

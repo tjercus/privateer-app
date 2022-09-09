@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 //
 import { ID, Planet, PlanetSchema } from "../../domain/types";
@@ -8,6 +8,7 @@ import {
 } from "../../common/apiSlice";
 //
 import { PlanetFormView } from "./PlanetFormView";
+import { SafeParseReturnType } from "zod/lib/types";
 
 interface Props {
   planetId: ID;
@@ -16,10 +17,11 @@ interface Props {
 export const PlanetEditFormContainer = ({ planetId }: Props) => {
   const navigate = useNavigate();
   //
-  const { data, error, isFetching, isLoading } =
-    useGetPlanetByIdQuery(planetId);
-
+  const { data } = useGetPlanetByIdQuery(planetId);
   const [putPlanet] = usePutPlanetMutation();
+  const [localValidationResult, setLocalValidationResult] = useState(
+    {} as SafeParseReturnType<any, any>
+  );
 
   const handleSaveForm = (localPlanet: Planet) => {
     console.log("handling saving edit planet", localPlanet);
@@ -28,10 +30,16 @@ export const PlanetEditFormContainer = ({ planetId }: Props) => {
       putPlanet(localPlanet);
       navigate("/planet");
     } else {
-      // TODO inline feedback as per Visma ux
-      alert(`That is a shame! ${validationResult.error}`);
+      // facilitate inline feedback as per Visma ux
+      setLocalValidationResult(validationResult);
     }
   };
 
-  return <PlanetFormView handleSaveForm={handleSaveForm} planet={data} />;
+  return (
+    <PlanetFormView
+      handleSaveForm={handleSaveForm}
+      planet={data}
+      validationResult={localValidationResult}
+    />
+  );
 };

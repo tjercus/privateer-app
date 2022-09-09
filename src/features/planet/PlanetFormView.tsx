@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { equals } from "ramda";
+import { SafeParseReturnType } from "zod/lib/types";
 //
-import { hasValue } from "../../common/utils";
+import { createValidationResult, hasValue } from "../../common/utils";
+import ValidationErrorsList from "../../common/components/ValidationErrorsList";
 import { Coordinates, Planet } from "../../domain/types";
 //
 import { createPlanet } from "./planetUtils";
@@ -10,6 +12,7 @@ import { createPlanet } from "./planetUtils";
 interface Props {
   handleSaveForm: (planet: Planet) => void;
   planet?: Planet;
+  validationResult: SafeParseReturnType<any, any>; // TODO replace any
 }
 
 export const PlanetFormView = ({
@@ -17,6 +20,7 @@ export const PlanetFormView = ({
     /* empty fn body */
   },
   planet = createPlanet(),
+  validationResult = createValidationResult(),
 }: Props) => {
   const [localPlanet, setLocalPlanet] = useState(createPlanet());
 
@@ -63,6 +67,9 @@ export const PlanetFormView = ({
   return (
     <form className="form-horizontal" data-test={"form-planet"}>
       <h2>{"Planet Form View"}</h2>
+
+      <ValidationErrorsList validationResult={validationResult} />
+
       <div className="form-group">
         <label className="col-sm-3 control-label" htmlFor="input-name">
           {"Name"}

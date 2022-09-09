@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import { SafeParseReturnType } from "zod/lib/types";
 //
 import { Planet, PlanetSchema } from "../../domain/types";
 import { usePostPlanetMutation } from "../../common/apiSlice";
@@ -11,6 +12,9 @@ export const PlanetCreateFormContainer = () => {
   const navigate = useNavigate();
 
   const [postPlanet] = usePostPlanetMutation();
+  const [localValidationResult, setLocalValidationResult] = useState(
+    {} as SafeParseReturnType<any, any>
+  );
 
   const handleSaveForm = (localPlanet: Planet) => {
     console.log("handling saving create planet", localPlanet);
@@ -20,10 +24,18 @@ export const PlanetCreateFormContainer = () => {
       postPlanet(localPlanet);
       navigate("/planet");
     } else {
-      // TODO inline feedback as per Visma ux
-      alert(`That is a shame! ${validationResult.error}`);
+      // facilitate inline feedback as per Visma ux
+      setLocalValidationResult(validationResult);
+
+      // for debugging an alert might be useful
+      // alert(`That is a shame! ${validationResult.error}`);
     }
   };
 
-  return <PlanetFormView handleSaveForm={handleSaveForm} />;
+  return (
+    <PlanetFormView
+      handleSaveForm={handleSaveForm}
+      validationResult={localValidationResult}
+    />
+  );
 };

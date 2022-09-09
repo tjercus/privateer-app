@@ -13,6 +13,7 @@ import {
   tail,
   without,
 } from "ramda";
+import { SafeParseReturnType } from "zod/lib/types";
 
 /**
  * Fastest way to deep clone an Object in JavaScript
@@ -76,3 +77,9 @@ export const firstUrlSegment = ifElse(isNil, always(""), pipe(identity, tail));
  */
 export const updateArray = <T>(arr: Array<T>, value: any) =>
   includes(value, arr) ? without([value], arr) : concat([value], arr);
+
+/**
+ * Make the identity (null) type for a validation result
+ */
+export const createValidationResult = () =>
+  ({ data: {}, success: true } as SafeParseReturnType<any, any>);

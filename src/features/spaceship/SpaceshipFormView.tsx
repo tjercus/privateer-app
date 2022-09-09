@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { equals, includes } from "ramda";
-import { Alert } from "@vismaux/react-nc4";
 import { SafeParseReturnType } from "zod/lib/types";
 //
-import { hasValue, updateArray } from "../../common/utils";
+import {
+  createValidationResult,
+  hasValue,
+  updateArray,
+} from "../../common/utils";
+import ValidationErrorsList from "../../common/components/ValidationErrorsList";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
 //
 import { createSpaceship } from "./spaceshipUtils";
@@ -22,14 +26,13 @@ export const SpaceshipFormView = ({
   },
   planets = [],
   spaceship = createSpaceship(),
-  validationResult = { data: {}, success: true },
+  validationResult = createValidationResult(),
 }: Props) => {
   const [localSpaceship, setLocalSpaceship] = useState(createSpaceship());
 
   useEffect(() => {
     if (hasValue(spaceship.id) && !equals(spaceship.id, localSpaceship.id)) {
       // copy the existing spaceship from props to state
-      console.log("SpaceshipFormView copying from props to state");
       setLocalSpaceship(spaceship);
     }
   }, [spaceship, localSpaceship]);
@@ -76,22 +79,7 @@ export const SpaceshipFormView = ({
     <form className="form-horizontal" data-test={"form-spaceship"}>
       <h2>{"Spaceship Form View"}</h2>
 
-      {/*TODO extract component and jump focus to top*/}
-      <Alert type="danger">
-        <ul>
-          {
-            !validationResult.success
-              ? validationResult.error?.issues.map((issue) => (
-                  <li key={issue.path[0] + issue.code}>
-                    {issue.path} is {issue.message}
-                  </li>
-                ))
-              : null /* React prefers null for no render */
-          }
-        </ul>
-      </Alert>
-
-      {/*<p>{validationResult.success ? "Success!" : pluck("path", validationResult?.error.issues)}</p>*/}
+      <ValidationErrorsList validationResult={validationResult} />
 
       <div className="form-group">
         <label className="col-sm-3 control-label" htmlFor="input-name">

@@ -32,7 +32,7 @@ export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
       putSpaceship(localSpaceship);
       navigate("/spaceship");
     } else {
-      // inline feedback as per Visma ux
+      // facilitate inline feedback as per Visma ux
       setLocalValidationResult(validationResult);
     }
   };

@@ -4,11 +4,11 @@ Practise ground for react CRUD app with some common default components
 
 ## TODO
 
-- use Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
-- Add a required star next to form fields
-- tweak mock-routes to remove from server collection on delete etc.
-- upgrade to create-vite
 - i18n
+- fix icon buttons
+- tweak mock-routes to remove from server collection on delete etc. (in-memory db?)
+
+- upgrade to create-vite
 - upgrade nc4 to vud (and fix icon buttons)
 - add Cypress tests
 - check html validity
@@ -18,22 +18,24 @@ Practise ground for react CRUD app with some common default components
 - Ramda cond for view loading
 - put route strings in constants?
 - replace lastUrlSegment with router hook
-- check incoming list of spaceships with Zod
-- add lastModifiedAt attributes
-- from static button to animated one
-- WCAG 2.1
+- check incoming data for spaceships/planets with Zod
+- add lastModifiedAt attributes for versioning
+- move from static button to animated one
+- WCAG 2.1 support
 - custom useBoolean hook when needed
 - fix enter keyboard for cancel button
 
 ### nice to have
 
+- use inline Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
+- Add a required star next to form fields
 - wrap validationResult in a ADT
 - Zod: use Zod TypeScript types instead of own types
 - Zod: perhaps use 'zorm' as Form lib to integrate better with Zod
 - try with generic table component as in the article below
 - RBAC
 - where to assemble the domain, on the app or the server?
-- import sorter plugin for prettier?
+- auto run the "import sorter plugin" for prettier?
 - find out if the view layer can work with only Maybe's instead of nullable
 
 ### blocked by current react-nc4 version

@@ -26,6 +26,7 @@ export const PlanetRowView = ({ events, isLoading, planet }: Props) =>
       </td>
       <td>
         <button
+          className={"btn"}
           data-test={"btn-delete-planet"}
           onClick={() => events.handleDeleteButtonClick(planet.id)}
         >

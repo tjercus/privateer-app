@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SafeParseReturnType } from "zod/lib/types";
 import { v4 as uuid } from "uuid";
+import { SafeParseReturnType } from "zod/lib/types";
 //
 import { Spaceship, SpaceshipSchema } from "../../domain/types";
 import {

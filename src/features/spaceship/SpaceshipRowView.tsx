@@ -30,6 +30,7 @@ export const SpaceshipRowView = ({ events, isLoading, spaceship }: Props) =>
       <td>{spaceship.weapons.toString()}</td>
       <td>
         <button
+          className={"btn"}
           data-test={"btn-delete-spaceship"}
           onClick={() => events.handleDeleteButtonClick(spaceship.id)}
         >
