@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { Maybe } from "purify-ts";
 
 export const NameSchema = z.string().min(3);
 export const IDSchema = z.string().min(3).uuid().default("");
@@ -44,14 +43,13 @@ export enum Weapon {
 const ArmourLevelSchema = z.number();
 export type ArmourLevel = z.infer<typeof ArmourLevelSchema>;
 
-export const MaybePlanetSchema: z.ZodType<Maybe<Planet>> = z.any();
-
-export type MaybePlanet = z.infer<typeof MaybePlanetSchema>;
+// example with Monads:
+// export const MaybePlanetSchema: z.ZodType<Maybe<Planet>> = z.any();
+// export type MaybePlanet = z.infer<typeof MaybePlanetSchema>;
 
 export const SpaceshipSchema = z.object({
   armour: ArmourLevelSchema,
   id: IDSchema,
-  // landedOnPlanet: MaybePlanetSchema, // TODO figure out how to do Maybe<Planet> more elegantly
   landedOnId: IDSchema,
   landedOnPlanet: PlanetSchema.optional(),
   name: NameSchema,
