@@ -26,10 +26,11 @@ export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
   );
 
   const handleSaveForm = (localSpaceship: Spaceship) => {
-    console.log("handling saving edit spaceship", localSpaceship);
+    console.log("handling saving edit spaceship", spaceshipId, localSpaceship);
     const validationResult = SpaceshipSchema.safeParse(localSpaceship);
     if (validationResult.success) {
-      putSpaceship(localSpaceship);
+      // copy ID as requested from the parent component to the local data
+      putSpaceship({ ...localSpaceship, id: spaceshipId });
       navigate("/spaceship");
     } else {
       // facilitate inline feedback as per Visma ux

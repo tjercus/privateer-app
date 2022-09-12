@@ -42,11 +42,10 @@ export const apiSlice = createApi({
     }),
     putSpaceship: builder.mutation<Spaceship, Partial<Spaceship>>({
       query(data) {
-        const { id, ...body } = data;
         return {
-          url: `spaceships/${id}`,
+          url: `spaceships/${data.id}`,
           method: "PUT",
-          body,
+          body: data,
         };
       },
       invalidatesTags: ["Spaceships"],
@@ -82,11 +81,10 @@ export const apiSlice = createApi({
     }),
     putPlanet: builder.mutation<Planet, Partial<Planet>>({
       query(data) {
-        const { id, ...body } = data;
         return {
-          url: `planets/${id}`,
+          url: `planets/${data.id}`,
           method: "PUT",
-          body,
+          body: data,
         };
       },
       invalidatesTags: ["Planets", "Spaceships"],

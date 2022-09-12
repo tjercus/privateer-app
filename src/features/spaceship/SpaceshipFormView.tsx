@@ -37,6 +37,7 @@ export const SpaceshipFormView = ({
   useEffect(() => {
     if (hasValue(spaceship.id) && !equals(spaceship.id, localSpaceship.id)) {
       // copy the existing spaceship from props to state
+      console.log("copy given spaceship to state", spaceship);
       setLocalSpaceship(spaceship);
     }
   }, [spaceship, localSpaceship]);
