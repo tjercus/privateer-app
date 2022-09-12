@@ -6,7 +6,7 @@ import languageFrench from "./i18n/translations-fr.json";
 
 const resources = {
   en: languageEnglish,
-  fr: languageFrench
+  fr: languageFrench,
 };
 
 i18n

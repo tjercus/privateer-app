@@ -77,7 +77,7 @@ export const apiSlice = createApi({
           body,
         };
       },
-      invalidatesTags: ["Planets", "Spaceships"],
+      invalidatesTags: ["Planets"],
     }),
     putPlanet: builder.mutation<Planet, Partial<Planet>>({
       query(data) {

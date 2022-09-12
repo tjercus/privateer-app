@@ -1,7 +1,7 @@
 // For a detailed explanation regarding each route property, visit:
 // https://mocks-server.org/docs/usage/routes
-
-const planets = require("../fixtures/planet-data").planets;
+const { byId, byNotId } = require("../utils");
+const db = require("../db");
 
 module.exports = [
   {
@@ -14,7 +14,7 @@ module.exports = [
         type: "json", // variant handler id
         options: {
           status: 200, // status to send
-          body: planets, // body to send
+          body: db.get("planets"), // body to send
         },
       },
       {
@@ -42,9 +42,8 @@ module.exports = [
           // Express middleware to execute
           middleware: (req, res) => {
             const planetId = req.params.id;
-            const planet = planets.find(
-              (planetsData) => planetsData.id === planetId
-            );
+            const planets = db.get("planets");
+            const planet = planets.find(byId(planetId));
             if (planet) {
               res.status(200);
               res.send(planet);
@@ -71,10 +70,9 @@ module.exports = [
           // Express middleware to execute
           middleware: (req, res) => {
             const planet = req.body;
-            if (planet.id) {
-              const storageIndex = planets.findIndex(
-                (sp) => sp.id === req.params.id
-              );
+            const planets = db.get("planets");
+            const storageIndex = planets.findIndex(byId(req.params.id));
+            if (storageIndex > -1) {
               planets[storageIndex] = planet;
               res.status(200);
               res.send(planet);
@@ -96,15 +94,15 @@ module.exports = [
     variants: [
       {
         id: "success", // id of the variant
-        type: "status", // variant type
+        type: "middleware", // variant type
         options: {
-          status: 201,
-        }, // Express middleware to execute
-        middleware: (req, res) => {
-          const planet = req.body;
-          planets.push(planet);
-          res.status(201);
-          res.send(planet);
+          middleware: (req, res) => {
+            const planet = req.body;
+            const planets = db.get("planets");
+            planets.push(planet);
+            res.status(201);
+            res.send(planet);
+          },
         },
       },
     ],
@@ -116,9 +114,13 @@ module.exports = [
     variants: [
       {
         id: "success", // id of the variant
-        type: "status", // variant type
+        type: "middleware", // variant type
         options: {
-          status: 200,
+          middleware: (req, res) => {
+            const planets = db.get("planets");
+            db.set("planets", planets.filter(byNotId(req.params.id)));
+            res.status(201);
+          },
         },
       },
     ],

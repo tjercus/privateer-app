@@ -32,7 +32,7 @@ export const byId = curry((id, thing) => id === prop("id", thing));
 /**
  * The inverse of byId
  */
-const byNotId = curry((id, thing) => id === prop("id", thing));
+export const byNotId = curry((id, thing) => id !== prop("id", thing));
 
 /**
  * @type {function}

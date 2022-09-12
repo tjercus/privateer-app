@@ -10,9 +10,15 @@ Practise ground for react CRUD app with some common default components
 - Form validation with Zod
 - i18n
 
+## Run locally
+
+Open two terminals and run respectively:
+
+- npm run server
+- npm start
+
 ## TODO
 
-- tweak mock-routes to remove from server collection on delete etc. (in-memory db?)
 - upgrade to create-vite
 - upgrade nc4 to vud (and fix icon buttons)
 - add unit tests
