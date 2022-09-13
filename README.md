@@ -19,7 +19,6 @@ Open two terminals and run respectively:
 
 ## TODO
 
-- upgrade to create-vite
 - upgrade nc4 to vud (and fix icon buttons)
 - add unit tests
 - add Cypress tests
