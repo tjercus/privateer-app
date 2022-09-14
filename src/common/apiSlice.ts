@@ -10,6 +10,7 @@ export const apiSlice = createApi({
   reducerPath: "apiSlice",
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
   tagTypes: ["Spaceships", "Planets"],
+  refetchOnFocus: true, // for now disable aggressive caching
   endpoints: (builder) => ({
     getSpaceships: builder.query<Array<Spaceship>, void>({
       query: () => `spaceships`,

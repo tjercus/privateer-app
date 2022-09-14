@@ -11,10 +11,12 @@ module.exports = [
     variants: [
       {
         id: "success", // variant id
-        type: "json", // variant handler id
+        type: "middleware", // variant type
         options: {
-          status: 200, // status to send
-          body: db.get("planets"), // body to send
+          middleware: (_req, res) => {
+            res.status(200);
+            res.send(db.get("planets"));
+          }
         },
       },
       {
