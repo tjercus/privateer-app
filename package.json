@@ -26,6 +26,7 @@
     "@mocks-server/main": "^3.11.0",
     "@types/ramda": "^0.28.15",
     "@types/uuid": "^8.3.4",
+    "@vitest/coverage-c8": "^0.23.2",
     "file-system-db": "^1.0.1",
     "jsdom": "^20.0.0",
     "prettier": "2.7.1",
@@ -38,7 +39,7 @@
     "preview": "vite preview",
     "server": "mocks-server",
     "start": "vite",
-    "test": "vitest"
+    "test": "vitest --coverage"
   },
   "eslintConfig": {
     "extends": [

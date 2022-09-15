@@ -19,7 +19,7 @@ Open two terminals and run respectively:
 
 ## TODO
 
-- use next() in mock-server express middleware
+- optimistic updates on all mutating apiSlice functions
 - upgrade nc4 to vud (and fix icon buttons)
 - add unit tests
 - add Cypress tests
@@ -33,6 +33,7 @@ Open two terminals and run respectively:
 - WCAG 2.1 support
 - custom useBoolean hook when needed
 - fix enter keyboard for cancel button
+- use next() in mock-server express middleware
 
 ### nice to have
 

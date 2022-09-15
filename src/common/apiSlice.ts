@@ -1,6 +1,9 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ID, Planet, Spaceship } from "../domain/types";
+import {MaybeDrafted} from "@reduxjs/toolkit/dist/query/core/buildThunks";
+import {byId} from "./utils";
+import {find, without} from "ramda";
 
 // TODO move baseurl to config
 const API_BASE_URL = "http://localhost:3001/api/";
@@ -10,7 +13,7 @@ export const apiSlice = createApi({
   reducerPath: "apiSlice",
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
   tagTypes: ["Spaceships", "Planets"],
-  refetchOnFocus: true, // for now disable aggressive caching
+  // refetchOnFocus: true, // for now disable aggressive caching
   endpoints: (builder) => ({
     getSpaceships: builder.query<Array<Spaceship>, void>({
       query: () => `spaceships`,
@@ -30,6 +33,19 @@ export const apiSlice = createApi({
         };
       },
       invalidatesTags: ["Spaceships"],
+      onQueryStarted(id, { dispatch, queryFulfilled }) {
+        // Optimistic caching with rollback on error
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData(
+            'getSpaceships',
+            undefined,
+            (cache) =>
+              // kill the item from the cache
+              Object.assign(without([find(byId(id), cache)], cache))
+          )
+        )
+        queryFulfilled.catch(patchResult.undo)
+      },
     }),
     postSpaceship: builder.mutation<Spaceship, Partial<Spaceship>>({
       query(body) {
