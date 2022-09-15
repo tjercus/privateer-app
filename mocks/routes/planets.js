@@ -16,7 +16,7 @@ module.exports = [
           middleware: (_req, res) => {
             res.status(200);
             res.send(db.get("planets"));
-          }
+          },
         },
       },
       {

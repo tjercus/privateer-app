@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SafeParseReturnType } from "zod/lib/types";
 //
-import { ID, Spaceship, SpaceshipSchema } from "../../domain/types";
+import { ID } from "../../domain/general";
+import { Spaceship, SpaceshipSchema } from "../../domain/types";
 import {
   useGetPlanetsQuery,
   useGetSpaceshipByIdQuery,

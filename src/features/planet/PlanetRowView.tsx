@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Icon, TableRow } from "@vismaux/react-nc4";
-import { ID, Planet } from "../../domain/types";
+import { Planet } from "../../domain/types";
+import { ID } from "../../domain/general";
 
 interface Props {
   events: { handleDeleteButtonClick: (planetId: ID) => void };

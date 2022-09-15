@@ -5,9 +5,10 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 //
 import { hasValue } from "../../common/utils";
-import { ID, Planet } from "../../domain/types";
+import { Planet } from "../../domain/types";
 //
 import { PlanetRowView } from "./PlanetRowView";
+import { ID } from "../../domain/general";
 
 interface Props {
   error: FetchBaseQueryError | SerializedError | undefined; // TODO extract type

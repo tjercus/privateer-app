@@ -5,7 +5,8 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 //
 import { hasValue } from "../../common/utils";
-import { ID, Planet, Spaceship } from "../../domain/types";
+import { ID } from "../../domain/general";
+import { Spaceship } from "../../domain/types";
 //
 import { SpaceshipRowView } from "./SpaceshipRowView";
 

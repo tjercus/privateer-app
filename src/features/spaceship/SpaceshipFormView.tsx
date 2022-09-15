@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { equals, includes } from "ramda";
+import { includes } from "ramda";
 import { SafeParseReturnType } from "zod/lib/types";
 //
 import {
   createValidationResult,
-  hasValue,
-  updateArray,
 } from "../../common/utils";
 import ValidationErrorsList from "../../common/components/ValidationErrorsList";
 import {
@@ -15,69 +13,31 @@ import {
 } from "../../common/components/OptionLists";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
 //
-import { createSpaceship } from "./spaceshipUtils";
+import {FormDataMap} from "../../domain/general";
 
 interface Props {
-  handleSaveForm: (spaceship: Spaceship) => void;
+  handleInputChange: (evt:
+    | React.ChangeEvent<HTMLInputElement>
+    | React.ChangeEvent<HTMLSelectElement>) => void;
+  handleSaveForm: (formData: FormDataMap<Spaceship>) => void;
   planets: Array<Planet>;
-  spaceship?: Spaceship;
+  formDataMap?: FormDataMap<Spaceship>;
   validationResult: SafeParseReturnType<any, any>; // TODO replace any
 }
 
 export const SpaceshipFormView = ({
+  handleInputChange = () => {/* empty fn body */},
   handleSaveForm = () => {
     /* empty fn body */
   },
   planets = [],
-  spaceship = createSpaceship(),
+  formDataMap = new Map(),
   validationResult = createValidationResult(),
 }: Props) => {
-  const [localSpaceship, setLocalSpaceship] = useState(createSpaceship());
-
-  useEffect(() => {
-    if (hasValue(spaceship.id) && !equals(spaceship.id, localSpaceship.id)) {
-      // copy the existing spaceship from props to state
-      console.log("copy given spaceship to state", spaceship);
-      setLocalSpaceship(spaceship);
-    }
-  }, [spaceship, localSpaceship]);
-
-  /**
-   * Handles changes in text and number fields
-   */
-  const handleInputChange = (
-    evt:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const htmlFieldName = evt.target.name;
-    const htmlFieldType = evt.target.type;
-    const value = evt.target.value;
-    setLocalSpaceship({
-      ...localSpaceship,
-      [htmlFieldName]: htmlFieldType === "number" ? Number(value) : value,
-    });
-  };
-
-  /**
-   * Handles changes in checkbox groups
-   */
-  const handleCheckboxGroupItemChange = (
-    evt: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = evt.target.value;
-    const arr = localSpaceship.weapons;
-    const updatedArr = updateArray<Weapon>(arr, value);
-    setLocalSpaceship({
-      ...localSpaceship,
-      weapons: updatedArr,
-    });
-  };
-
   const handleSaveButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     window?.scrollTo(0, 0);
-    handleSaveForm(localSpaceship);
+    handleSaveForm(formDataMap);
   };
 
   return (
@@ -99,7 +59,7 @@ export const SpaceshipFormView = ({
             onChange={handleInputChange}
             placeholder="Name"
             type="text"
-            value={localSpaceship.name}
+            value={formDataMap.get("name")}
           />
         </div>
       </div>
@@ -115,7 +75,7 @@ export const SpaceshipFormView = ({
             id="input-landed-on"
             name={"landedOnId"}
             onChange={handleInputChange}
-            value={localSpaceship.landedOnId}
+            value={formDataMap.get("landedOnId")}
           >
             <option value={""}>{""}</option>
             {createObjectsOptionList(planets)}
@@ -136,7 +96,7 @@ export const SpaceshipFormView = ({
             onChange={handleInputChange}
             placeholder="armour"
             type="number"
-            value={localSpaceship.armour}
+            value={formDataMap.get("armour")}
           />
         </div>
       </div>
@@ -152,7 +112,7 @@ export const SpaceshipFormView = ({
             id="input-type"
             name={"type"}
             onChange={handleInputChange}
-            value={localSpaceship.type}
+            value={formDataMap.get("type")}
           >
             {createStringsOptionList<SpaceshipType>(
               Object.values(SpaceshipType)
@@ -170,10 +130,10 @@ export const SpaceshipFormView = ({
             {Object.values(Weapon).map((weapon) => (
               <li className="checkbox" key={weapon}>
                 <input
-                  checked={includes(weapon, localSpaceship.weapons)}
+                  checked={includes(weapon, formDataMap.get("weapons"))}
                   id={`checkbox-${weapon}`}
                   name={`${weapon}`}
-                  onChange={handleCheckboxGroupItemChange}
+                  onChange={handleInputChange}
                   type="checkbox"
                   value={`${weapon}`}
                 />

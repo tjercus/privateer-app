@@ -2,7 +2,6 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 //
 import { useAppDispatch } from "../../hooks";
-import { ID } from "../../domain/types";
 import {
   useDeletePlanetMutation,
   useGetPlanetsQuery,
@@ -15,6 +14,7 @@ import {
 } from "../modal/modalSlice";
 //
 import { PlanetListView } from "./PlanetListView";
+import { ID } from "../../domain/general";
 
 export const PlanetListContainer = () => {
   const dispatch = useAppDispatch();

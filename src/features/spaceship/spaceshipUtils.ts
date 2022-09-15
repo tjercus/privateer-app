@@ -1,6 +1,7 @@
+import { find } from "ramda";
+//
 import { Planet, Spaceship, SpaceshipType } from "../../domain/types";
 import { byId, hasValue } from "../../common/utils";
-import { find } from "ramda";
 
 export const createSpaceship = (spaceship: Spaceship = {} as Spaceship) => {
   const newSpaceship: Spaceship = {

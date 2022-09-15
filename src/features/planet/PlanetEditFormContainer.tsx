@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 //
-import { ID, Planet, PlanetSchema } from "../../domain/types";
+import { Planet, PlanetSchema } from "../../domain/types";
 import {
   useGetPlanetByIdQuery,
   usePutPlanetMutation,
@@ -9,6 +9,7 @@ import {
 //
 import { PlanetFormView } from "./PlanetFormView";
 import { SafeParseReturnType } from "zod/lib/types";
+import { ID } from "../../domain/general";
 
 interface Props {
   planetId: ID;
