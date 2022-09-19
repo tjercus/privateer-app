@@ -3,22 +3,23 @@ import { Link } from "react-router-dom";
 import { includes } from "ramda";
 import { SafeParseReturnType } from "zod/lib/types";
 //
-import {
-  createValidationResult,
-} from "../../common/utils";
+import { createValidationResult } from "../../common/utils";
 import ValidationErrorsList from "../../common/components/ValidationErrorsList";
 import {
   createObjectsOptionList,
   createStringsOptionList,
 } from "../../common/components/OptionLists";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
-//
 import {FormDataMap} from "../../domain/general";
+//
+import { initialFormData } from "./spaceshipUtils";
 
 interface Props {
-  handleInputChange: (evt:
-    | React.ChangeEvent<HTMLInputElement>
-    | React.ChangeEvent<HTMLSelectElement>) => void;
+  handleInputChange: (
+    evt:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => void;
   handleSaveForm: (formData: FormDataMap<Spaceship>) => void;
   planets: Array<Planet>;
   formDataMap?: FormDataMap<Spaceship>;
@@ -26,12 +27,14 @@ interface Props {
 }
 
 export const SpaceshipFormView = ({
-  handleInputChange = () => {/* empty fn body */},
+  handleInputChange = () => {
+    /* empty fn body */
+  },
   handleSaveForm = () => {
     /* empty fn body */
   },
   planets = [],
-  formDataMap = new Map(),
+  formDataMap = initialFormData,
   validationResult = createValidationResult(),
 }: Props) => {
   const handleSaveButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -130,7 +133,7 @@ export const SpaceshipFormView = ({
             {Object.values(Weapon).map((weapon) => (
               <li className="checkbox" key={weapon}>
                 <input
-                  checked={includes(weapon, formDataMap.get("weapons"))}
+                  checked={includes(weapon, formDataMap.get("weapons") ?? [])}
                   id={`checkbox-${weapon}`}
                   name={`${weapon}`}
                   onChange={handleInputChange}

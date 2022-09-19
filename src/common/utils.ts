@@ -76,7 +76,7 @@ export const firstUrlSegment = ifElse(isNil, always(""), pipe(identity, tail));
  * Add or remove a value to a copy of an array
  */
 export const updateArray = <T>(arr: Array<T>, value: any) =>
-  includes(value, arr) ? without([value], arr) : concat([value], arr);
+  includes(value, arr ?? []) ? without([value], arr) : concat([value], arr);
 
 /**
  * Make the identity (null) type for a validation result

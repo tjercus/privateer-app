@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { SafeParseReturnType } from "zod/lib/types";
 //
-import {Spaceship, SpaceshipSchema } from "../../domain/types";
+import { Spaceship, SpaceshipSchema, Weapon } from "../../domain/types";
+import { FormDataMap } from "../../domain/general";
 import {
   useGetPlanetsQuery,
   usePostSpaceshipMutation,
 } from "../../common/apiSlice";
 //
 import { SpaceshipFormView } from "./SpaceshipFormView";
-import {FormDataMap} from "../../domain/general";
-import {createSpaceship} from "./spaceshipUtils";
+import { initialFormData } from "./spaceshipUtils";
+import { updateArray } from "../../common/utils";
 
 export const SpaceshipCreateFormContainer = () => {
   const navigate = useNavigate();
@@ -19,43 +20,44 @@ export const SpaceshipCreateFormContainer = () => {
   const getPlanetsQuery = useGetPlanetsQuery();
   const [postSpaceship] = usePostSpaceshipMutation();
 
-  const [localFormData, setLocalFormData] = useState(new Map());
+  const [localFormData, setLocalFormData] = useState(
+    new Map().set("weapons", [])
+  );
   const [localValidationResult, setLocalValidationResult] = useState(
     {} as SafeParseReturnType<any, any>
   );
 
   /**
    * Handles changes in text and number fields
+   * TODO move to custom hook
    */
   const handleInputChange = (
     evt:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
+    console.log("handleInputChange", evt);
     const htmlFieldName = evt.target.name;
     const htmlFieldType = evt.target.type;
     const value = evt.target.value;
     const newMap = new Map(localFormData); // clone
-    newMap.set(
-      htmlFieldName, htmlFieldType === "number" ? Number(value) : value,
-    );
-    setLocalFormData(newMap)
-  };
 
-  /**
-   * Handles changes in checkbox groups
-   */
-  // const handleCheckboxGroupItemChange = (
-  //   evt: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   const value = evt.target.value;
-  //   const arr = formDataMap.get("weapons");
-  //   const updatedArr = updateArray<Weapon>(arr, value);
-  //   setLocalSpaceship({
-  //     ...localSpaceship,
-  //     weapons: updatedArr,
-  //   });
-  // };
+    // TODO use exhaustiveness checking
+    if (htmlFieldType === "checkbox") {
+      const arr = (localFormData.get("weapons") as Array<Weapon>) ?? [];
+      const updatedArr = updateArray<Weapon>(arr, value);
+      newMap.set("weapons", updatedArr);
+    } else if (htmlFieldType === "number") {
+      newMap.set(
+        htmlFieldName,
+        Number(value)
+      );
+    } else {
+      newMap.set(htmlFieldName, value);
+    }
+    console.log("newMap", newMap);
+    setLocalFormData(newMap);
+  };
 
   const handleSaveForm = (formDataMap: FormDataMap<Spaceship>) => {
     formDataMap.set("id", uuid());
@@ -78,6 +80,7 @@ export const SpaceshipCreateFormContainer = () => {
     <SpaceshipFormView
       handleInputChange={handleInputChange}
       handleSaveForm={handleSaveForm}
+      formDataMap={localFormData}
       planets={getPlanetsQuery.data ?? []}
       validationResult={localValidationResult}
     />
