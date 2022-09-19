@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { SafeParseReturnType } from "zod/lib/types";
 //
 import { FormDataMap, ID } from "../../domain/general";
-import {Spaceship, SpaceshipSchema, SpaceshipType} from "../../domain/types";
+import {Spaceship, SpaceshipSchema, Weapon} from "../../domain/types";
+import {updateArray} from "../../common/utils";
+
 import {
   useGetPlanetsQuery,
   useGetSpaceshipByIdQuery,
@@ -11,7 +13,7 @@ import {
 } from "../../common/apiSlice";
 //
 import { SpaceshipFormView } from "./SpaceshipFormView";
-import {createFormData, initialFormData} from "./spaceshipUtils";
+import {createFormDataFromDomain, initialFormData} from "./spaceshipUtils";
 
 interface Props {
   spaceshipId: ID;
@@ -31,7 +33,7 @@ export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
 
   // Set loaded data in localFormData
   useEffect(() => {
-    setLocalFormData(createFormData(data))
+    setLocalFormData(createFormDataFromDomain(data))
   }, [data]);
 
   /**
@@ -43,14 +45,26 @@ export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const htmlFieldName = evt.target.name;
+    console.log("handleInputChange", evt);
+    const htmlFieldName = evt.target.name as keyof Spaceship;
     const htmlFieldType = evt.target.type;
     const value = evt.target.value;
     const newMap = new Map(localFormData); // clone
-    newMap.set(
-      htmlFieldName as any,
-      htmlFieldType === "number" ? Number(value) : value
-    );
+
+    // TODO use exhaustiveness checking
+    if (htmlFieldType === "checkbox") {
+      const arr = (localFormData.get("weapons") as Array<Weapon>) ?? [];
+      const updatedArr = updateArray<Weapon>(arr, value);
+      newMap.set("weapons", updatedArr);
+    } else if (htmlFieldType === "number") {
+      newMap.set(
+        htmlFieldName,
+        Number(value)
+      );
+    } else {
+      newMap.set(htmlFieldName, value);
+    }
+    console.log("newMap", newMap);
     setLocalFormData(newMap);
   };
 

@@ -20,11 +20,11 @@ Open two terminals and run respectively:
 ## TODO
 
 - optimistic updates on all mutating apiSlice functions
-- upgrade nc4 to vud (and fix icon buttons)
+- add dirty check
 - add unit tests
 - add Cypress tests
 - check html validity
-- Ramda cond for view loading
+- upgrade nc4 to vud (and fix icon buttons)
 - put route strings in constants?
 - replace lastUrlSegment with router hook
 - check incoming data for spaceships/planets with Zod

@@ -28,7 +28,7 @@ export const findPlanetForSpaceship = (
 ) => find(byId(spaceship.landedOnId), planets);
 
 /**
- * Create a 'backing bean' for a form with initial values,
+ * Is a 'backing bean' for a form with initial values,
  *  does not adhere to the domain model logic rules.
  */
 export const initialFormData: FormDataMap<Spaceship> =
@@ -40,7 +40,7 @@ export const initialFormData: FormDataMap<Spaceship> =
     .set("type", SpaceshipType.NONE)
     .set("weapons", [])
 
-export const createFormData = (spaceship?: Spaceship) => new Map()
+export const createFormDataFromDomain = (spaceship?: Spaceship) => new Map()
   .set("armour", spaceship?.armour)
   .set("id", spaceship?.id)
   .set("landedOnId", spaceship?.landedOnId)

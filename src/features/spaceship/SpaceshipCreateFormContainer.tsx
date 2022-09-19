@@ -4,15 +4,17 @@ import { v4 as uuid } from "uuid";
 import { SafeParseReturnType } from "zod/lib/types";
 //
 import { Spaceship, SpaceshipSchema, Weapon } from "../../domain/types";
-import { FormDataMap } from "../../domain/general";
+import {FormDataMap, HtmlInputType} from "../../domain/general";
+import { updateArray } from "../../common/utils";
+
 import {
   useGetPlanetsQuery,
   usePostSpaceshipMutation,
 } from "../../common/apiSlice";
 //
 import { SpaceshipFormView } from "./SpaceshipFormView";
-import { initialFormData } from "./spaceshipUtils";
-import { updateArray } from "../../common/utils";
+import {initialFormData} from "./spaceshipUtils";
+import {match} from "ts-pattern";
 
 export const SpaceshipCreateFormContainer = () => {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ export const SpaceshipCreateFormContainer = () => {
   const [postSpaceship] = usePostSpaceshipMutation();
 
   const [localFormData, setLocalFormData] = useState(
-    new Map().set("weapons", [])
+    initialFormData
   );
   const [localValidationResult, setLocalValidationResult] = useState(
     {} as SafeParseReturnType<any, any>
@@ -37,25 +39,22 @@ export const SpaceshipCreateFormContainer = () => {
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     console.log("handleInputChange", evt);
-    const htmlFieldName = evt.target.name;
-    const htmlFieldType = evt.target.type;
+    const htmlFieldName = evt.target.name as keyof Spaceship;
+    const htmlInputType = evt.target.type as HtmlInputType;
     const value = evt.target.value;
     const newMap = new Map(localFormData); // clone
 
-    // TODO use exhaustiveness checking
-    if (htmlFieldType === "checkbox") {
-      const arr = (localFormData.get("weapons") as Array<Weapon>) ?? [];
-      const updatedArr = updateArray<Weapon>(arr, value);
-      newMap.set("weapons", updatedArr);
-    } else if (htmlFieldType === "number") {
-      newMap.set(
-        htmlFieldName,
-        Number(value)
-      );
-    } else {
-      newMap.set(htmlFieldName, value);
-    }
-    console.log("newMap", newMap);
+    match(htmlInputType)
+      .with("checkbox", () => {
+        const arr = (localFormData.get("weapons") as Array<Weapon>) ?? [];
+        const updatedArr = updateArray<Weapon>(arr, value);
+        newMap.set("weapons", updatedArr);
+      })
+      .with("number", () => newMap.set(htmlFieldName, Number(value)))
+      .with("select-one", () => newMap.set(htmlFieldName, value))
+      .with("text", () => newMap.set(htmlFieldName, value))
+      .exhaustive();
+
     setLocalFormData(newMap);
   };
 
