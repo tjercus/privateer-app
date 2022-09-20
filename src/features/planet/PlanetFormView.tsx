@@ -1,29 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { equals } from "ramda";
 import { SafeParseReturnType } from "zod/lib/types";
 //
-import { createValidationResult, hasValue } from "../../common/utils";
+import { ReactChangeEvent } from "../../domain/general";
+import { createValidationResult } from "../../common/utils";
 import ValidationErrorsList from "../../common/components/ValidationErrorsList";
-import { Coordinates, Planet } from "../../domain/types";
-import {FormDataMap} from "../../domain/general";
 //
 import { initialFormData } from "./planetUtils";
+import { PlanetFormDataMap } from "./planetTypes";
 
 interface Props {
-  handleInputChange: (
-    evt:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => void;
-  handleSaveForm: (planet: Planet) => void;
-  formDataMap?: FormDataMap<Omit<Planet, "coordinates">>;
+  handleInputChange: (evt: ReactChangeEvent) => void;
+  handleSaveForm: (formDataMap: PlanetFormDataMap) => void;
+  formDataMap?: PlanetFormDataMap;
   validationResult: SafeParseReturnType<any, any>; // TODO replace any
 }
 
 export const PlanetFormView = ({
   handleInputChange = () => {
-   /* empty fn body */
+    /* empty fn body */
   },
   handleSaveForm = () => {
     /* empty fn body */

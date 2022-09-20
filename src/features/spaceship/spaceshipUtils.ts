@@ -1,10 +1,10 @@
 import { find } from "ramda";
 import { match } from "ts-pattern";
-import React from "react";
 //
 import { byId, updateArray } from "../../common/utils";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
-import { FormDataMap, HtmlInputType } from "../../domain/general";
+import { FormDataMap, ReactChangeEvent } from "../../domain/general";
+import { SpaceshipHtmlInputType } from "./spaceshipTypes";
 
 /*
 const newSpaceship: Spaceship = {
@@ -52,13 +52,11 @@ export const createFormDataFromDomain = (spaceship?: Spaceship) =>
  */
 export const updateFormData = (
   localFormData = initialFormData,
-  evt:
-    | React.ChangeEvent<HTMLInputElement>
-    | React.ChangeEvent<HTMLSelectElement>
+  evt: ReactChangeEvent
 ) => {
   console.log("updateFormData", evt);
   const htmlFieldName = evt.target.name as keyof Spaceship;
-  const htmlInputType = evt.target.type as HtmlInputType;
+  const htmlInputType = evt.target.type as SpaceshipHtmlInputType;
   const value = evt.target.value;
   const newMap = new Map(localFormData); // clone
 

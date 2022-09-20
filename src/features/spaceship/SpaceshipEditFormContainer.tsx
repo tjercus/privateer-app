@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SafeParseReturnType } from "zod/lib/types";
 //
-import { FormDataMap, ID } from "../../domain/general";
+import { FormDataMap, ID, ReactChangeEvent } from "../../domain/general";
 import { Spaceship, SpaceshipSchema } from "../../domain/types";
 import {
   useGetPlanetsQuery,
@@ -38,21 +38,15 @@ export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
     setLocalFormData(createFormDataFromDomain(data));
   }, [data]);
 
-  const handleInputChange = (
-    evt:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleInputChange = (evt: ReactChangeEvent) => {
     setLocalFormData(updateFormData(localFormData, evt));
   };
 
   const handleSaveForm = (formDataMap: FormDataMap<Spaceship>) => {
-    console.log("handling saving edit spaceship", formDataMap);
     const spaceship = Object.fromEntries<Spaceship>(formDataMap);
     const validationResult = SpaceshipSchema.safeParse(spaceship);
     if (validationResult.success) {
-      // copy ID as requested from the parent component to the local data
-      putSpaceship({ ...spaceship, id: spaceshipId });
+      putSpaceship(spaceship);
       navigate("/spaceship");
     } else {
       // facilitate inline feedback as per Visma ux

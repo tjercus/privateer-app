@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import { SafeParseReturnType } from "zod/lib/types";
 //
 import { Spaceship, SpaceshipSchema } from "../../domain/types";
-import { FormDataMap } from "../../domain/general";
+import { FormDataMap, ReactChangeEvent } from "../../domain/general";
 import {
   useGetPlanetsQuery,
   usePostSpaceshipMutation,
@@ -24,11 +24,7 @@ export const SpaceshipCreateFormContainer = () => {
     {} as SafeParseReturnType<any, any>
   );
 
-  const handleInputChange = (
-    evt:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleInputChange = (evt: ReactChangeEvent) => {
     setLocalFormData(updateFormData(localFormData, evt));
   };
 

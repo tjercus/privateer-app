@@ -1,17 +1,22 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SafeParseReturnType } from "zod/lib/types";
 //
-import { ID } from "../../domain/general";
-import { Planet, PlanetSchema } from "../../domain/types";
+import { ID, ReactChangeEvent } from "../../domain/general";
+import { PlanetSchema } from "../../domain/types";
 import {
   useGetPlanetByIdQuery,
   usePutPlanetMutation,
 } from "../../common/apiSlice";
 //
 import { PlanetFormView } from "./PlanetFormView";
-import {createFormDataFromDomain, initialFormData} from "./planetUtils";
-import {updateFormData} from "../spaceship/spaceshipUtils";
+import {
+  createFormDataFromDomain,
+  createPlanetFromFormData,
+  initialFormData,
+  updateFormData,
+} from "./planetUtils";
+import { PlanetFormDataMap } from "./planetTypes";
 
 interface Props {
   planetId: ID;
@@ -33,19 +38,15 @@ export const PlanetEditFormContainer = ({ planetId }: Props) => {
     setLocalFormData(createFormDataFromDomain(data));
   }, [data]);
 
-  const handleInputChange = (
-    evt:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleInputChange = (evt: ReactChangeEvent) => {
     setLocalFormData(updateFormData(localFormData, evt));
   };
 
-  const handleSaveForm = (localPlanet: Planet) => {
-    console.log("handling saving edit planet", localPlanet);
-    const validationResult = PlanetSchema.safeParse(localPlanet);
+  const handleSaveForm = (formDataMap: PlanetFormDataMap) => {
+    const planet = createPlanetFromFormData(formDataMap);
+    const validationResult = PlanetSchema.safeParse(planet);
     if (validationResult.success) {
-      putPlanet(localPlanet);
+      putPlanet(planet);
       navigate("/planet");
     } else {
       // facilitate inline feedback as per Visma ux
@@ -59,6 +60,6 @@ export const PlanetEditFormContainer = ({ planetId }: Props) => {
       handleSaveForm={handleSaveForm}
       formDataMap={localFormData}
       validationResult={localValidationResult}
-     />
+    />
   );
 };
