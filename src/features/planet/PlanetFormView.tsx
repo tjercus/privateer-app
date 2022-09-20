@@ -6,62 +6,34 @@ import { SafeParseReturnType } from "zod/lib/types";
 import { createValidationResult, hasValue } from "../../common/utils";
 import ValidationErrorsList from "../../common/components/ValidationErrorsList";
 import { Coordinates, Planet } from "../../domain/types";
+import {FormDataMap} from "../../domain/general";
 //
-import { createPlanet } from "./planetUtils";
+import { initialFormData } from "./planetUtils";
 
 interface Props {
+  handleInputChange: (
+    evt:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => void;
   handleSaveForm: (planet: Planet) => void;
-  planet?: Planet;
+  formDataMap?: FormDataMap<Omit<Planet, "coordinates">>;
   validationResult: SafeParseReturnType<any, any>; // TODO replace any
 }
 
 export const PlanetFormView = ({
+  handleInputChange = () => {
+   /* empty fn body */
+  },
   handleSaveForm = () => {
     /* empty fn body */
   },
-  planet = createPlanet(),
+  formDataMap = initialFormData,
   validationResult = createValidationResult(),
 }: Props) => {
-  const [localPlanet, setLocalPlanet] = useState(createPlanet());
-
-  if (hasValue(planet.id) && !equals(planet.id, localPlanet.id)) {
-    // copy the existing planet from props to state
-    setLocalPlanet(planet);
-  }
-
-  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const htmlFieldName = evt.target.name;
-    switch (htmlFieldName) {
-      case "name":
-        setLocalPlanet({ ...localPlanet, name: evt.target.value });
-        break;
-      case "coordinateLat":
-        setLocalPlanet({
-          ...localPlanet,
-          coordinates: {
-            lat: Number(evt.target.value),
-            long: localPlanet.coordinates.long,
-          } as Coordinates,
-        });
-        break;
-      case "coordinateLong":
-        setLocalPlanet({
-          ...localPlanet,
-          coordinates: {
-            lat: localPlanet.coordinates.lat,
-            long: Number(evt.target.value),
-          } as Coordinates,
-        });
-        break;
-      default:
-        console.log("invalid field name used for change");
-        break;
-    }
-  };
-
   const handleSaveButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    handleSaveForm(localPlanet);
+    handleSaveForm(formDataMap);
   };
 
   return (
@@ -83,7 +55,7 @@ export const PlanetFormView = ({
             onChange={handleInputChange}
             placeholder="Name"
             type="text"
-            value={localPlanet.name}
+            value={formDataMap.get("name")}
           />
         </div>
       </div>
@@ -104,7 +76,7 @@ export const PlanetFormView = ({
             onChange={handleInputChange}
             placeholder="latitude"
             type="number"
-            value={localPlanet.coordinates.lat}
+            value={formDataMap.get("coordinateLat")}
           />
           <input
             className="form-control"
@@ -114,7 +86,7 @@ export const PlanetFormView = ({
             onChange={handleInputChange}
             placeholder="longitude"
             type="number"
-            value={localPlanet.coordinates.long}
+            value={formDataMap.get("coordinateLong")}
           />
         </div>
       </div>

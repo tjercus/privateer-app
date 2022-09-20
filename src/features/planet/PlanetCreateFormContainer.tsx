@@ -6,15 +6,26 @@ import { SafeParseReturnType } from "zod/lib/types";
 import { Planet, PlanetSchema } from "../../domain/types";
 import { usePostPlanetMutation } from "../../common/apiSlice";
 //
+import {initialFormData, updateFormData} from "./planetUtils";
 import { PlanetFormView } from "./PlanetFormView";
 
 export const PlanetCreateFormContainer = () => {
   const navigate = useNavigate();
 
   const [postPlanet] = usePostPlanetMutation();
+
+  const [localFormData, setLocalFormData] = useState(initialFormData);
   const [localValidationResult, setLocalValidationResult] = useState(
     {} as SafeParseReturnType<any, any>
   );
+
+  const handleInputChange = (
+    evt:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setLocalFormData(updateFormData(localFormData, evt));
+  };
 
   const handleSaveForm = (localPlanet: Planet) => {
     console.log("handling saving create planet", localPlanet);
@@ -34,7 +45,9 @@ export const PlanetCreateFormContainer = () => {
 
   return (
     <PlanetFormView
+      handleInputChange={handleInputChange}
       handleSaveForm={handleSaveForm}
+      formDataMap={localFormData}
       validationResult={localValidationResult}
     />
   );

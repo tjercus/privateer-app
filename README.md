@@ -34,6 +34,7 @@ Open two terminals and run respectively:
 - custom useBoolean hook when needed
 - fix enter keyboard for cancel button
 - use next() in mock-server express middleware
+- make a custom hook for handling form input updates
 
 ### nice to have
 

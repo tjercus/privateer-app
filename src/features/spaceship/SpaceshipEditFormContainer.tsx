@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SafeParseReturnType } from "zod/lib/types";
 //
 import { FormDataMap, ID } from "../../domain/general";
-import {Spaceship, SpaceshipSchema, Weapon} from "../../domain/types";
-import {updateArray} from "../../common/utils";
-
+import { Spaceship, SpaceshipSchema } from "../../domain/types";
 import {
   useGetPlanetsQuery,
   useGetSpaceshipByIdQuery,
@@ -13,7 +11,11 @@ import {
 } from "../../common/apiSlice";
 //
 import { SpaceshipFormView } from "./SpaceshipFormView";
-import {createFormDataFromDomain, initialFormData} from "./spaceshipUtils";
+import {
+  createFormDataFromDomain,
+  initialFormData,
+  updateFormData,
+} from "./spaceshipUtils";
 
 interface Props {
   spaceshipId: ID;
@@ -31,41 +33,17 @@ export const SpaceshipEditFormContainer = ({ spaceshipId }: Props) => {
     {} as SafeParseReturnType<any, any>
   );
 
-  // Set loaded data in localFormData
+  // Set the loaded store data in localFormData
   useEffect(() => {
-    setLocalFormData(createFormDataFromDomain(data))
+    setLocalFormData(createFormDataFromDomain(data));
   }, [data]);
 
-  /**
-   * Handles changes in text and number fields
-   * TODO move to custom hook
-   */
   const handleInputChange = (
     evt:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
-    console.log("handleInputChange", evt);
-    const htmlFieldName = evt.target.name as keyof Spaceship;
-    const htmlFieldType = evt.target.type;
-    const value = evt.target.value;
-    const newMap = new Map(localFormData); // clone
-
-    // TODO use exhaustiveness checking
-    if (htmlFieldType === "checkbox") {
-      const arr = (localFormData.get("weapons") as Array<Weapon>) ?? [];
-      const updatedArr = updateArray<Weapon>(arr, value);
-      newMap.set("weapons", updatedArr);
-    } else if (htmlFieldType === "number") {
-      newMap.set(
-        htmlFieldName,
-        Number(value)
-      );
-    } else {
-      newMap.set(htmlFieldName, value);
-    }
-    console.log("newMap", newMap);
-    setLocalFormData(newMap);
+    setLocalFormData(updateFormData(localFormData, evt));
   };
 
   const handleSaveForm = (formDataMap: FormDataMap<Spaceship>) => {

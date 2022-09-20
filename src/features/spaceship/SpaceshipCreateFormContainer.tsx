@@ -3,18 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { SafeParseReturnType } from "zod/lib/types";
 //
-import { Spaceship, SpaceshipSchema, Weapon } from "../../domain/types";
-import {FormDataMap, HtmlInputType} from "../../domain/general";
-import { updateArray } from "../../common/utils";
-
+import { Spaceship, SpaceshipSchema } from "../../domain/types";
+import { FormDataMap } from "../../domain/general";
 import {
   useGetPlanetsQuery,
   usePostSpaceshipMutation,
 } from "../../common/apiSlice";
 //
 import { SpaceshipFormView } from "./SpaceshipFormView";
-import {initialFormData} from "./spaceshipUtils";
-import {match} from "ts-pattern";
+import { initialFormData, updateFormData } from "./spaceshipUtils";
 
 export const SpaceshipCreateFormContainer = () => {
   const navigate = useNavigate();
@@ -22,40 +19,17 @@ export const SpaceshipCreateFormContainer = () => {
   const getPlanetsQuery = useGetPlanetsQuery();
   const [postSpaceship] = usePostSpaceshipMutation();
 
-  const [localFormData, setLocalFormData] = useState(
-    initialFormData
-  );
+  const [localFormData, setLocalFormData] = useState(initialFormData);
   const [localValidationResult, setLocalValidationResult] = useState(
     {} as SafeParseReturnType<any, any>
   );
 
-  /**
-   * Handles changes in text and number fields
-   * TODO move to custom hook
-   */
   const handleInputChange = (
     evt:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
-    console.log("handleInputChange", evt);
-    const htmlFieldName = evt.target.name as keyof Spaceship;
-    const htmlInputType = evt.target.type as HtmlInputType;
-    const value = evt.target.value;
-    const newMap = new Map(localFormData); // clone
-
-    match(htmlInputType)
-      .with("checkbox", () => {
-        const arr = (localFormData.get("weapons") as Array<Weapon>) ?? [];
-        const updatedArr = updateArray<Weapon>(arr, value);
-        newMap.set("weapons", updatedArr);
-      })
-      .with("number", () => newMap.set(htmlFieldName, Number(value)))
-      .with("select-one", () => newMap.set(htmlFieldName, value))
-      .with("text", () => newMap.set(htmlFieldName, value))
-      .exhaustive();
-
-    setLocalFormData(newMap);
+    setLocalFormData(updateFormData(localFormData, evt));
   };
 
   const handleSaveForm = (formDataMap: FormDataMap<Spaceship>) => {

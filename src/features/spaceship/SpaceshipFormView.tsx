@@ -10,7 +10,7 @@ import {
   createStringsOptionList,
 } from "../../common/components/OptionLists";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
-import {FormDataMap} from "../../domain/general";
+import { FormDataMap } from "../../domain/general";
 //
 import { initialFormData } from "./spaceshipUtils";
 

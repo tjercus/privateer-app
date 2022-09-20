@@ -1,9 +1,12 @@
 import { find } from "ramda";
+import { match } from "ts-pattern";
+import React from "react";
 //
-import { Planet, Spaceship, SpaceshipType } from "../../domain/types";
-import { byId, hasValue } from "../../common/utils";
-import { FormDataMap } from "../../domain/general";
+import { byId, updateArray } from "../../common/utils";
+import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
+import { FormDataMap, HtmlInputType } from "../../domain/general";
 
+/*
 const newSpaceship: Spaceship = {
   armour: 0,
   id: "",
@@ -12,15 +15,7 @@ const newSpaceship: Spaceship = {
   type: SpaceshipType.NONE,
   weapons: [],
 };
-
-export const createSpaceship = (spaceship: Spaceship = {} as Spaceship) => {
-  const sc = { ...newSpaceship };
-  if (hasValue(spaceship.name)) {
-    sc.name = spaceship.name;
-  }
-  // TODO etc.
-  return sc;
-};
+*/
 
 export const findPlanetForSpaceship = (
   spaceship: Spaceship,
@@ -30,20 +25,53 @@ export const findPlanetForSpaceship = (
 /**
  * Is a 'backing bean' for a form with initial values,
  *  does not adhere to the domain model logic rules.
+ * Has default values to minimally initialize the form.
  */
-export const initialFormData: FormDataMap<Spaceship> =
-  new Map()
-    .set("armour", 0)
-    .set("id", "")
-    .set("landedOnId", "")
-    .set("name", "")
-    .set("type", SpaceshipType.NONE)
-    .set("weapons", [])
+export const initialFormData: FormDataMap<Spaceship> = new Map()
+  .set("armour", 0)
+  .set("id", "")
+  .set("landedOnId", "")
+  .set("name", "")
+  .set("type", SpaceshipType.NONE)
+  .set("weapons", []);
 
-export const createFormDataFromDomain = (spaceship?: Spaceship) => new Map()
-  .set("armour", spaceship?.armour)
-  .set("id", spaceship?.id)
-  .set("landedOnId", spaceship?.landedOnId)
-  .set("name", spaceship?.name)
-  .set("type", spaceship?.type)
-  .set("weapons", spaceship?.weapons);
+/**
+ * Maps from View Model to Domain Model
+ */
+export const createFormDataFromDomain = (spaceship?: Spaceship) =>
+  new Map()
+    .set("armour", spaceship?.armour)
+    .set("id", spaceship?.id)
+    .set("landedOnId", spaceship?.landedOnId)
+    .set("name", spaceship?.name)
+    .set("type", spaceship?.type)
+    .set("weapons", spaceship?.weapons);
+
+/**
+ * Takes an HTML event and a ViewModel Map and updates the Map with the event data
+ */
+export const updateFormData = (
+  localFormData = initialFormData,
+  evt:
+    | React.ChangeEvent<HTMLInputElement>
+    | React.ChangeEvent<HTMLSelectElement>
+) => {
+  console.log("updateFormData", evt);
+  const htmlFieldName = evt.target.name as keyof Spaceship;
+  const htmlInputType = evt.target.type as HtmlInputType;
+  const value = evt.target.value;
+  const newMap = new Map(localFormData); // clone
+
+  match(htmlInputType)
+    .with("checkbox", () => {
+      const arr = (localFormData.get("weapons") as Array<Weapon>) ?? [];
+      const updatedArr = updateArray<Weapon>(arr, value);
+      newMap.set("weapons", updatedArr);
+    })
+    .with("number", () => newMap.set(htmlFieldName, Number(value)))
+    .with("select-one", () => newMap.set(htmlFieldName, value))
+    .with("text", () => newMap.set(htmlFieldName, value))
+    .exhaustive();
+
+  return newMap;
+};
