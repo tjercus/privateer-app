@@ -2,8 +2,8 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 //
 import { useAppDispatch } from "../../hooks";
-import { ID } from "../../domain/types";
 //
+import { ID } from "../../domain/general";
 import {
   useDeleteSpaceshipMutation,
   useGetPlanetsQuery,

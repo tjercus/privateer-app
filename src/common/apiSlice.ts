@@ -1,9 +1,10 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ID, Planet, Spaceship } from "../domain/types";
-import {MaybeDrafted} from "@reduxjs/toolkit/dist/query/core/buildThunks";
-import {byId} from "./utils";
-import {find, without} from "ramda";
+import { Planet, Spaceship } from "../domain/types";
+import { MaybeDrafted } from "@reduxjs/toolkit/dist/query/core/buildThunks";
+import { byId } from "./utils";
+import { find, without } from "ramda";
+import { ID } from "../domain/general";
 
 // TODO move baseurl to config
 const API_BASE_URL = "http://localhost:3001/api/";
@@ -36,15 +37,12 @@ export const apiSlice = createApi({
       onQueryStarted(id, { dispatch, queryFulfilled }) {
         // Optimistic caching with rollback on error
         const patchResult = dispatch(
-          apiSlice.util.updateQueryData(
-            'getSpaceships',
-            undefined,
-            (cache) =>
-              // kill the item from the cache
-              Object.assign(without([find(byId(id), cache)], cache))
+          apiSlice.util.updateQueryData("getSpaceships", undefined, (cache) =>
+            // kill the item from the cache
+            Object.assign(without([find(byId(id), cache)], cache))
           )
-        )
-        queryFulfilled.catch(patchResult.undo)
+        );
+        queryFulfilled.catch(patchResult.undo);
       },
     }),
     postSpaceship: builder.mutation<Spaceship, Partial<Spaceship>>({

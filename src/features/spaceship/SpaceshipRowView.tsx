@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Icon, TableRow } from "@vismaux/react-nc4";
-import { ID, Spaceship } from "../../domain/types";
+//
+import { ID } from "../../domain/general";
+import { Spaceship } from "../../domain/types";
 
 interface Props {
   events: { handleDeleteButtonClick: (spaceshipId: ID) => void };

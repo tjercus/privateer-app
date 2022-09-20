@@ -1,8 +1,5 @@
 import { z } from "zod";
-
-export const NameSchema = z.string().min(3);
-export const IDSchema = z.string().min(3).uuid().default("");
-export type ID = z.infer<typeof IDSchema>;
+import { IDSchema, NameSchema } from "./general";
 
 export const CoordinatesSchema = z.object({
   lat: z.number(),

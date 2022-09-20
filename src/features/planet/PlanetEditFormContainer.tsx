@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SafeParseReturnType } from "zod/lib/types";
 //
-import { ID, Planet, PlanetSchema } from "../../domain/types";
+import { ID, ReactChangeEvent } from "../../domain/general";
+import { PlanetSchema } from "../../domain/types";
 import {
   useGetPlanetByIdQuery,
   usePutPlanetMutation,
 } from "../../common/apiSlice";
 //
 import { PlanetFormView } from "./PlanetFormView";
-import { SafeParseReturnType } from "zod/lib/types";
+import {
+  createFormDataFromDomain,
+  createPlanetFromFormData,
+  initialFormData,
+  updateFormData,
+} from "./planetUtils";
+import { PlanetFormDataMap } from "./planetTypes";
 
 interface Props {
   planetId: ID;
@@ -19,15 +27,26 @@ export const PlanetEditFormContainer = ({ planetId }: Props) => {
   //
   const { data } = useGetPlanetByIdQuery(planetId);
   const [putPlanet] = usePutPlanetMutation();
+
+  const [localFormData, setLocalFormData] = useState(initialFormData);
   const [localValidationResult, setLocalValidationResult] = useState(
     {} as SafeParseReturnType<any, any>
   );
 
-  const handleSaveForm = (localPlanet: Planet) => {
-    console.log("handling saving edit planet", localPlanet);
-    const validationResult = PlanetSchema.safeParse(localPlanet);
+  // Set the loaded store data in localFormData
+  useEffect(() => {
+    setLocalFormData(createFormDataFromDomain(data));
+  }, [data]);
+
+  const handleInputChange = (evt: ReactChangeEvent) => {
+    setLocalFormData(updateFormData(localFormData, evt));
+  };
+
+  const handleSaveForm = (formDataMap: PlanetFormDataMap) => {
+    const planet = createPlanetFromFormData(formDataMap);
+    const validationResult = PlanetSchema.safeParse(planet);
     if (validationResult.success) {
-      putPlanet(localPlanet);
+      putPlanet(planet);
       navigate("/planet");
     } else {
       // facilitate inline feedback as per Visma ux
@@ -37,8 +56,9 @@ export const PlanetEditFormContainer = ({ planetId }: Props) => {
 
   return (
     <PlanetFormView
+      handleInputChange={handleInputChange}
       handleSaveForm={handleSaveForm}
-      planet={data}
+      formDataMap={localFormData}
       validationResult={localValidationResult}
     />
   );
