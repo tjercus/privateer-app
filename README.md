@@ -17,13 +17,19 @@ Open two terminals and run respectively:
 - npm run server
 - npm start
 
+This project was created with create-vite and has hot module reloading with fast refresh.
+This means you can edit files and within 50 ms the relevant parts of you app will reload 
+in the browser while maintaining state.
+
 ## TODO
 
-- optimistic updates on all mutating apiSlice functions
-- add dirty check
+- server: find out why the server is not hitting the db enough
+- server: extract persistence logic from controller
+- http-layer: optimistic updates on all mutating apiSlice functions
+- ui: add dirty check
 - add unit tests
 - add Cypress tests
-- check html validity
+- ui: check html validity
 - upgrade nc4 to vud (and fix icon buttons)
 - put route strings in constants?
 - replace lastUrlSegment with router hook

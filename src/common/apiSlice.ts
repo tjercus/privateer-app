@@ -1,9 +1,8 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Planet, Spaceship } from "../domain/types";
-import { MaybeDrafted } from "@reduxjs/toolkit/dist/query/core/buildThunks";
-import { byId } from "./utils";
-import { find, without } from "ramda";
+import {byId, byNotId} from "./utils";
+import {filter, find, findIndex, without} from "ramda";
 import { ID } from "../domain/general";
 
 // TODO move baseurl to config
@@ -54,16 +53,36 @@ export const apiSlice = createApi({
         };
       },
       invalidatesTags: ["Spaceships"],
+      onQueryStarted(body, { dispatch, queryFulfilled }) {
+        // Optimistic caching with rollback on error
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData("getSpaceships", undefined, (cache) =>
+            // add the item in the cache
+            Object.assign([...cache, body])
+          )
+        );
+        queryFulfilled.catch(patchResult.undo);
+      },
     }),
     putSpaceship: builder.mutation<Spaceship, Partial<Spaceship>>({
-      query(data) {
+      query(body) {
         return {
-          url: `spaceships/${data.id}`,
+          url: `spaceships/${body.id}`,
           method: "PUT",
-          body: data,
+          body,
         };
       },
       invalidatesTags: ["Spaceships"],
+      onQueryStarted(body, { dispatch, queryFulfilled }) {
+        // Optimistic caching with rollback on error
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData("getSpaceships", undefined, (cache) => {
+            // update the item in the cache
+            return Object.assign([...filter(byNotId(body.id), cache), body]);
+          })
+        );
+        queryFulfilled.catch(patchResult.undo);
+      },
     }),
     getPlanets: builder.query<Array<Planet>, void>({
       query: () => `planets`,
@@ -83,6 +102,17 @@ export const apiSlice = createApi({
         };
       },
       invalidatesTags: ["Planets", "Spaceships"],
+      onQueryStarted(id, { dispatch, queryFulfilled }) {
+        // Optimistic caching with rollback on error
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData("getPlanets", undefined, (cache) =>
+            // kill the item from the cache
+            Object.assign(without([find(byId(id), cache)], cache))
+          )
+        );
+        queryFulfilled.catch(patchResult.undo);
+      },
+
     }),
     postPlanet: builder.mutation<Planet, Partial<Planet>>({
       query(body) {
@@ -93,6 +123,16 @@ export const apiSlice = createApi({
         };
       },
       invalidatesTags: ["Planets"],
+      onQueryStarted(body, { dispatch, queryFulfilled }) {
+        // Optimistic caching with rollback on error
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData("getPlanets", undefined, (cache) =>
+            // add the item in the cache
+            Object.assign([...cache, body])
+          )
+        );
+        queryFulfilled.catch(patchResult.undo);
+      },
     }),
     putPlanet: builder.mutation<Planet, Partial<Planet>>({
       query(data) {
