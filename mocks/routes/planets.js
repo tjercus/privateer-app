@@ -58,6 +58,17 @@ module.exports = [
           },
         },
       },
+      {
+        id: "error", // variant id
+        type: "json", // variant handler id
+        options: {
+          status: 500, // status to send
+          // body to send
+          body: {
+            message: "Error 500",
+          },
+        },
+      },
     ],
   },
   {
@@ -84,6 +95,17 @@ module.exports = [
                 message: "planet not found",
               });
             }
+          },
+        },
+      },
+      {
+        id: "error", // variant id
+        type: "json", // variant handler id
+        options: {
+          status: 500, // status to send
+          // body to send
+          body: {
+            message: "Error 500",
           },
         },
       },

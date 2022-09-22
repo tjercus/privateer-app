@@ -5,7 +5,8 @@ Practise ground for react CRUD app with some common default components
 ## features
 
 - two related and connected online slices which connect with a mocked REST back-end
-  The slices are connected to the REST back-end with RTK-Query. They contain related data
+  The slices are connected to the REST back-end with RTK-Query. They contain related data.
+- Optimistic updates with rollback for better UX
 - Visma UI look-and-feel
 - Form validation with Zod
 - i18n
@@ -23,36 +24,33 @@ in the browser while maintaining state.
 
 ## TODO
 
-- server: find out why the server is not hitting the db enough
-- server: extract persistence logic from controller
-- http-layer: optimistic updates on all mutating apiSlice functions
-- ui: add dirty check
+- EXPR: replace mocks-server with a static real express server?
+- ui: http error handling in create and edit controller
+- http: check incoming data for spaceships/planets with Zod
+
 - add unit tests
 - add Cypress tests
 - ui: check html validity
 - upgrade nc4 to vud (and fix icon buttons)
 - put route strings in constants?
-- replace lastUrlSegment with router hook
-- check incoming data for spaceships/planets with Zod
-- add lastModifiedAt attributes for versioning
-- move from static button to animated one
+- storage model: add lastModifiedAt attributes for versioning
 - WCAG 2.1 support
-- custom useBoolean hook when needed
-- fix enter keyboard for cancel button
-- use next() in mock-server express middleware
-- make a custom hook for handling form input updates
+- ui: fix enter keyboard for cancel button
 
 ### nice to have
 
-- use inline Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
-- Add a required star next to form fields
-- wrap validationResult in a ADT
+- domain model: check if a real domain can be implemented (real relationships)
+- ui: use inline Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
+- ui: Add a required star next to form fields
+- ui: add dirty check, and disable save button when formDataMap is clean
+- ui: move from static button to animated one
+- RBAC
 - Zod: use Zod TypeScript types instead of own types
 - Zod: perhaps use 'zorm' as Form lib to integrate better with Zod
-- try with generic table component as in the article below
-- RBAC
-- where to assemble the domain, on the app or the server?
+- ui: try with generic table component as in the article below
+- domain model: where to assemble the domain, on the app or the server?
 - auto run the "import sorter plugin" for prettier?
+- wrap validationResult in a ADT
 - find out if the view layer can work with only Maybe's instead of nullable
 
 ### blocked by current react-nc4 version

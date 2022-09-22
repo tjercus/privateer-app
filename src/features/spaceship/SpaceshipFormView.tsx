@@ -10,15 +10,14 @@ import {
   createStringsOptionList,
 } from "../../common/components/OptionLists";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
-import { FormDataMap } from "../../domain/general";
+import {FormDataMap, ReactChangeEvent} from "../../domain/general";
 //
 import { initialFormData } from "./spaceshipUtils";
 
 interface Props {
   handleInputChange: (
     evt:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
+      ReactChangeEvent
   ) => void;
   handleSaveForm: (formData: FormDataMap<Spaceship>) => void;
   planets: Array<Planet>;

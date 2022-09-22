@@ -13,6 +13,7 @@
       "get-planets:success",
       "get-planet:success",
       "put-planet:success",
+      "put-planet:error",
       "post-planet:success",
       "delete-planet:success"
     ]

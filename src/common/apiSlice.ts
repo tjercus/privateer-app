@@ -2,7 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Planet, Spaceship } from "../domain/types";
 import { byId, byNotId } from "./utils";
-import { filter, find, findIndex, without } from "ramda";
+import { filter, find, without } from "ramda";
 import { ID } from "../domain/general";
 
 // TODO move baseurl to config

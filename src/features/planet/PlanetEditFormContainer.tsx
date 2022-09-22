@@ -25,9 +25,10 @@ interface Props {
 export const PlanetEditFormContainer = ({ planetId }: Props) => {
   const navigate = useNavigate();
   //
-  const { data } = useGetPlanetByIdQuery(planetId);
+  const { data, error } = useGetPlanetByIdQuery(planetId);
   const [putPlanet] = usePutPlanetMutation();
 
+  const [mutationError, setMutationError] = useState({});
   const [localFormData, setLocalFormData] = useState(initialFormData);
   const [localValidationResult, setLocalValidationResult] = useState(
     {} as SafeParseReturnType<any, any>
@@ -46,8 +47,10 @@ export const PlanetEditFormContainer = ({ planetId }: Props) => {
     const planet = createPlanetFromFormData(formDataMap);
     const validationResult = PlanetSchema.safeParse(planet);
     if (validationResult.success) {
-      putPlanet(planet);
-      navigate("/planet");
+      putPlanet(planet).unwrap()
+        .then((payload) => { setMutationError({}); navigate("/planet"); })
+        .catch((error) => { console.error('rejected', error); setMutationError(error);  })
+
     } else {
       // facilitate inline feedback as per Visma ux
       setLocalValidationResult(validationResult);
@@ -56,6 +59,7 @@ export const PlanetEditFormContainer = ({ planetId }: Props) => {
 
   return (
     <PlanetFormView
+      error={error || mutationError }
       handleInputChange={handleInputChange}
       handleSaveForm={handleSaveForm}
       formDataMap={localFormData}

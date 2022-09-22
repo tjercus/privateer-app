@@ -34,7 +34,9 @@ export const PlanetCreateFormContainer = () => {
     planet.id = uuid();
     const validationResult = PlanetSchema.safeParse(planet);
     if (validationResult.success) {
-      postPlanet(planet);
+      postPlanet(planet).unwrap()
+        .then((payload) => console.log('fulfilled', payload))
+        .catch((error) => console.error('rejected', error))
       navigate("/planet");
     } else {
       // facilitate inline feedback as per Visma ux

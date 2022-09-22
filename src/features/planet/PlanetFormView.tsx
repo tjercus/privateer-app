@@ -3,13 +3,18 @@ import { Link } from "react-router-dom";
 import { SafeParseReturnType } from "zod/lib/types";
 //
 import { ReactChangeEvent } from "../../domain/general";
-import { createValidationResult } from "../../common/utils";
+import {createValidationResult, hasValue} from "../../common/utils";
 import ValidationErrorsList from "../../common/components/ValidationErrorsList";
 //
 import { initialFormData } from "./planetUtils";
 import { PlanetFormDataMap } from "./planetTypes";
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
+import {SerializedError} from "@reduxjs/toolkit";
+import {Alert} from "@vismaux/react-nc4";
+import Conditional from "../../common/components/Conditional";
 
 interface Props {
+  error: FetchBaseQueryError | SerializedError | undefined; // TODO extract type
   handleInputChange: (evt: ReactChangeEvent) => void;
   handleSaveForm: (formDataMap: PlanetFormDataMap) => void;
   formDataMap?: PlanetFormDataMap;
@@ -17,6 +22,7 @@ interface Props {
 }
 
 export const PlanetFormView = ({
+  error,
   handleInputChange = () => {
     /* empty fn body */
   },
@@ -32,6 +38,11 @@ export const PlanetFormView = ({
   };
 
   return (
+    <>
+    <Conditional condition={hasValue(error)}>
+      <Alert type="danger">{"There was an error mutating the planet"}</Alert>
+    </Conditional>
+
     <form className="form-horizontal" data-test={"form-planet"}>
       <h2>{"Planet Form View"}</h2>
 
@@ -107,5 +118,6 @@ export const PlanetFormView = ({
         </div>
       </div>
     </form>
+    </>
   );
 };
