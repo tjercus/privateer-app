@@ -18,7 +18,7 @@ Open two terminals and run respectively:
 - npm start
 
 This project was created with create-vite and has hot module reloading with fast refresh.
-This means you can edit files and within 50 ms the relevant parts of you app will reload 
+This means you can edit files and within 50 ms the relevant parts of you app will reload
 in the browser while maintaining state.
 
 ## TODO

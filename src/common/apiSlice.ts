@@ -1,8 +1,8 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Planet, Spaceship } from "../domain/types";
-import {byId, byNotId} from "./utils";
-import {filter, find, findIndex, without} from "ramda";
+import { byId, byNotId } from "./utils";
+import { filter, find, findIndex, without } from "ramda";
 import { ID } from "../domain/general";
 
 // TODO move baseurl to config
@@ -112,7 +112,6 @@ export const apiSlice = createApi({
         );
         queryFulfilled.catch(patchResult.undo);
       },
-
     }),
     postPlanet: builder.mutation<Planet, Partial<Planet>>({
       query(body) {
@@ -143,6 +142,16 @@ export const apiSlice = createApi({
         };
       },
       invalidatesTags: ["Planets", "Spaceships"],
+      onQueryStarted(body, { dispatch, queryFulfilled }) {
+        // Optimistic caching with rollback on error
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData("getPlanets", undefined, (cache) => {
+            // update the item in the cache
+            return Object.assign([...filter(byNotId(body.id), cache), body]);
+          })
+        );
+        queryFulfilled.catch(patchResult.undo);
+      },
     }),
   }),
 });
