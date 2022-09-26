@@ -1,4 +1,4 @@
-import { z } from "zod";
+import {z, ZodIssue} from "zod";
 import React from "react";
 
 export const NameSchema = z.string().min(3).max(100);
@@ -11,3 +11,5 @@ export type FormDataMap<T> = Map<keyof T, any>;
 export type ReactChangeEvent =
   | React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLSelectElement>;
+
+export type ValidationIssues = Array<ZodIssue>;

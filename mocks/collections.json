@@ -12,6 +12,7 @@
 
       "get-planets:success",
       "get-planet:success",
+      "get-planet:error",
       "put-planet:success",
       "put-planet:error",
       "post-planet:success",

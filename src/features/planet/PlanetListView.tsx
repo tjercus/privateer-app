@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {Alert, Table} from "@vismaux/react-nc4";
+import { Alert, Table } from "@vismaux/react-nc4";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 //
@@ -24,7 +24,9 @@ export const PlanetListView = ({
   planets,
 }: Props) =>
   hasValue(error) ? (
-    <Alert type="danger">{"There was an error fetching the list of planets"}</Alert>
+    <Alert type="danger">
+      {"There was an error fetching the list of planets"}
+    </Alert>
   ) : (
     <article>
       <h1>{"Planets"}</h1>

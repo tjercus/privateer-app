@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SafeParseReturnType } from "zod/lib/types";
 //
-import { ID, ReactChangeEvent } from "../../domain/general";
+import {ID, ReactChangeEvent, ValidationIssues} from "../../domain/general";
 import { PlanetSchema } from "../../domain/types";
 import {
   useGetPlanetByIdQuery,
@@ -17,6 +16,7 @@ import {
   updateFormData,
 } from "./planetUtils";
 import { PlanetFormDataMap } from "./planetTypes";
+import {hasNoValue, makeValidationIssues} from "../../common/utils";
 
 interface Props {
   planetId: ID;
@@ -25,13 +25,13 @@ interface Props {
 export const PlanetEditFormContainer = ({ planetId }: Props) => {
   const navigate = useNavigate();
   //
-  const { data, error } = useGetPlanetByIdQuery(planetId);
+  const { data, error: fetchError } = useGetPlanetByIdQuery(planetId);
   const [putPlanet] = usePutPlanetMutation();
 
   const [mutationError, setMutationError] = useState({});
   const [localFormData, setLocalFormData] = useState(initialFormData);
-  const [localValidationResult, setLocalValidationResult] = useState(
-    {} as SafeParseReturnType<any, any>
+  const [localValidationIssues, setLocalValidationIssues] = useState(
+    [] as ValidationIssues
   );
 
   // Set the loaded store data in localFormData
@@ -45,25 +45,30 @@ export const PlanetEditFormContainer = ({ planetId }: Props) => {
 
   const handleSaveForm = (formDataMap: PlanetFormDataMap) => {
     const planet = createPlanetFromFormData(formDataMap);
-    const validationResult = PlanetSchema.safeParse(planet);
-    if (validationResult.success) {
-      putPlanet(planet).unwrap()
-        .then((payload) => { setMutationError({}); navigate("/planet"); })
-        .catch((error) => { console.error('rejected', error); setMutationError(error);  })
-
-    } else {
-      // facilitate inline feedback as per Visma ux
-      setLocalValidationResult(validationResult);
+    const validationIssues = makeValidationIssues(PlanetSchema.safeParse(planet));
+    if (hasNoValue(validationIssues)) {
+      putPlanet(planet)
+        .unwrap()
+        .then(() => {
+          setMutationError({});
+          navigate("/planet");
+        })
+        .catch((err) => {
+          console.error("rejected", err);
+          setMutationError(err);
+        });
     }
+    // facilitate inline feedback as per Visma ux
+    setLocalValidationIssues(validationIssues);
   };
 
   return (
     <PlanetFormView
-      error={error || mutationError }
+      error={fetchError || mutationError}
       handleInputChange={handleInputChange}
       handleSaveForm={handleSaveForm}
       formDataMap={localFormData}
-      validationResult={localValidationResult}
+      validationIssues={localValidationIssues}
     />
   );
 };

@@ -14,6 +14,8 @@ import {
   without,
 } from "ramda";
 import { SafeParseReturnType } from "zod/lib/types";
+//
+import { ValidationIssues } from "../domain/general";
 
 /**
  * Fastest way to deep clone an Object in JavaScript
@@ -59,6 +61,32 @@ export const hasNoValue = (value: any | null) =>
 export const hasValue = (value: any | null) => !hasNoValue(value);
 
 /**
+ * If not-Array wrap it in an Array, else return original Array
+ */
+const asArray = <T>(singleOrMultiple: T | Array<T>) =>
+  Array.isArray(singleOrMultiple) ? singleOrMultiple : [];
+
+/**
+ * Add or remove a value to a copy of an array
+ */
+export const updateArray = <T>(arr: Array<T>, value: any) =>
+  includes(value, arr ?? []) ? without([value], arr) : concat([value], arr);
+
+// /**
+//  * Make the identity (null) type for a validation result
+//  */
+// export const createValidationResult = () =>
+//   ({ data: {}, success: true } as SafeParseReturnType<any, any>);
+
+/**
+ * Map Zod's validation result Object to an Array of ZodIssue Objects
+ */
+export const makeValidationIssues = (
+  safeParse: SafeParseReturnType<any, any>
+): ValidationIssues => (safeParse.success ? [] : safeParse.error?.issues);
+
+
+/**
  * To find the id in a URL (for example)
  */
 export const lastUrlSegment = pipe(
@@ -73,13 +101,10 @@ export const lastUrlSegment = pipe(
 export const firstUrlSegment = ifElse(isNil, always(""), pipe(identity, tail));
 
 /**
- * Add or remove a value to a copy of an array
+ * Is a field or one of many fields to be found in a list of error Objects?
  */
-export const updateArray = <T>(arr: Array<T>, value: any) =>
-  includes(value, arr ?? []) ? without([value], arr) : concat([value], arr);
-
-/**
- * Make the identity (null) type for a validation result
- */
-export const createValidationResult = () =>
-  ({ data: {}, success: true } as SafeParseReturnType<any, any>);
+export const hasIssues = (
+  vi: ValidationIssues = [],
+  fieldOrFields: string | Array<string> = ""
+) =>
+  vi.filter((issue) => includes(issue.path[0], asArray(fieldOrFields))).length;

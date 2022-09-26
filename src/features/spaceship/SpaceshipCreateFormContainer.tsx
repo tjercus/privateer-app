@@ -39,9 +39,6 @@ export const SpaceshipCreateFormContainer = () => {
     } else {
       // facilitate inline feedback as per Visma ux
       setLocalValidationResult(validationResult);
-
-      // for debugging an alert might be useful
-      // alert(`That is a shame! ${validationResult.error}`);
     }
   };
 

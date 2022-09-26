@@ -4,21 +4,18 @@ import { includes } from "ramda";
 import { SafeParseReturnType } from "zod/lib/types";
 //
 import { createValidationResult } from "../../common/utils";
-import ValidationErrorsList from "../../common/components/ValidationErrorsList";
+import ValidationErrorsList from "../../common/components/ValidationIssuesList";
 import {
   createObjectsOptionList,
   createStringsOptionList,
 } from "../../common/components/OptionLists";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
-import {FormDataMap, ReactChangeEvent} from "../../domain/general";
+import { FormDataMap, ReactChangeEvent } from "../../domain/general";
 //
 import { initialFormData } from "./spaceshipUtils";
 
 interface Props {
-  handleInputChange: (
-    evt:
-      ReactChangeEvent
-  ) => void;
+  handleInputChange: (evt: ReactChangeEvent) => void;
   handleSaveForm: (formData: FormDataMap<Spaceship>) => void;
   planets: Array<Planet>;
   formDataMap?: FormDataMap<Spaceship>;

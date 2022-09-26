@@ -24,17 +24,17 @@ in the browser while maintaining state.
 
 ## TODO
 
-- EXPR: replace mocks-server with a static real express server?
-- ui: http error handling in create and edit controller
+- ui: http error handling in create and edit controllers
 - http: check incoming data for spaceships/planets with Zod
-
+- WCAG 2.1 support
 - add unit tests
 - add Cypress tests
-- ui: check html validity
+- EXPR: replace mocks-server with a static real express server?
+
 - upgrade nc4 to vud (and fix icon buttons)
 - put route strings in constants?
 - storage model: add lastModifiedAt attributes for versioning
-- WCAG 2.1 support
+
 - ui: fix enter keyboard for cancel button
 
 ### nice to have
