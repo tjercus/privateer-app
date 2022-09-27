@@ -24,7 +24,7 @@ in the browser while maintaining state.
 
 ## TODO
 
-- http: check incoming data for spaceships/planets with Zod
+- middleware: custom middleware to check incoming data for spaceships/planets with Zod
 - WCAG 2.1 support
 - add unit tests
 - add Cypress tests
@@ -40,7 +40,6 @@ in the browser while maintaining state.
 
 - domain model: check if a real domain can be implemented (real relationships)
 - ui: use inline Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
-- ui: Add a required star next to form fields
 - ui: add dirty check, and disable save button when formDataMap is clean
 - ui: move from static button to animated one
 - RBAC
@@ -63,6 +62,7 @@ in the browser while maintaining state.
 - https://fernandoabolafio.medium.com/generic-table-component-with-react-and-typescript-d849ad9f4c48
 - https://www.mocks-server.org/
 - https://timdeschryver.dev/blog/why-we-should-verify-http-response-bodies-and-why-we-should-use-zod-for-this?
+- https://antman-does-software.com/functional-domain-driven-design-simplified
 
 ### example domain
 

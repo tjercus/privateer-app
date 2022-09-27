@@ -14,7 +14,7 @@ import { initialFormData } from "./spaceshipUtils";
 import { hasIssues, hasValue } from "../../common/utils";
 import { Alert } from "@vismaux/react-nc4";
 import Conditional from "../../common/components/Conditional";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   error: SomeErrorType;
