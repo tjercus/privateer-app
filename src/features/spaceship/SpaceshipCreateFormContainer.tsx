@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import { SafeParseReturnType } from "zod/lib/types";
 //
-import { Spaceship, SpaceshipSchema } from "../../domain/types";
-import { FormDataMap, ReactChangeEvent } from "../../domain/general";
+import { PlanetSchema, Spaceship } from "../../domain/types";
+import {
+  FormDataMap,
+  ReactChangeEvent,
+  ValidationIssues,
+} from "../../domain/general";
+import { hasNoValue, makeValidationIssues } from "../../common/utils";
 import {
   useGetPlanetsQuery,
   usePostSpaceshipMutation,
@@ -19,9 +23,10 @@ export const SpaceshipCreateFormContainer = () => {
   const getPlanetsQuery = useGetPlanetsQuery();
   const [postSpaceship] = usePostSpaceshipMutation();
 
+  const [mutationError, setMutationError] = useState({});
   const [localFormData, setLocalFormData] = useState(initialFormData);
-  const [localValidationResult, setLocalValidationResult] = useState(
-    {} as SafeParseReturnType<any, any>
+  const [localValidationIssues, setLocalValidationIssues] = useState(
+    [] as ValidationIssues
   );
 
   const handleInputChange = (evt: ReactChangeEvent) => {
@@ -32,23 +37,33 @@ export const SpaceshipCreateFormContainer = () => {
     formDataMap.set("id", uuid());
     console.log("handling saving create spaceship", formDataMap);
     const spaceship = Object.fromEntries<Spaceship>(formDataMap);
-    const validationResult = SpaceshipSchema.safeParse(spaceship);
-    if (validationResult.success) {
-      postSpaceship(spaceship);
-      navigate("/spaceship");
-    } else {
-      // facilitate inline feedback as per Visma ux
-      setLocalValidationResult(validationResult);
+    const validationIssues = makeValidationIssues(
+      PlanetSchema.safeParse(spaceship)
+    );
+    if (hasNoValue(validationIssues)) {
+      postSpaceship(spaceship)
+        .unwrap()
+        .then(() => {
+          setMutationError({});
+          navigate("/spaceship");
+        })
+        .catch((err) => {
+          console.error("rejected", err);
+          setMutationError(err);
+        });
     }
+    // facilitate inline feedback as per Visma ux
+    setLocalValidationIssues(validationIssues);
   };
 
   return (
     <SpaceshipFormView
+      error={mutationError}
       handleInputChange={handleInputChange}
       handleSaveForm={handleSaveForm}
       formDataMap={localFormData}
       planets={getPlanetsQuery.data ?? []}
-      validationResult={localValidationResult}
+      validationIssues={localValidationIssues}
     />
   );
 };

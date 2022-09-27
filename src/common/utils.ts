@@ -2,6 +2,7 @@ import {
   always,
   concat,
   curry,
+  filter,
   identity,
   ifElse,
   includes,
@@ -14,6 +15,7 @@ import {
   without,
 } from "ramda";
 import { SafeParseReturnType } from "zod/lib/types";
+import { ZodIssue } from "zod";
 //
 import { ValidationIssues } from "../domain/general";
 
@@ -64,7 +66,7 @@ export const hasValue = (value: any | null) => !hasNoValue(value);
  * If not-Array wrap it in an Array, else return original Array
  */
 const asArray = <T>(singleOrMultiple: T | Array<T>) =>
-  Array.isArray(singleOrMultiple) ? singleOrMultiple : [];
+  Array.isArray(singleOrMultiple) ? singleOrMultiple : [singleOrMultiple];
 
 /**
  * Add or remove a value to a copy of an array
@@ -85,7 +87,6 @@ export const makeValidationIssues = (
   safeParse: SafeParseReturnType<any, any>
 ): ValidationIssues => (safeParse.success ? [] : safeParse.error?.issues);
 
-
 /**
  * To find the id in a URL (for example)
  */
@@ -105,6 +106,10 @@ export const firstUrlSegment = ifElse(isNil, always(""), pipe(identity, tail));
  */
 export const hasIssues = (
   vi: ValidationIssues = [],
-  fieldOrFields: string | Array<string> = ""
+  fieldOrFields: string | Array<string> = []
 ) =>
-  vi.filter((issue) => includes(issue.path[0], asArray(fieldOrFields))).length;
+  hasValue(
+    vi.filter((issue: ZodIssue) =>
+      includes(issue.path[0], asArray(fieldOrFields))
+    )
+  );

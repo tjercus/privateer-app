@@ -3,8 +3,8 @@ import React from "react";
 import { SafeParseReturnType } from "zod/lib/types";
 //
 import Conditional from "./Conditional";
-import { hasValue} from "../utils";
-import {ValidationIssues} from "../../domain/general";
+import { hasValue } from "../utils";
+import { ValidationIssues } from "../../domain/general";
 
 interface Props {
   validationIssues: ValidationIssues;
@@ -15,12 +15,8 @@ interface Props {
  *  that the 'valid' OR 'invalid' branch of SafeParseReturnType should be used,
  *  so we have to check inside the UL a second time which one is applicable.
  */
-const ValidationIssuesList = ({ validationIssues = []}: Props) => (
-  <Conditional
-    condition={
-      hasValue(validationIssues)
-    }
-  >
+const ValidationIssuesList = ({ validationIssues = [] }: Props) => (
+  <Conditional condition={hasValue(validationIssues)}>
     <Alert type="danger">
       <ul>
         {

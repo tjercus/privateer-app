@@ -24,7 +24,6 @@ in the browser while maintaining state.
 
 ## TODO
 
-- ui: http error handling in create and edit controllers
 - http: check incoming data for spaceships/planets with Zod
 - WCAG 2.1 support
 - add unit tests

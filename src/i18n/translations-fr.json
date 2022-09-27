@@ -5,6 +5,7 @@
     "home.link1": "une fonctionnalité hors ligne, qui est probablement moins courante",
     "home.link2": "une fonctionnalité relationnelle en ligne (planètes)",
     "home.link3": "une fonctionnalité relationnelle en ligne (vaisseaux spatiaux)",
-    "planet.form.error": "Il y a un problem avec le serveur"
+    "planet.form.error": "Il y a un problem avec le serveur",
+    "spaceship.form.error": "Il y a un problem avec le serveur"
   }
 }

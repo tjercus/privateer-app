@@ -14,13 +14,6 @@ import { initialFormData } from "./planetUtils";
 import { PlanetFormDataMap } from "./planetTypes";
 import Conditional from "../../common/components/Conditional";
 
-type SomeErrorType =
-  | ObjectWithIssues
-  | FetchBaseQueryError
-  | SerializedError
-  | undefined;
-type ObjectWithIssues = { issues: ValidationIssues };
-
 interface Props {
   error: SomeErrorType;
   handleInputChange: (evt: ReactChangeEvent) => void;
@@ -32,10 +25,10 @@ interface Props {
 export const PlanetFormView = ({
   error = {},
   handleInputChange = () => {
-    /* empty fn body */
+    /* default fn body */
   },
   handleSaveForm = () => {
-    /* empty fn body */
+    /* default fn body */
   },
   formDataMap = initialFormData,
   validationIssues = [],

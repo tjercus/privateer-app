@@ -5,6 +5,7 @@
     "home.link1": "an offline feature, which is probably less common",
     "home.link2": "an online relational feature (planets)",
     "home.link3": "an online relational feature (spaceships)",
-    "planet.form.error": "There is a problem with the server"
+    "planet.form.error": "There is a problem with the server",
+    "spaceship.form.error": "There is a problem with the server"
   }
 }

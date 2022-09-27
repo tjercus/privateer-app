@@ -1,15 +1,19 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {v4 as uuid} from "uuid";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 //
-import {hasNoValue, makeValidationIssues} from "../../common/utils";
-import {ReactChangeEvent, ValidationIssues} from "../../domain/general";
-import {PlanetSchema} from "../../domain/types";
-import {usePostPlanetMutation} from "../../common/apiSlice";
+import { hasNoValue, makeValidationIssues } from "../../common/utils";
+import { ReactChangeEvent, ValidationIssues } from "../../domain/general";
+import { PlanetSchema } from "../../domain/types";
+import { usePostPlanetMutation } from "../../common/apiSlice";
 //
-import {PlanetFormView} from "./PlanetFormView";
-import {createPlanetFromFormData, initialFormData, updateFormData,} from "./planetUtils";
-import {PlanetFormDataMap} from "./planetTypes";
+import { PlanetFormView } from "./PlanetFormView";
+import {
+  createPlanetFromFormData,
+  initialFormData,
+  updateFormData,
+} from "./planetUtils";
+import { PlanetFormDataMap } from "./planetTypes";
 
 export const PlanetCreateFormContainer = () => {
   const navigate = useNavigate();
@@ -29,7 +33,9 @@ export const PlanetCreateFormContainer = () => {
   const handleSaveForm = (formDataMap: PlanetFormDataMap) => {
     const planet = createPlanetFromFormData(formDataMap);
     planet.id = uuid();
-    const validationIssues = makeValidationIssues(PlanetSchema.safeParse(planet));
+    const validationIssues = makeValidationIssues(
+      PlanetSchema.safeParse(planet)
+    );
     if (hasNoValue(validationIssues)) {
       postPlanet(planet)
         .unwrap()
