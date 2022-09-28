@@ -3,7 +3,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 //
 import modalReducer from "./features/modal/modalSlice";
 import { apiSlice } from "./common/apiSlice";
-import { responseValidatorMiddleware } from "./common/responseValidatorMiddleware";
+import { responseValidatingMiddleware } from "./common/responseValidatingMiddleware";
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +21,7 @@ export const store = configureStore({
           "modal.modalConfig.handleConfirmEvent",
         ],
       },
-    }).concat([apiSlice.middleware, responseValidatorMiddleware]),
+    }).concat([apiSlice.middleware, responseValidatingMiddleware]),
 });
 
 export type AppDispatch = typeof store.dispatch;

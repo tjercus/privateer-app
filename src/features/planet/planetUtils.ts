@@ -1,4 +1,3 @@
-import React from "react";
 import { match } from "ts-pattern";
 //
 import { Planet } from "../../domain/types";
