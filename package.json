@@ -28,6 +28,7 @@
     "@types/ramda": "^0.28.15",
     "@types/uuid": "^8.3.4",
     "@vitest/coverage-c8": "^0.23.4",
+    "cypress": "^10.9.0",
     "file-system-db": "^1.0.1",
     "jsdom": "^20.0.0",
     "prettier": "2.7.1",
@@ -40,7 +41,8 @@
     "preview": "vite preview",
     "server": "mocks-server",
     "start": "vite",
-    "test": "vitest --coverage"
+    "test": "vitest --coverage",
+    "test:cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [

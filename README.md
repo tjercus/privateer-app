@@ -9,6 +9,7 @@ Practise ground for react CRUD app with some common default components
 - Optimistic updates with rollback for better UX
 - Visma UI look-and-feel
 - Form validation with Zod
+- custom middleware to sanitize incoming data with Zod
 - i18n
 
 ## Run locally
@@ -24,7 +25,6 @@ in the browser while maintaining state.
 
 ## TODO
 
-- middleware: custom middleware to check incoming data for spaceships/planets with Zod
 - WCAG 2.1 support
 - add unit tests
 - add Cypress tests

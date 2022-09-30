@@ -1,5 +1,7 @@
-import { Middleware, ThunkDispatch } from "@reduxjs/toolkit";
+import {Action, AnyAction, Dispatch, Middleware, ThunkDispatch} from "@reduxjs/toolkit";
 import { ZodSchema } from "zod";
+import { QueryTypeNames } from "./apiSlice";
+import { match } from "ts-pattern";
 //
 import { RootState } from "../store";
 import {
@@ -8,8 +10,6 @@ import {
   Spaceship,
   SpaceshipSchema,
 } from "../domain/types";
-import { QueryTypeNames } from "./apiSlice";
-import { match } from "ts-pattern";
 
 // Sanitizing functions will remove any objects that do not pass validation to a schema
 const sanitizeSingularPayload = <T>(payload: T, schema: ZodSchema) =>
@@ -33,7 +33,7 @@ const sanitizePayload = <T>(
 export const responseValidatingMiddleware: Middleware<
   {}, // do not modify the dispatch return value
   RootState,
-  ThunkDispatch
+  ThunkDispatch<any, Dispatch<AnyAction>, Action>
 > = (_) => (next) => (action) => {
   const actionClone = { ...action };
   if (action.type === "apiSlice/executeQuery/fulfilled") {
