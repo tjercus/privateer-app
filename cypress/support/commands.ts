@@ -56,7 +56,7 @@ Cypress.Commands.add("selectShouldHaveText", selectShouldHaveText);
 cy.selectShouldHaveText = selectShouldHaveText;
 
 const textInputShouldHaveLength = (selector: any, length: number) => {
-  cy.get(selector).should($input => {
+  cy.get(selector).should(($input) => {
     expect($input.val()).to.have.length(length);
   });
 };

@@ -8,7 +8,11 @@ import { ID } from "../domain/general";
 // TODO move baseurl to config
 const API_BASE_URL = "http://localhost:3001/api/";
 
-export type QueryTypeNames = "getPlanets" | "getPlanetById" | "getSpaceships" | "getSpaceshipById";
+export type QueryTypeNames =
+  | "getPlanets"
+  | "getPlanetById"
+  | "getSpaceships"
+  | "getSpaceshipById";
 
 // Define a service using a base URL and expected endpoints
 export const apiSlice = createApi({

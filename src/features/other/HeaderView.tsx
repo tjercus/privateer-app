@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, NavbarNav, NavbarNavMenu } from "@vismaux/react-nc4";
 import { Link, useLocation } from "react-router-dom";
+//
 import { firstUrlSegment } from "../../common/utils";
 
 export const HeaderView = () => {

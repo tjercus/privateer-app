@@ -1,4 +1,4 @@
-import {Action, AnyAction, Dispatch, Middleware, ThunkDispatch} from "@reduxjs/toolkit";
+import { Action, Dispatch, Middleware, ThunkDispatch } from "@reduxjs/toolkit";
 import { ZodSchema } from "zod";
 import { QueryTypeNames } from "./apiSlice";
 import { match } from "ts-pattern";
@@ -11,7 +11,7 @@ import {
   SpaceshipSchema,
 } from "../domain/types";
 
-// Sanitizing functions will remove any objects that do not pass validation to a schema
+// Sanitizing functions will remove any objects that do not pass validation (to schema)
 const sanitizeSingularPayload = <T>(payload: T, schema: ZodSchema) =>
   schema.safeParse(payload).success ? payload : ({} as T);
 const sanitizeListPayload = <T>(payload: Array<T>, schema: ZodSchema) =>
@@ -33,9 +33,10 @@ const sanitizePayload = <T>(
 export const responseValidatingMiddleware: Middleware<
   {}, // do not modify the dispatch return value
   RootState,
-  ThunkDispatch<any, Dispatch<AnyAction>, Action>
+  ThunkDispatch<any, Dispatch, Action>
 > = (_) => (next) => (action) => {
   const actionClone = { ...action };
+  // only listen to Actions that are sent after a GET (query) was completed
   if (action.type === "apiSlice/executeQuery/fulfilled") {
     console.log("responseValidatingMiddleware fired for", action);
 
@@ -51,7 +52,8 @@ export const responseValidatingMiddleware: Middleware<
       )
       .with("getSpaceshipById", () =>
         sanitizePayload<Spaceship>(action.payload, SpaceshipSchema)
-      ).exhaustive();
+      )
+      .exhaustive();
   }
   return next(actionClone);
 };
