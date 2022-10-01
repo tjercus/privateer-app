@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { includes } from "ramda";
+import { Alert } from "@vismaux/react-nc4";
 //
 import ValidationErrorsList from "../../common/components/ValidationIssuesList";
 import {
@@ -8,13 +10,15 @@ import {
   createStringsOptionList,
 } from "../../common/components/OptionLists";
 import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
-import { FormDataMap, ReactChangeEvent } from "../../domain/general";
+import {
+  FormDataMap,
+  ReactChangeEvent,
+  SomeErrorType,
+} from "../../domain/general";
 //
 import { initialFormData } from "./spaceshipUtils";
 import { hasIssues, hasValue } from "../../common/utils";
-import { Alert } from "@vismaux/react-nc4";
 import Conditional from "../../common/components/Conditional";
-import { useTranslation } from "react-i18next";
 
 interface Props {
   error: SomeErrorType;

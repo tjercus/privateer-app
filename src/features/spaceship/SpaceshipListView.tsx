@@ -5,13 +5,13 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 //
 import { hasValue } from "../../common/utils";
-import { ID } from "../../domain/general";
+import { ID, SomeErrorType } from "../../domain/general";
 import { Spaceship } from "../../domain/types";
 //
 import { SpaceshipRowView } from "./SpaceshipRowView";
 
 interface Props {
-  error: FetchBaseQueryError | SerializedError | undefined; // TODO extract type
+  error: SomeErrorType;
   eventHandlers: { handleDeleteButtonClick: (spaceshipId: ID) => void }; // TODO extract TYPE
   isLoading: boolean;
   spaceships?: Array<Spaceship>;

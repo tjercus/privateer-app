@@ -12,9 +12,9 @@ import {
   ModalTypes,
   openModal,
 } from "../modal/modalSlice";
+import { ID } from "../../domain/general";
 //
 import { PlanetListView } from "./PlanetListView";
-import { ID } from "../../domain/general";
 
 export const PlanetListContainer = () => {
   const dispatch = useAppDispatch();

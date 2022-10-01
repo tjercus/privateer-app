@@ -1,17 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Alert, Table } from "@vismaux/react-nc4";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { SerializedError } from "@reduxjs/toolkit";
 //
+import { ID, SomeErrorType } from "../../domain/general";
 import { hasValue } from "../../common/utils";
 import { Planet } from "../../domain/types";
 //
 import { PlanetRowView } from "./PlanetRowView";
-import { ID } from "../../domain/general";
 
 interface Props {
-  error: FetchBaseQueryError | SerializedError | undefined; // TODO extract type
+  error: SomeErrorType;
   eventHandlers: { handleDeleteButtonClick: (planetId: ID) => void }; // TODO extract TYPE
   isLoading: boolean;
   planets?: Array<Planet>;
