@@ -1,18 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { SafeParseReturnType } from "zod/lib/types";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { SerializedError } from "@reduxjs/toolkit";
 import { Alert } from "@vismaux/react-nc4";
 //
-import { ReactChangeEvent, ValidationIssues } from "../../domain/general";
+import {ReactChangeEvent, SomeErrorType, ValidationIssues} from "../../domain/general";
 import { hasIssues, hasValue } from "../../common/utils";
 import ValidationIssuesList from "../../common/components/ValidationIssuesList";
+import Conditional from "../../common/components/Conditional";
 //
 import { initialFormData } from "./planetUtils";
 import { PlanetFormDataMap } from "./planetTypes";
-import Conditional from "../../common/components/Conditional";
 
 interface Props {
   error: SomeErrorType;

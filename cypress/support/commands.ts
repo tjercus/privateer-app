@@ -38,18 +38,21 @@
 
 const getBySel = (selector: any, ...args: any[]) =>
   cy.get(`[data-test=${selector}]`, ...args);
+// @ts-ignore
 Cypress.Commands.add("getBySel", getBySel);
 // @ts-ignore
 cy.getBySel = getBySel;
 
 const getBySelLike = (selector: any, ...args: any[]) =>
   cy.get(`[data-test*=${selector}]`, ...args);
+// @ts-ignore
 Cypress.Commands.add("getBySelLike", getBySelLike);
 // @ts-ignore
 cy.getBySelLike = getBySelLike;
 
 const selectShouldHaveText = (selector: any, text: any, ...args: any[]) =>
   cy.get(`${selector} option:selected`, ...args).should("have.text", text);
+// @ts-ignore
 Cypress.Commands.add("selectShouldHaveText", selectShouldHaveText);
 // to make sure Intellij understands the extension we also assign it directly
 // @ts-ignore
@@ -60,6 +63,7 @@ const textInputShouldHaveLength = (selector: any, length: number) => {
     expect($input.val()).to.have.length(length);
   });
 };
+// @ts-ignore
 Cypress.Commands.add("textInputShouldHaveLength", textInputShouldHaveLength);
 // @ts-ignore
 cy.textInputShouldHaveLength = textInputShouldHaveLength;
