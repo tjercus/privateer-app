@@ -25,6 +25,7 @@ in the browser while maintaining state.
 
 ## TODO
 
+- fix add planet
 - EXPR: replace mocks-server with a static real express server?
 - WCAG 2.1 support
 - upgrade nc4 to vud (and fix icon buttons)

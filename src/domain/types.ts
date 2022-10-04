@@ -23,7 +23,6 @@ export enum SpaceshipType {
   CENTURION = "Centurion",
   DEMON = "Demon",
   GALAXY = "Galaxy",
-  NONE = "",
   ORION = "Orion",
   TARSUS = "Tarsus",
 }
@@ -37,7 +36,7 @@ export enum Weapon {
   TACHYON_CANNON = "Tachyon Cannon",
 }
 
-const ArmourLevelSchema = z.number();
+const ArmourLevelSchema = z.number().min(0).max(5);
 export type ArmourLevel = z.infer<typeof ArmourLevelSchema>;
 
 // example with Monads:
@@ -51,7 +50,7 @@ export const SpaceshipSchema = z.object({
   landedOnPlanet: PlanetSchema.optional(),
   name: NameSchema,
   type: z.nativeEnum(SpaceshipType),
-  weapons: z.array(z.nativeEnum(Weapon)),
+  weapons: z.array(z.nativeEnum(Weapon)).optional(),
 });
 
 export type Spaceship = z.infer<typeof SpaceshipSchema>;

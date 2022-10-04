@@ -97,6 +97,7 @@ export const SpaceshipFormView = ({
               onChange={handleInputChange}
               value={formDataMap.get("type")}
             >
+              <option value={""}></option>
               {createStringsOptionList<SpaceshipType>(
                 Object.values(SpaceshipType)
               )}
@@ -127,7 +128,7 @@ export const SpaceshipFormView = ({
         </div>
 
         <div
-          className={`form-group required ${
+          className={`form-group ${
             hasIssues(validationIssues, "weapons")
               ? "has-error"
               : "has-no-error"

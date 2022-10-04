@@ -30,7 +30,6 @@ export const findPlanetForSpaceship = (
 export const initialFormData: FormDataMap<Spaceship> = new Map()
   .set("armour", 0)
   .set("id", "")
-  .set("landedOnId", "")
   .set("name", "")
   .set("type", SpaceshipType.NONE)
   .set("weapons", []);
@@ -42,7 +41,6 @@ export const createFormDataFromDomain = (spaceship?: Spaceship) =>
   new Map()
     .set("armour", spaceship?.armour)
     .set("id", spaceship?.id)
-    .set("landedOnId", spaceship?.landedOnId)
     .set("name", spaceship?.name)
     .set("type", spaceship?.type)
     .set("weapons", spaceship?.weapons);

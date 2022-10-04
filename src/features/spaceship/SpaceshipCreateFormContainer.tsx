@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 //
-import { PlanetSchema, Spaceship } from "../../domain/types";
+import { Spaceship, SpaceshipSchema} from "../../domain/types";
 import {
   FormDataMap,
   ReactChangeEvent,
@@ -10,7 +10,6 @@ import {
 } from "../../domain/general";
 import { hasNoValue, makeValidationIssues } from "../../common/utils";
 import {
-  useGetPlanetsQuery,
   usePostSpaceshipMutation,
 } from "../../common/apiSlice";
 //
@@ -20,7 +19,6 @@ import { initialFormData, updateFormData } from "./spaceshipUtils";
 export const SpaceshipCreateFormContainer = () => {
   const navigate = useNavigate();
 
-  const getPlanetsQuery = useGetPlanetsQuery();
   const [postSpaceship] = usePostSpaceshipMutation();
 
   const [mutationError, setMutationError] = useState({});
@@ -38,7 +36,7 @@ export const SpaceshipCreateFormContainer = () => {
     console.log("handling saving create spaceship", formDataMap);
     const spaceship = Object.fromEntries<Spaceship>(formDataMap);
     const validationIssues = makeValidationIssues(
-      PlanetSchema.safeParse(spaceship)
+      SpaceshipSchema.safeParse(spaceship)
     );
     if (hasNoValue(validationIssues)) {
       postSpaceship(spaceship)
@@ -62,7 +60,6 @@ export const SpaceshipCreateFormContainer = () => {
       handleInputChange={handleInputChange}
       handleSaveForm={handleSaveForm}
       formDataMap={localFormData}
-      planets={getPlanetsQuery.data ?? []}
       validationIssues={localValidationIssues}
     />
   );
