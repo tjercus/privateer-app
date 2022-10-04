@@ -11,10 +11,10 @@
     "spaceship.list.header": "Spaceships",
     "spaceship.list.table.header.name": "Name",
     "spaceship.list.table.header.landedOn": "Landed on",
-    "spaceship.list.table.header.type": "type",
-    "spaceship.list.table.header.armour": "armour",
-    "spaceship.list.table.header.weapons": "weapons",
-    "spaceship.list.table.header.actions": "actions",
+    "spaceship.list.table.header.type": "Type",
+    "spaceship.list.table.header.armour": "Armour",
+    "spaceship.list.table.header.weapons": "Weapons",
+    "spaceship.list.table.header.actions": "Actions",
     "spaceship.list.button.add": "Add a spaceship"
   }
 }

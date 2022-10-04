@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TableRow } from "@vismaux/react-nc4";
+import {join} from "ramda";
 //
 import { ID } from "../../domain/general";
 import { Spaceship } from "../../domain/types";
@@ -31,7 +32,7 @@ export const SpaceshipRowView = ({ events, isLoading, spaceship }: Props) =>
       <td>{spaceship.landedOnPlanet?.name}</td>
       <td>{spaceship.type}</td>
       <td>{spaceship.armour}</td>
-      <td>{spaceship.weapons.toString()}</td>
+      <td>{join(", ", spaceship.weapons)}</td>
       <td>
         <Link to={`/spaceship/move/${spaceship.id}`}>
           <button
@@ -39,6 +40,7 @@ export const SpaceshipRowView = ({ events, isLoading, spaceship }: Props) =>
             className="btn btn-primary"
             data-test={"btn-move-spaceship"}
           >
+            <span className="vismaicon vismaicon-up vismaicon-sm mr-8"></span>
             {"Move the spaceship"}
           </button>
         </Link>
