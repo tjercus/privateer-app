@@ -8,6 +8,7 @@
       "get-spaceship:success",
       "put-spaceship:success",
       "post-spaceship:success",
+      "patch-spaceship:success",
       "delete-spaceship:success",
 
       "get-planets:success",

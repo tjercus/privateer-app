@@ -90,6 +90,36 @@ export const apiSlice = createApi({
         queryFulfilled.catch(patchResult.undo);
       },
     }),
+
+    patchSpaceship: builder.mutation<void, { id: ID; landedOnId: ID }>({
+      query(body) {
+        return {
+          url: `spaceships/${body.id}`,
+          method: "PATCH",
+          body,
+        };
+      },
+      invalidatesTags: ["Spaceships"],
+      onQueryStarted(body, { dispatch, queryFulfilled }) {
+        // Optimistic caching with rollback on error
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData("getSpaceships", undefined, (cache) => {
+            // ask immer to update the item in the cache
+            const storageIndex = cache.findIndex(byId(body.id));
+            if (storageIndex > -1) {
+              const prevSpaceship =
+                find(byId(body.id), cache) ?? ({} as Spaceship);
+              cache[storageIndex] = {
+                ...prevSpaceship,
+                ...body,
+              };
+            }
+          })
+        );
+        queryFulfilled.catch(patchResult.undo);
+      },
+    }),
+
     getPlanets: builder.query<Array<Planet>, void>({
       query: () => `planets`,
       providesTags: ["Planets"],
@@ -170,6 +200,7 @@ export const {
   useGetSpaceshipsQuery,
   usePostSpaceshipMutation,
   usePutSpaceshipMutation,
+  usePatchSpaceshipMutation,
 
   useDeletePlanetMutation,
   useGetPlanetByIdQuery,

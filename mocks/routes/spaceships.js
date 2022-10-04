@@ -14,7 +14,7 @@ module.exports = [
         type: "middleware", // variant handler id
         options: {
           // Express middleware to execute
-          middleware: (req, res, next, core) => {
+          middleware: (_, res, next, core) => {
             res.status(200);
             res.send(db.get("spaceships"));
           },
@@ -64,7 +64,7 @@ module.exports = [
   {
     id: "put-spaceship", // id of the route
     url: "/api/spaceships/:id", // url in path-to-regexp format
-    method: ["PATCH", "PUT"],
+    method: ["PUT"],
     variants: [
       {
         id: "success", // id of the variant
@@ -105,6 +105,37 @@ module.exports = [
             db.push("spaceships", spaceship);
             res.status(201);
             res.send(spaceship);
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: "patch-spaceship", // id of the route
+    url: "/api/spaceships/:id", // url in path-to-regexp format
+    method: ["PATCH"],
+    variants: [
+      {
+        id: "success", // id of the variant
+        type: "middleware", // variant type
+        options: {
+          middleware: (req, res, next) => {
+            const body = req.body;
+            const spaceships = db.get("spaceships");
+            const storageIndex = spaceships.findIndex(byId(req.params.id));
+            if (storageIndex > -1) {
+              const prevSpaceship = spaceships[storageIndex];
+              spaceships[storageIndex] = { ...prevSpaceship, ...body };
+              db.set("spaceships", spaceships);
+              res.status(200); // 204 No Content = OK
+              res.send(spaceships[storageIndex]);
+              next();
+            } else {
+              res.status(404);
+              res.send({
+                message: "spaceship not found",
+              });
+            }
           },
         },
       },

@@ -25,11 +25,8 @@ in the browser while maintaining state.
 
 ## TODO
 
-- WCAG 2.1 support
-- add unit tests
-- add Cypress tests
 - EXPR: replace mocks-server with a static real express server?
-
+- WCAG 2.1 support
 - upgrade nc4 to vud (and fix icon buttons)
 - put route strings in constants?
 - storage model: add lastModifiedAt attributes for versioning
@@ -38,7 +35,7 @@ in the browser while maintaining state.
 
 ### nice to have
 
-- domain model: check if a real domain can be implemented (real relationships)
+- domain model: check if a more real domain can be implemented (real relationships)
 - ui: use inline Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
 - ui: add dirty check, and disable save button when formDataMap is clean
 - ui: move from static button to animated one
@@ -48,8 +45,8 @@ in the browser while maintaining state.
 - ui: try with generic table component as in the article below
 - domain model: where to assemble the domain, on the app or the server?
 - auto run the "import sorter plugin" for prettier?
-- wrap validationResult in a ADT
-- find out if the view layer can work with only Maybe's instead of nullable
+- wrap validation result in an ADT
+- ui: find out if the view layer can work with only Maybe's instead of nullable
 
 ### blocked by current react-nc4 version
 

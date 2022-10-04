@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Icon, TableRow } from "@vismaux/react-nc4";
+import { TableRow } from "@vismaux/react-nc4";
 //
 import { ID } from "../../domain/general";
 import { Spaceship } from "../../domain/types";
 
 interface Props {
-  events: { handleDeleteButtonClick: (spaceshipId: ID) => void };
+  events: {
+    handleDeleteButtonClick: (spaceshipId: ID) => void;
+  };
   isLoading: boolean;
   spaceship: Spaceship;
 }
@@ -31,12 +33,21 @@ export const SpaceshipRowView = ({ events, isLoading, spaceship }: Props) =>
       <td>{spaceship.armour}</td>
       <td>{spaceship.weapons.toString()}</td>
       <td>
+        <Link to={`/spaceship/move/${spaceship.id}`}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            data-test={"btn-move-spaceship"}
+          >
+            {"Move the spaceship"}
+          </button>
+        </Link>
         <button
           className={"btn"}
           data-test={"btn-delete-spaceship"}
           onClick={() => events.handleDeleteButtonClick(spaceship.id)}
         >
-          <Icon name="vismaicon vismaicon-trash" size="lg" /> {"Delete"}
+          {"Retire the spaceship"}
         </button>
       </td>
     </TableRow>

@@ -14,6 +14,7 @@ import {
   FormDataMap,
   ReactChangeEvent,
   SomeErrorType,
+  ValidationIssues,
 } from "../../domain/general";
 //
 import { initialFormData } from "./spaceshipUtils";
@@ -26,7 +27,7 @@ interface Props {
   handleSaveForm: (formData: FormDataMap<Spaceship>) => void;
   planets: Array<Planet>;
   formDataMap?: FormDataMap<Spaceship>;
-  validationIssues: [];
+  validationIssues: ValidationIssues;
 }
 
 export const SpaceshipFormView = ({
@@ -79,31 +80,6 @@ export const SpaceshipFormView = ({
               type="text"
               value={formDataMap.get("name")}
             />
-          </div>
-        </div>
-
-        <div
-          className={`form-group ${
-            hasIssues(validationIssues, "landedOnId")
-              ? "has-error"
-              : "has-no-error"
-          }`}
-        >
-          <label className="col-sm-3 control-label" htmlFor="input-landed-on">
-            {"Landed on"}
-          </label>
-          <div className="col-sm-9">
-            <select
-              className="form-control"
-              data-test={"select-spaceship-landed-on"}
-              id="input-landed-on"
-              name={"landedOnId"}
-              onChange={handleInputChange}
-              value={formDataMap.get("landedOnId")}
-            >
-              <option value={""}>{""}</option>
-              {createObjectsOptionList(planets)}
-            </select>
           </div>
         </div>
 

@@ -47,7 +47,7 @@ export type ArmourLevel = z.infer<typeof ArmourLevelSchema>;
 export const SpaceshipSchema = z.object({
   armour: ArmourLevelSchema,
   id: IDSchema,
-  landedOnId: IDSchema,
+  landedOnId: IDSchema.optional(),
   landedOnPlanet: PlanetSchema.optional(),
   name: NameSchema,
   type: z.nativeEnum(SpaceshipType),

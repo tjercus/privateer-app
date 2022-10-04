@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Alert, Table } from "@vismaux/react-nc4";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { SerializedError } from "@reduxjs/toolkit";
 //
 import { hasValue } from "../../common/utils";
 import { ID, SomeErrorType } from "../../domain/general";
@@ -12,7 +10,9 @@ import { SpaceshipRowView } from "./SpaceshipRowView";
 
 interface Props {
   error: SomeErrorType;
-  eventHandlers: { handleDeleteButtonClick: (spaceshipId: ID) => void }; // TODO extract TYPE
+  eventHandlers: {
+    handleDeleteButtonClick: (spaceshipId: ID) => void;
+  }; // TODO extract TYPE
   isLoading: boolean;
   spaceships?: Array<Spaceship>;
 }

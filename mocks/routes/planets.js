@@ -74,7 +74,7 @@ module.exports = [
   {
     id: "put-planet", // id of the route
     url: "/api/planets/:id", // url in path-to-regexp format
-    method: ["PATCH", "PUT"],
+    method: ["PUT"],
     variants: [
       {
         id: "success", // id of the variant
