@@ -31,6 +31,7 @@ export const PlanetRowView = ({ events, isLoading, planet }: Props) =>
           data-test={"btn-delete-planet"}
           onClick={() => events.handleDeleteButtonClick(planet.id)}
         >
+          <span className="vismaicon vismaicon-delete vismaicon-sm mr-8"></span>
           {"Destroy the planet"}
         </button>
       </td>

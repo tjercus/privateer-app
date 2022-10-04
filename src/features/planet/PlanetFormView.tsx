@@ -117,6 +117,7 @@ export const PlanetFormView = ({
               onClick={handleSaveButtonClick}
               type="submit"
             >
+              <span className="vismaicon vismaicon-save vismaicon-sm mr-8"></span>
               {"Save"}
             </button>
             <Link to={"/planet"}>
@@ -124,6 +125,7 @@ export const PlanetFormView = ({
                 className={"btn btn-secondary"}
                 data-test={"btn-save-planet-cancel"}
               >
+                <span className="vismaicon vismaicon-cancel-circle vismaicon-sm mr-8"></span>
                 {"Cancel"}
               </button>
             </Link>

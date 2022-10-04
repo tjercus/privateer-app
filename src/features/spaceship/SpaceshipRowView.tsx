@@ -40,7 +40,7 @@ export const SpaceshipRowView = ({ events, isLoading, spaceship }: Props) =>
             className="btn btn-primary"
             data-test={"btn-move-spaceship"}
           >
-            <span className="vismaicon vismaicon-up vismaicon-sm mr-8"></span>
+            <span className="vismaicon vismaicon-move-up-circle vismaicon-sm mr-8"></span>
             {"Move the spaceship"}
           </button>
         </Link>
@@ -49,6 +49,7 @@ export const SpaceshipRowView = ({ events, isLoading, spaceship }: Props) =>
           data-test={"btn-delete-spaceship"}
           onClick={() => events.handleDeleteButtonClick(spaceship.id)}
         >
+          <span className="vismaicon vismaicon-delete vismaicon-sm mr-8"></span>
           {"Retire the spaceship"}
         </button>
       </td>

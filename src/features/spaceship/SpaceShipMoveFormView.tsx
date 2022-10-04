@@ -85,6 +85,7 @@ export const SpaceshipMoveFormView = ({
               onClick={handleSaveButtonClick}
               type="submit"
             >
+              <span className="vismaicon vismaicon-move-up-circle vismaicon-sm mr-8"></span>
               {"Move"}
             </button>
             <Link to={"/spaceship"}>
@@ -92,6 +93,7 @@ export const SpaceshipMoveFormView = ({
                 className={"btn btn-secondary"}
                 data-test={"btn-move-spaceship-cancel"}
               >
+                <span className="vismaicon vismaicon-cancel-circle vismaicon-sm mr-8"></span>
                 {"Cancel"}
               </button>
             </Link>

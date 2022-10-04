@@ -54,6 +54,7 @@ export const PlanetListView = ({
           className="btn btn-primary"
           data-test={"btn-add-planet"}
         >
+          <span className="vismaicon vismaicon-add-circle vismaicon-sm mr-8"></span>
           {"Add a planet"}
         </button>
       </Link>

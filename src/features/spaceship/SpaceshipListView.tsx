@@ -61,6 +61,8 @@ export const SpaceshipListView = ({
           className="btn btn-primary"
           data-test={"btn-add-spaceship"}
         >
+          <span className="vismaicon vismaicon-add-circle vismaicon-sm mr-8"></span>
+
           {t("spaceship.list.button.add")}
         </button>
       </Link>
