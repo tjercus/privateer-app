@@ -6,6 +6,15 @@
     "home.link2": "une fonctionnalité relationnelle en ligne (planètes)",
     "home.link3": "une fonctionnalité relationnelle en ligne (vaisseaux spatiaux)",
     "planet.form.error": "Il y a un problem avec le serveur",
-    "spaceship.form.error": "Il y a un problem avec le serveur"
+    "spaceship.form.error": "Il y a un problem avec le serveur",
+    "spaceship.list.error": "Il y a un problem avec le serveur",
+    "spaceship.list.header": "Vaisseaux spatiaux",
+    "spaceship.list.table.header.name": "Nomme",
+    "spaceship.list.table.header.landedOn": "A atterri sur",
+    "spaceship.list.table.header.type": "Type",
+    "spaceship.list.table.header.armour": "Armure",
+    "spaceship.list.table.header.weapons": "Armes",
+    "spaceship.list.table.header.actions": "Actions",
+    "spaceship.list.button.add": "Ajouter un vaisseaux spatiaux"
   }
 }

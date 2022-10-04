@@ -35,8 +35,8 @@ in the browser while maintaining state.
 
 ### nice to have
 
+- i18n: can and should bundles be split by package/feature
 - domain model: check if a more real domain can be implemented (real relationships)
-- ui: use inline Visma form validation: https://ux.visma.com/weblibrary/latest/development/documentation/docs/validation.php
 - ui: add dirty check, and disable save button when formDataMap is clean
 - ui: move from static button to animated one
 - RBAC

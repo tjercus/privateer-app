@@ -6,6 +6,15 @@
     "home.link2": "an online relational feature (planets)",
     "home.link3": "an online relational feature (spaceships)",
     "planet.form.error": "There is a problem with the server",
-    "spaceship.form.error": "There is a problem with the server"
+    "spaceship.form.error": "There is a problem with the server",
+    "spaceship.list.error": "There was an error fetching the list of spaceships",
+    "spaceship.list.header": "Spaceships",
+    "spaceship.list.table.header.name": "Name",
+    "spaceship.list.table.header.landedOn": "Landed on",
+    "spaceship.list.table.header.type": "type",
+    "spaceship.list.table.header.armour": "armour",
+    "spaceship.list.table.header.weapons": "weapons",
+    "spaceship.list.table.header.actions": "actions",
+    "spaceship.list.button.add": "Add a spaceship"
   }
 }

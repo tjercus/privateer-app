@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Icon, TableRow } from "@vismaux/react-nc4";
+import { TableRow } from "@vismaux/react-nc4";
 import { Planet } from "../../domain/types";
 import { ID } from "../../domain/general";
 
@@ -31,7 +31,7 @@ export const PlanetRowView = ({ events, isLoading, planet }: Props) =>
           data-test={"btn-delete-planet"}
           onClick={() => events.handleDeleteButtonClick(planet.id)}
         >
-          <Icon name="trash" size="lg" /> {"Delete"}
+          {"Destroy the planet"}
         </button>
       </td>
     </TableRow>

@@ -7,6 +7,7 @@ import { ID, SomeErrorType } from "../../domain/general";
 import { Spaceship } from "../../domain/types";
 //
 import { SpaceshipRowView } from "./SpaceshipRowView";
+import {useTranslation} from "react-i18next";
 
 interface Props {
   error: SomeErrorType;
@@ -22,34 +23,35 @@ export const SpaceshipListView = ({
   eventHandlers,
   isLoading,
   spaceships,
-}: Props) =>
-  hasValue(error) ? (
+}: Props) => {
+  const { t } = useTranslation();
+  return hasValue(error) ? (
     <Alert type="danger">
-      {"There was an error fetching the list of spaceships"}
+      {t("spaceship.list.error")}
     </Alert>
   ) : (
     <article>
-      <h1>{"Spaceships"}</h1>
+      <h1>{t("spaceship.list.header")}</h1>
       <Table data-test={"table-list-spaceship"}>
         <thead>
-          <tr>
-            <th>{"Name"}</th>
-            <th>{"Landed on"}</th>
-            <th>{"Type"}</th>
-            <th>{"Armour"}</th>
-            <th>{"Weapons"}</th>
-            <th>{"Actions"}</th>
-          </tr>
+        <tr>
+          <th>{t("spaceship.list.table.header.name")}</th>
+          <th>{t("spaceship.list.table.header.landedOn")}</th>
+          <th>{t("spaceship.list.table.header.type")}</th>
+          <th>{t("spaceship.list.table.header.armour")}</th>
+          <th>{t("spaceship.list.table.header.weapons")}</th>
+          <th>{t("spaceship.list.table.header.actions")}</th>
+        </tr>
         </thead>
         <tbody>
-          {spaceships?.map((spaceship) => (
-            <SpaceshipRowView
-              events={eventHandlers}
-              isLoading={isLoading}
-              key={spaceship.id}
-              spaceship={spaceship}
-            />
-          ))}
+        {spaceships?.map((spaceship) => (
+          <SpaceshipRowView
+            events={eventHandlers}
+            isLoading={isLoading}
+            key={spaceship.id}
+            spaceship={spaceship}
+          />
+        ))}
         </tbody>
       </Table>
 
@@ -59,8 +61,9 @@ export const SpaceshipListView = ({
           className="btn btn-primary"
           data-test={"btn-add-spaceship"}
         >
-          {"Add a spaceship"}
+          {t("spaceship.list.button.add")}
         </button>
       </Link>
     </article>
   );
+};

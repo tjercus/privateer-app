@@ -6,10 +6,9 @@ import { Alert } from "@vismaux/react-nc4";
 //
 import ValidationErrorsList from "../../common/components/ValidationIssuesList";
 import {
-  createObjectsOptionList,
   createStringsOptionList,
 } from "../../common/components/OptionLists";
-import { Planet, Spaceship, SpaceshipType, Weapon } from "../../domain/types";
+import { Spaceship, SpaceshipType, Weapon } from "../../domain/types";
 import {
   FormDataMap,
   ReactChangeEvent,
@@ -25,7 +24,6 @@ interface Props {
   error: SomeErrorType;
   handleInputChange: (evt: ReactChangeEvent) => void;
   handleSaveForm: (formData: FormDataMap<Spaceship>) => void;
-  planets: Array<Planet>;
   formDataMap?: FormDataMap<Spaceship>;
   validationIssues: ValidationIssues;
 }
@@ -38,7 +36,6 @@ export const SpaceshipFormView = ({
   handleSaveForm = () => {
     /* default fn body */
   },
-  planets = [],
   formDataMap = initialFormData,
   validationIssues = [],
 }: Props) => {
@@ -85,28 +82,6 @@ export const SpaceshipFormView = ({
 
         <div
           className={`form-group required ${
-            hasIssues(validationIssues, "armour") ? "has-error" : "has-no-error"
-          }`}
-        >
-          <label className="col-sm-3 control-label" htmlFor="input-armour">
-            {"Armour"}
-          </label>
-          <div className="col-sm-9">
-            <input
-              className="form-control"
-              data-test={"textfield-spaceship-armour"}
-              id="input-armour"
-              name={"armour"}
-              onChange={handleInputChange}
-              placeholder="armour"
-              type="number"
-              value={formDataMap.get("armour")}
-            />
-          </div>
-        </div>
-
-        <div
-          className={`form-group required ${
             hasIssues(validationIssues, "type") ? "has-error" : "has-no-error"
           }`}
         >
@@ -126,6 +101,28 @@ export const SpaceshipFormView = ({
                 Object.values(SpaceshipType)
               )}
             </select>
+          </div>
+        </div>
+
+        <div
+          className={`form-group required ${
+            hasIssues(validationIssues, "armour") ? "has-error" : "has-no-error"
+          }`}
+        >
+          <label className="col-sm-3 control-label" htmlFor="input-armour">
+            {"Armour"}
+          </label>
+          <div className="col-sm-9">
+            <input
+              className="form-control"
+              data-test={"textfield-spaceship-armour"}
+              id="input-armour"
+              name={"armour"}
+              onChange={handleInputChange}
+              placeholder="armour"
+              type="number"
+              value={formDataMap.get("armour")}
+            />
           </div>
         </div>
 
