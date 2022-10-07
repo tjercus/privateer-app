@@ -1,18 +1,34 @@
 # Privateer App
 
-Practise ground for react CRUD app with some common default components
+Practise ground for a React app with some common default components.
+
+Can be used:
+- as a reference to see how different libraries integrate
+- as a starting point for a new React project
+- to see how some common design patterns can be used
+- to see how it works out if a certain directory structure is applied
+
+## Disclaimer
+
+This project was not meant to put in production as-is. 
+Some features are not implemented to completeness but to demonstrate a certain concept.
+You have the responsibility to implement and test a robust security strategy before putting things online.
+You also have the responsibility to test, find bugs and fix them before putting things online.
 
 ## features
 
-- two related and connected online slices which connect with a mocked REST back-end
-  The slices are connected to the REST back-end with RTK-Query. They contain related data.
+- Two related and connected online "slices" (Redux modules or "customer features") which connect 
+  with a mocked HTTP API back-end.
+  The slices are connected to the HTTP API back-end with RTK-Query. They contain related data.
 - Optimistic updates with rollback for better UX
 - Visma UI look-and-feel
 - Form validation with Zod
-- custom middleware to sanitize incoming data with Zod
+- Custom middleware to sanitize incoming data with Zod
 - i18n
 
 ## Run locally
+
+We recommend installing node using NVM (Node Version Manager).
 
 Open two terminals and run respectively:
 
@@ -20,33 +36,32 @@ Open two terminals and run respectively:
 - npm start
 
 This project was created with create-vite and has hot module reloading with fast refresh.
-This means you can edit files and within 50 ms the relevant parts of you app will reload
+This means you can edit files and within ~50 ms the relevant parts of you app will reload
 in the browser while maintaining state.
 
 ## TODO
 
-- fix add planet
-- EXPR: replace mocks-server with a static real express server?
-- WCAG 2.1 support
-- upgrade nc4 to vud (and fix icon buttons)
-- put route strings in constants?
+- ux: more WCAG 2.1 support
+- ui: upgrade nc4 to vud (and fix icon buttons)
 - storage model: add lastModifiedAt attributes for versioning
-
 - ui: fix enter keyboard for cancel button
 
 ### nice to have
 
-- i18n: can and should bundles be split by package/feature
+- expr: replace mocks-server with a static real express server?
+- expr: try tRPC client/server
+- expr: legend-state instead of Redux
+- expr: perhaps use 'zorm' as Form lib to leverage Zod even more
+- RBAC (role based access control)
+- i18n: can and should bundles be split by package/feature?
 - domain model: check if a more real domain can be implemented (real relationships)
 - ui: add dirty check, and disable save button when formDataMap is clean
 - ui: move from static button to animated one
-- RBAC
+- put route strings in constants?
 - Zod: use Zod TypeScript types instead of own types
-- Zod: perhaps use 'zorm' as Form lib to integrate better with Zod
 - ui: try with generic table component as in the article below
-- domain model: where to assemble the domain, on the app or the server?
-- auto run the "import sorter plugin" for prettier?
-- wrap validation result in an ADT
+- code: auto run the "import sorter plugin" for prettier?
+- code: wrap validation result in a Result/Either type
 - ui: find out if the view layer can work with only Maybe's instead of nullable
 
 ### blocked by current react-nc4 version

@@ -87,6 +87,7 @@ module.exports = [
             const storageIndex = planets.findIndex(byId(req.params.id));
             if (storageIndex > -1) {
               planets[storageIndex] = planet;
+              db.set("planets", planets);
               res.status(200);
               res.send(planet);
             } else {
@@ -122,8 +123,7 @@ module.exports = [
         options: {
           middleware: (req, res) => {
             const planet = req.body;
-            const planets = db.get("planets");
-            planets.push(planet);
+            db.push("planets", planet);
             res.status(201);
             res.send(planet);
           },
